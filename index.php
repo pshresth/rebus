@@ -21,7 +21,7 @@
     ?>
     <?PHP echo getTopNav(); ?>
     <div class="divTitle">
-      <font class="font">Name in Synonyms</font>
+      <font class="font">Rebus Puzzle</font>
     </div>
     <br>
     <div>
