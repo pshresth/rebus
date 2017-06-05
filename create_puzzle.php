@@ -13,7 +13,7 @@
 		if ($num_rows == 0)
 		{
 			return false;
-		}else if ($num_rows == 1){
+		}else if ($num_rows >= 1){
 			return true;
 		}
 		else{
@@ -26,7 +26,7 @@
 		$sql = 'SELECT * FROM puzzles WHERE puzzle_name = \''.$puzzle_name.'\';';
 		$result =  run_sql($sql);
 		$num_rows = $result->num_rows;
-		if($num_rows == 1)
+		if($num_rows >= 1)
 		{
 			$row = $result->fetch_assoc();
 			return $row["puzzle_id"];
@@ -48,8 +48,8 @@
   function input_puzzle_words($word_array, $clue_array, $puzzle_id) {
     $sql='';
     for($i = 0; $i < count($word_array); $i++) {
-      $sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name,clue_id) VALUES 
-      ('. $puzzle_id .', '.$word_array[$i].', ' . $i .', '. $clue_array[$i].');';
+      $sql = 'INSERT INTO puzzle_words (puzzle_id, position_in_name, word, clue) VALUES 
+      ('. $puzzle_id .', '. $i .', \''.$word_array[$i].'\', \'' . $clue_array[$i].'\');';
       run_sql($sql);
     }
   }
@@ -89,7 +89,7 @@
 					array_push($puzzlewords, $word_added);
 				}
 				else{
-					// no word could be added. More should probably be done (some type of default action).
+					// no words could be added. More should probably be done (some type of default action).
 				}
 			}
 		}
@@ -97,29 +97,29 @@
 	
 	function add_puzzle_word($puzzle_id, $character, $i, $puzzlewords)
 	{
-				$word_chosen = random_word_id($character, $puzzlewords);
+				$word_chosen = get_random_word($character, $puzzlewords);
 				if($word_chosen != null)
 				{
 					array_push($puzzlewords, $word_added);
-					$clue_word = getRandomClueWord($word_chosen);
-					$sql =  'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name, clue_id) VALUES
-								('.$puzzle_id.','.$word_chosen.','.$i.','.$clue_word.');';
+					$clue_word = getRandomClueFromWord($word_chosen);
+					$sql =  'INSERT INTO puzzle_words (puzzle_id, position_in_name, word, clue) VALUES
+								('.$puzzle_id.','.$i.','.$word_chosen.','.$i.','.$clue_word.');';
 					run_sql($sql);
 					return $word_chosen;
 				}
 				else
 				{
-					// no word could be added. More should probably be done (some type of default action).
-					echo 'Error -- No word could be added for puzzle ' . $puzzle_name . ' at index ' . $i . ' for character ' . $parsedWord[$i] . '.';
+					// no words could be added. More should probably be done (some type of default action).
+					echo 'Error -- No words could be added for puzzle ' . $puzzle_name . ' at index ' . $i . ' for character ' . $parsedWord[$i] . '.';
 					return null;
 				}
 	}
 	
 	// adds a random puzzle_word for the puzzle with name puzzle_name for the character at 
 	// the index in the puzzle_name. $puzzlewords are the existing puzzle_words for the puzzle.
-	// Returns the word_id of the word added to puzzle_words. Returns null if no word could be
+	// Returns the word_id of the words added to puzzle_words. Returns null if no words could be
 	// added to the puzzle_words for this puzzle.
-	function random_word_id($character, $puzzlewords)
+	function get_random_word($character, $puzzlewords)
 	{
 				$sql =  'SELECT word_id
 					FROM characters 
@@ -139,11 +139,11 @@
 					echo 'Rows count: ' . $numofRows . ' <br>';
 					$random = rand(0, $numofRows-1);
 					echo 'Random: ' . $random . ' <br>';
-					$word_id = $rows[$random]["word_id"];
+					$word = $rows[$random]["word_value"];
 					
-					if(!in_array($word_id, $puzzlewords))
+					if(!in_array($word, $puzzlewords))
 					{
-						$chosen_word = $word_id;
+						$chosen_word = $word;
 						break;
 					}
 					else{
@@ -178,11 +178,26 @@
 		
 		while ($row= $result->fetch_assoc())
 		{
-			array_push($puzzleWords, $row["word_id"]);
+			array_push($puzzleWords, $row["word"]);
 		}
 		
 		return $puzzleWords;
 	}
+
+// Returns array of words associated with puzzle_id in puzzle_words
+function get_clue_words($puzzle_id)
+{
+    $puzzleWords = [];
+    $sql = 'SELECT * FROM puzzle_words WHERE puzzle_id = '.$puzzle_id.' ORDER BY position_in_name;';
+    $result =  run_sql($sql);
+
+    while ($row= $result->fetch_assoc())
+    {
+        array_push($puzzleWords, $row["clue"]);
+    }
+
+    return $puzzleWords;
+}
   
 
   function getShowSolution($puzzleName) {
@@ -194,4 +209,17 @@
     }
     return $html;
   }
+
+
+function getCharacterIndex($word, $char)
+{
+	$charsInWord = getWordChars($word);
+	for($i=0; $i < count($charsInWord); $i++){
+		if($charsInWord[$i] == $char){
+			return $i;
+		}
+	}
+	return -1;
+}
+
 ?>

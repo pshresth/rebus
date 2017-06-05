@@ -41,6 +41,7 @@
 		var wordsArray = words.split(",");
 		var table = document.getElementById("puzzle_table");
 		var tableLength = table.rows.length;
+	
 		var childrenLength = 0;
 		
 		for (var i = 1; i < tableLength; i++)

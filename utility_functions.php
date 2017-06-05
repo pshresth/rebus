@@ -56,7 +56,7 @@
     $encoding = 'UTF-8';
     $dataLower = mb_strtolower($data, $encoding);
     $length = mb_strlen($dataLower,$encoding);
-    if (mb_strpos($dataLower, "drop", 0, $encoding) || mb_strpos($dataLower, "show", 0, $encoding)) { // word contains drop or show
+    if (mb_strpos($dataLower, "drop", 0, $encoding) || mb_strpos($dataLower, "show", 0, $encoding)) { // words contains drop or show
       if (mb_strpos($dataLower, "table", 0, $encoding) || mb_strpos($dataLower, "database", 0, $encoding) || containsTableNames($dataLower)) {
         return true;
       }

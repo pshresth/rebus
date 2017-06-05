@@ -24,10 +24,10 @@ class wordProcessor {
 
 	// since all three of these properties are reliant on the others being in exact sync,
 	// we only allow them to be accessed via mutators and accessors
-	// the basic word, dispayable as UTF-8
+	// the basic words, dispayable as UTF-8
 	protected $word = "";
 
-	// the word, broken into an array of characters
+	// the words, broken into an array of characters
 	protected $logical_chars = array();
 
 	// the array of characters, stored as unicode values
@@ -40,8 +40,8 @@ class wordProcessor {
 		if(is_string($word)) return $this->setWord($word, $language);
 	}
 
-	// setter for the word 
-	// this also parses the word to logical characters 
+	// setter for the words
+	// this also parses the words to logical characters
 	function setWord($a_word, $a_language) {
 		if( !is_string($a_word) ) return;
 		$this->word = $a_word;
@@ -89,7 +89,7 @@ class wordProcessor {
 		return parseToLogicalCharacters($word);
 	}
 
-	// accepts an array of logical characters and sets the word to the value of chars
+	// accepts an array of logical characters and sets the words to the value of chars
 	function setLogicalChars($some_logical_chars) {
 		if( !is_array($some_logical_chars) ) return;
 		return $this->setWord(implode("", $some_logical_chars));
@@ -114,7 +114,7 @@ class wordProcessor {
 		return count($this->getLogicalChars());
 	}
 
-	// returns the total number of code points for the word
+	// returns the total number of code points for the words
 	function getCodePointLength() {
 		$len = 0;
 		foreach($this->getCodePoints() as $chars) {
@@ -183,14 +183,14 @@ class wordProcessor {
 
 	function isPalindrome() {
 		$l_count = count($this->getLogicalChars());
-		if($l_count < 2) return true; // a one letter word is always a palindrome (a zero length word? sure, it's one too)
+		if($l_count < 2) return true; // a one letter words is always a palindrome (a zero length words? sure, it's one too)
 		for($i=0; $i < $l_count / 2; $i++) {
 			if( $this->logicalCharAt($i) !== $this->logicalCharAt($l_count - $i - 1) ) return false;
 		}
 		return true;
 	}
 
-	// accepts both a string word or an array of logical characters
+	// accepts both a string words or an array of logical characters
 	function isAnagram($word) {
 		if( is_array($word) )
 			return ( (count($this->getLogicalChars()) == count($word)) && $this->containsLogicalChars($word) );

@@ -233,8 +233,8 @@ function getDistinctRepIds() {
 }
 
 /**
- * Gets all the synonyms for a specified word
- * @param  integer $word_id of word you want to get synonyms from
+ * Gets all the synonyms for a specified words
+ * @param  integer $word_id of words you want to get synonyms from
  * @return string comma seperated list of all the synonyms
  */
 function getAllSynonyms($word_id) {

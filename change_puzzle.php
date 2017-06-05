@@ -40,18 +40,18 @@
         echo create_puzzle_table($nameEntered, "change_puzzle.php?");	
       }
       else if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        if (isset($_POST["word"])) {
+        if (isset($_POST["words"])) {
           $name = $size = "";
           $list = array();
-          if(empty($_POST["word"]) && empty($_POST["size"])) {
+          if(empty($_POST["words"]) && empty($_POST["size"])) {
             //should not happen
           }
           else {
-            $name = mb_strtolower(validate_input($_POST["word"]), 'UTF-8');
+            $name = mb_strtolower(validate_input($_POST["words"]), 'UTF-8');
             $size = validate_input($_POST["size"]);
             $errorflag = FALSE;
             for ($j = 0; $j < $size; $j++) {
-              $tempWord = "word". $j;
+              $tempWord = "words". $j;
               $tempClue = "clue" . $j;
               if(empty($_POST[$tempWord]) && empty($_POST[$tempClue])) {
                 // left one of the Synonym or Clues empty
@@ -66,7 +66,7 @@
                 // valid input
                 $word1 = mb_strtolower(validate_input($_POST[$tempWord]), 'UTF-8');
                 $word2 = mb_strtolower(validate_input($_POST[$tempClue]), 'UTF-8');
-                //echo "words: " . $word1. $word2;
+                //echo "words: " . $words. $clue;
                 $char = substr($name, $j, 1);
                 $char = 
                   //echo "char: " . $char;
@@ -74,7 +74,7 @@
                 //echo "index: " . $index;
                 if ($index === false){
                   echo	create_puzzle_table($name, "change_puzzle.php?");
-                  echo display_error("Char not found in word!");
+                  echo display_error("Char not found in words!");
                   return;
                 } else {
                   // add to words
@@ -94,9 +94,9 @@
           if (strcmp($sqlUpdate, "") == 0) {
 
           } else {
-            echo createHeader(validate_input($_POST["word"]));
+            echo createHeader(validate_input($_POST["words"]));
             echo '<table class="main-tables" id="puzzle_table"><tr><th>Clue</th><th>Synonym</th></tr>';
-            puzzleAddedTable(validate_input($_POST["word"]));
+            puzzleAddedTable(validate_input($_POST["words"]));
             echo "</table>";
             echo createFooter();
           }

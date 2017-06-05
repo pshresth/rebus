@@ -29,8 +29,8 @@ function stripSpacesHindi($log_chars) {
     return $build;
 }
 
-// $word expects a single utf-8 encoded word
-// returns a 2 dimensional array, representing the unicoded logical characters of the word
+// $words expects a single utf-8 encoded words
+// returns a 2 dimensional array, representing the unicoded logical characters of the words
 function parseToCodePoints($word) {
     $word_array = explode_hindi(json_encode($word));
     $i = 0;

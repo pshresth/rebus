@@ -104,9 +104,9 @@
 <body>
   <?PHP echo getTopNav(); ?>
   <?php 
-	 if(isset($_GET['word']))
+	 if(isset($_GET['words']))
 	 {
-		$wordProvided = $_GET['word'];
+		$wordProvided = $_GET['words'];
 		if($wordProvided != NULL)
 		{
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
@@ -117,7 +117,7 @@
 			
 			
 			$synonyms = array();
-			// adding the words that have the same rep id as the main search word into $synonyms. Adding each of the words values to $show
+			// adding the words that have the same rep id as the main search words into $synonyms. Adding each of the words values to $show
 			$sqlGetSynonyms = 'SELECT * FROM words WHERE rep_id = \''. $repId. '\';';
 			$result =  run_sql($sqlGetSynonyms);
 			while($row = $result->fetch_assoc()){
@@ -147,8 +147,8 @@
 	}else{
 	  echo "<div class='result' id='confirmText'>";
 	  echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
-	  echo "Here are all the synonyms of the word \"<font color='blue'>  $wordProvided  </font>\" <br>";
-	  echo "You can add, delete, or update any word in the list</font>";
+	  echo "Here are all the synonyms of the words \"<font color='blue'>  $wordProvided  </font>\" <br>";
+	  echo "You can add, delete, or update any words in the list</font>";
 	  echo "</div>";
 	  echo "<form method='post' id='inputForm'>";
 	  echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
@@ -202,7 +202,7 @@
 					
 					if($word_added == null)
 					{
-						// no word could be added. More should probably be done (some type of default action).
+						// no words could be added. More should probably be done (some type of default action).
 					}
 			}
 		}

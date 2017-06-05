@@ -8,13 +8,13 @@
 	{
 		$listOfWords = validate_array($listOfWords);
 		for($i = 0; $i < count($listOfWords);$i++){
-			//Check to see if entered word exists in the DB.
+			//Check to see if entered words exists in the DB.
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
       echo "<p>$sqlcheck</p>";
 			$result =  run_sql($sqlcheck);
 			if(!$result)
 			{
-				echo"Checking word failed!";
+				echo"Checking words failed!";
 			} 
 			$num_rows = $result->num_rows;
 			if($num_rows == 0)
@@ -26,19 +26,19 @@
 				{
 					$repId = getMaxWordId($listOfWords[0]);
 				}
-				//insert each new word into word table.
+				//insert each new words into words table.
 				$sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $listOfWords[$i] . '\', \'' . $repId . '\');';
         echo "<p>$sqlAddWord</p>";
 				$result =  run_sql($sqlAddWord);
 				if(!$result){
-					echo"Inserting word failed!";
+					echo"Inserting words failed!";
 				} 
-				// Get word id
+				// Get words id
 				$sql = 'SELECT word_id FROM words WHERE word_value =\'' . $listOfWords[$i] . '\';';
 				$result =  run_sql($sql);
 				if(!$result)
 				{
-					echo"Getting word id failed!";			   
+					echo"Getting words id failed!";
 				} 
 				$row = $result->fetch_assoc();
 				$word_id = $row["word_id"];
@@ -58,9 +58,9 @@
 			}
 			else
 			{ 
-				//The word already exists in the database.
-				//echo "the word already exists.";
-				 //Do Nothing if the word already exists in the DB.
+				//The words already exists in the database.
+				//echo "the words already exists.";
+				 //Do Nothing if the words already exists in the DB.
 			}
 		}
 	}

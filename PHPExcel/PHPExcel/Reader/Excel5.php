@@ -4611,7 +4611,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
 
                     // offset: var; size: 16; GUID of URL Moniker
                     $offset += 16;
-                    // offset: var; size: 4; size (in bytes) of character array of the URL including trailing zero word
+                    // offset: var; size: 4; size (in bytes) of character array of the URL including trailing zero words
                     $us = self::getInt4d($recordData, $offset);
                     $offset += 4;
                     // offset: var; size: $us; character array of the URL, no Unicode string header, always 16-bit characters, zero-terminated
@@ -4636,7 +4636,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
                     $upLevelCount = self::getInt2d($recordData, $offset);
                     $offset += 2;
 
-                    // offset: var; size: 4; character count of the shortened file path and name, including trailing zero word
+                    // offset: var; size: 4; character count of the shortened file path and name, including trailing zero words
                     $sl = self::getInt4d($recordData, $offset);
                     $offset += 4;
 
@@ -4690,7 +4690,7 @@ class PHPExcel_Reader_Excel5 extends PHPExcel_Reader_Abstract implements PHPExce
             }
 
             if ($hasText) {
-                // offset: var; size: 4; character count of text mark including trailing zero word
+                // offset: var; size: 4; character count of text mark including trailing zero words
                 $tl = self::getInt4d($recordData, $offset);
                 $offset += 4;
                 // offset: var; size: var; character array of the text mark without the # sign, no Unicode header, always 16-bit characters, zero-terminated

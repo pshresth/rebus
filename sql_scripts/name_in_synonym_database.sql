@@ -50,7 +50,7 @@ INSERT INTO users (user_email, username, user_password, id_verified, activation_
 
 -- --------------------------------------------------------
 --
--- Table structure for table word
+-- Table structure for table words
 --
 
 CREATE TABLE words (
@@ -65,7 +65,7 @@ ALTER TABLE words
   ADD CONSTRAINT rep_id_fk FOREIGN KEY (rep_id) REFERENCES words (word_id) ON UPDATE CASCADE;
 
 --
--- Dumping data for table word
+-- Dumping data for table words
 --
 
 INSERT INTO words (word_id, word_value, rep_id) VALUES

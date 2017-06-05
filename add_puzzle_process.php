@@ -5,11 +5,13 @@ require_once('language_processor_functions.php');
 
 function insertIntoPuzzle($nameOfPuzzle, $email = "hp6449qy@metrostate.edu") {
   $sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES (DEFAULT, \'' . $nameOfPuzzle. '\', \'' . $email . '\');';
-  run_sql($sql);
+  $result = run_sql($sql);
+    //echo $result;
+    return $result;
 }
 
-function insertIntoPuzzleWords($puzzle_id, $word_id, $position_in_name, $clue_id) {
-  $sql = 'INSERT INTO puzzle_words (puzzle_id, word_id, position_in_name, clue_id) VALUES (\'' . $puzzle_id. '\', \'' . $word_id . '\', \'' . $position_in_name .'\', \'' . $clue_id . '\');';
+function insertIntoPuzzleWords($puzzle_id, $position_in_name, $word, $clue) {
+  $sql = 'INSERT INTO puzzle_words (puzzle_id, position_in_name, word, clue) VALUES (\'' . $puzzle_id.'\', \'' . $position_in_name .'\', \'' . $word. '\', \'' . $clue . '\');';
   run_sql($sql);
 }
 
@@ -35,7 +37,7 @@ function insertIntoCharacters($word_id)
       }
     }
     else{
-      // word doesn't exist
+      // words doesn't exist
     }
   }
 }
@@ -47,7 +49,7 @@ function puzzle_already_exists($puzzle_name)
   return $message;
 }
 
-// creates the form for user to submit word
+// creates the form for user to submit words
 function create_word_input()
 {
   return '<p class="title">Enter a name</p><form action="add_puzzle.php" method="post">
@@ -61,8 +63,8 @@ function create_puzzle_table($word, $action = "add_puzzle.php")
 {
   $characters = getWordChars($word);
   $table = "";
-  $table .= "<div class='add_wrapper'><h1>Enter the words and clues for <div class='red'>" . $word . "</div></h1>";
-  $table .= "<form action='" . $action . "' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (word)</th><th>Clue</th></thead>";
+  $table .= "<div class='add_wrapper'><h1>Enter the words and clue for <div class='red'>" . $word . "</div></h1>";
+  $table .= "<form action='" . $action . "' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (words)</th><th>Clue</th></thead>";
   for ($i = 0; $i < count($characters); $i++)
   {
     if ($i == 0) {
@@ -70,68 +72,61 @@ function create_puzzle_table($word, $action = "add_puzzle.php")
     }
     $char = $characters[$i];
     if ($i == 0) {
-      $table .= "<tr><td>" . ($i + 1) . "</td><td>" . $char . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='word". $i . "' autofocus/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
+      $table .= "<tr><td>" . ($i + 1) . "</td><td>" . $char . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='words". $i . "' autofocus/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
     }
     else {
-      $table .= "<tr><td>" . ($i + 1) . "</td><td>" . $char . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='word". $i . "'/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
+      $table .= "<tr><td>" . ($i + 1) . "</td><td>" . $char . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='words". $i . "'/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
     }
   }
-  $table .= "</tbody></table><input type='hidden' name='word' value='". $word . "'/><input type='hidden' name='size' value='". count($characters) . "'/><input class='puzzleButton' type='submit' name='submit' value='Create Puzzle'></form></div>";
+  $table .= "</tbody></table><input type='hidden' name='words' value='". $word . "'/><input type='hidden' name='size' value='". count($characters) . "'/><input class='puzzleButton' type='submit' name='submit' value='Create Puzzle'></form></div>";
   return $table;
 }
 
 function puzzleAddedTable($name)
 {
-  /* if(puzzle exists) 
-     * getpuzzleid
-     * 
-     * getpuzzlewordsIdwherePosition=%i(puzzle_id)
-     * count(puzzlewords)
-     * foreach($puzzleword)
-     * getChars($puzzleword)
-     * foreach($char)
-     *    correct string
-     */
-  $words = "";
-  $wordArray = array();
-  $puzzle_exists = checkName($name);
-  $puzzleChars = getWordChars($name);
-  if($puzzle_exists != null)
-  {
-    $puzzle_id = getPuzzleId($name);
-    $puzzleWords = get_puzzle_words($puzzle_id);
-    for($i = 0; $i < count($puzzleWords); $i++)
+    $words = "";
+    $wordArray = array();
+    $puzzle_exists = checkName($name);
+    $puzzleChars = getWordChars($name);
+    if($puzzle_exists != null)
     {
-      $word_value = getWordValue($puzzleWords[$i]);
-      $logicalChars = getCharactersForWordId($puzzleWords[$i]);
-      $clue_word = getClue($puzzleWords[$i]);
-      $words .= '<tr><td>'.$clue_word.'</td><td>';
-      $flag = false;
-      for($j = 0; $j < count($logicalChars); ++$j)
-      {
-        if(in_array($logicalChars[$j], $puzzleChars, true) && $flag === false)
+        $puzzle_id = getPuzzleId($name);
+        echo $puzzle_id;
+        $puzzleWords = get_puzzle_words($puzzle_id);
+            $puzzleClues = get_clue_words($puzzle_id);
+        for($i = 0; $i < count($puzzleWords); $i++)
         {
-          $words .= '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$logicalChars[$j].'"readonly/>';
-          $flag = true;
+            $word_value = $puzzleWords[$i];
+            $logicalChars = getCharactersForWord($word_value);
+            var_dump($logicalChars);
+            $clue_word = $puzzleClues[$i];
+            echo $clue_word;
+            $words .= '<tr><td>'.$clue_word.'</td><td>';
+            $flag = false;
+            for($j = 0; $j < count($logicalChars); ++$j)
+            {
+                if(in_array($logicalChars[$j], $puzzleChars, true) && $flag === false)
+                {
+                    $words .= '<input class="word_char active" type="text" rows="1" cols="1" maxlength="1" value="'.$logicalChars[$j].'"readonly/>';
+                    $flag = true;
+                }
+                else
+                {
+                    $words .= '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$logicalChars[$j].'"readonly/>';
+                }
+            }
+            $words .= '</td>';
         }
-        else
-        {
-          $words .= '<input class="word_char" type="text" rows="1" cols="1" maxlength="1" value="'.$logicalChars[$j].'"readonly/>';
-        }
-      }
-      $words .= '</td>';
+        $words .= '</tr>';
+        return $words;
     }
-    $words .= '</tr>';
-    return $words;
-  }
-  else{
-    // set name-textbox on index.php to error message that name doesn't exist
-    // re
-  }
+    else{
+        // set name-textbox on index.php to error message that name doesn't exist
+        // re
+    }
 }
 
-
-// Inserts word pairs into words table
+// Inserts words pairs into words table
 function insertIntoWords($word1, $word2)
 {
   $sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $word1 . '\';';
@@ -142,7 +137,7 @@ function insertIntoWords($word1, $word2)
   $result =  run_sql($sqlcheck2);
   $num_rows2 = $result->num_rows;
 
-  if ($num_rows == 0) { // $word1 not found
+  if ($num_rows == 0) { // $words not found
     if ($num_rows2 == 0) {
       $sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId() . '\');';
       $sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId() . '\');';
@@ -152,7 +147,7 @@ function insertIntoWords($word1, $word2)
       $sqlInsert = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word1 . '\', \'' . getMaxWordId($word2) . '\');';
       run_sql($sqlInsert);
     }
-  } else {	// $word 1 found
+  } else {	// $words 1 found
     if ($num_rows2 == 0) {
       $sqlInsert2 = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $word2 . '\', \'' . getMaxWordId($word1) . '\');';
       $result =  run_sql($sqlInsert2);

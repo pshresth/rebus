@@ -1,6 +1,6 @@
 <?php
 require_once('db_configuration.php');
-// Gets the word id of the word being used for the given puzzle_id at the given index of position_in_name.
+// Gets the words id of the words being used for the given puzzle_id at the given index of position_in_name.
 function getWordId($puzzleId, $position_in_name)
 {
   $sql = "SELECT * FROM puzzle_words WHERE puzzle_id = '$puzzleId' AND position_in_name = '$position_in_name';";
@@ -22,11 +22,11 @@ function getWordId($puzzleId, $position_in_name)
   }
   else
   {
-    return null; // No word_id with this combination of puzzle_id and position_in_name (index of word in the puzzle_words).
+    return null; // No word_id with this combination of puzzle_id and position_in_name (index of words in the puzzle_words).
   }
 }
 
-// returns an array of the indexes of the desired character value in the word with the desired word_id
+// returns an array of the indexes of the desired character value in the words with the desired word_id
 function getCharIndex($word_id, $char_val)
 {
   $sql = "SELECT * FROM characters WHERE word_id = '$word_id' AND character_value =  '$char_val';";
@@ -48,10 +48,10 @@ function getCharIndex($word_id, $char_val)
   }
 }
 
-// Gets the word id of the given word from the word table
+// Gets the words id of the given words from the words table
 function getWordIdFromWord($word)
 {
-  // Get word if from word table
+  // Get words if from words table
   $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $word . '\';';
   $result =  run_sql($sql);
   // $num_rows = $result-> // finish check for num rows == 0 and > 1
@@ -60,10 +60,10 @@ function getWordIdFromWord($word)
   return $word_id;
 }
 
-// Gets list of characters in contains in the word with the given word id
+// Gets list of characters in contains in the words with the given words id
 function getCharactersForWordId($word_id)
 {
-  // get character list for the given word
+  // get character list for the given words
   $sql = 'SELECT * FROM characters WHERE word_id = \''.$word_id.'\' ORDER BY character_index;';
   //echo $sql;
   $result =  run_sql($sql);
@@ -81,13 +81,11 @@ function getCharactersForWordId($word_id)
     return null; // flow of control shouldn't go here for the most part
   }
 }
-// Gets list of characters in contains in the given word 
+// Gets list of characters in contains in the given words
 function getCharactersForWord($word)
 {
-  //get word if of the given word
-  $word_id = getWordIdFromWords($word);
-  // get character list for the given word
-  return getCharactersForWordId($word_id);
+  //get words if of the given words
+    return getWordChars($word);
 }
 
 // returns the word_id of param or the max word_id if no param provided
@@ -126,7 +124,7 @@ function getMaxPuzzleId($index = -1)
   }
 }
 
-// returns the word value of the desired word_id
+// returns the words value of the desired word_id
 function getWordValue($word_id)
 {
   $sql = 'SELECT * FROM words WHERE word_id = \''.$word_id.'\';';
@@ -143,11 +141,11 @@ function getWordValue($word_id)
     return null; // word_id doesn't exist
   }
   else{
-    // There is more than one word with this word_id (should be impossible because of the primary key on word_id)
+    // There is more than one words with this word_id (should be impossible because of the primary key on word_id)
   }
 }
 
-// returns the word_value of the word with the word_id = rep_id of the word_id given in the parameter.
+// returns the word_value of the words with the word_id = rep_id of the word_id given in the parameter.
 function getClueWord($word_id)
 {
   $sql = 'SELECT * FROM words WHERE word_id = (SELECT rep_id FROM words WHERE word_id = \''.$word_id.'\');';
@@ -163,7 +161,7 @@ function getClueWord($word_id)
     }
     else
     {
-      // select a different clue word if given word id is same as repid
+      // select a different clue words if given words id is same as repid
       while($row=$result->fetch_assoc())
       {
         if($word_id != $row["word_id"])
@@ -240,6 +238,23 @@ function getRandomClueWord($word_id) {
   return false;
 }
 
+function getRandomClueFromWord($word_value) {
+    $sqlStatement = 'SELECT * FROM words WHERE rep_id=(SELECT rep_id FROM words WHERE word_value = \''.$word_value.'\') AND word_id!=\''.rep_id.'\'';
+    $result =  run_sql($sqlStatement);
+    $num_rows = $result->num_rows;
+    if ($num_rows > 0) {
+        $index = 0;
+        $randomNumber = mt_rand(0, $num_rows-1);
+        while ($row  = $result->fetch_assoc()) {
+            if ($index === $randomNumber) {
+                return $row["word_value"];
+            }
+            $index++;
+        }
+    }
+    return false;
+}
+
 function getImageName($clueWord)
 {
  $sqlStatement = 'SELECT * FROM words WHERE word_value = \''.$clueWord.'\'';
@@ -263,13 +278,13 @@ function checkPuzzleId($puzzle_id) {
 }
 
 function getWordValuesFromPuzzleWords($puzzle_id) {
-  $sql = 'SELECT words.word_value FROM puzzle_words INNER JOIN words ON puzzle_words.word_id=words.word_id WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
+  $sql = 'SELECT word FROM puzzle_words WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
   $result =  run_sql($sql);
   $num_rows = $result->num_rows;
   $words = array();
   if ($num_rows > 0) {
     while ($row  = $result->fetch_assoc()) {
-      array_push($words, $row["word_value"]);
+      array_push($words, $row["word"]);
     }
     return $words;
   }
@@ -277,14 +292,15 @@ function getWordValuesFromPuzzleWords($puzzle_id) {
 }
 
 function getClueValuesFromPuzzleWords($puzzle_id) {
-  $sql = 'SELECT words.word_value FROM puzzle_words INNER JOIN words ON puzzle_words.clue_id=words.word_id WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
+  $sql = 'SELECT clue FROM puzzle_words WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY puzzle_words.position_in_name;';
   $result =  run_sql($sql);
   $num_rows = $result->num_rows;
   $words = array();
   if ($num_rows > 0) {
     while ($row  = $result->fetch_assoc()) {
-      array_push($words, $row["word_value"]);
+      array_push($words, $row["clue"]);
     }
+    var_dump($words);
     return $words;
   }
   return false;

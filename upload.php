@@ -35,10 +35,10 @@
 
 			$words = explode(',', str_replace(' ','',$rowData[0]));
 
-			//Don't know if - is a part of the word or something the prof added to check our processing. Can use later.
+			//Don't know if - is a part of the words or something the prof added to check our processing. Can use later.
 			//$words = explode(',', str_replace('-','',$rowData[0]));
 
-			//filter through the array words since some of the word pair have commas at the end
+			//filter through the array words since some of the words pair have commas at the end
 			$finalList= array_filter($words);
 			insertnewWordsAndCharacter($finalList);
 		}
@@ -51,12 +51,9 @@
 		$sqlDeleteCharacters = 'DELETE FROM characters;';
 		run_sql($sqlDeleteCharacters);
 		
-	  	$sqlDeletePuzzlewords = 'DELETE FROM puzzle_words;';
-		run_sql($sqlDeletePuzzlewords);
-		
-	  	$sqlDeletePuzzles = 'DELETE FROM puzzles;';
-		run_sql($sqlDeletePuzzles);
-		
+//	  	$sqlDeletePuzzlewords = 'DELETE FROM puzzle_words;';
+//		run_sql($sqlDeletePuzzlewords);
+
 		$sqlDeleteWords = 'DELETE FROM words ';
 		run_sql($sqlDeleteWords);
 		
@@ -77,7 +74,7 @@
 			// to remove invalid character eg: \u00a0
 			$listOfWords[$i] =  str_replace(chr(194).chr(160),'',$listOfWords[$i]);
 			
-			//Check to see if entered word exists in the DB.
+			//Check to see if entered words exists in the DB.
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $listOfWords[$i] . '\';';
 			$result =   run_sql($sqlcheck);
 			
@@ -93,11 +90,11 @@
 					$repId = getMaxWordId($listOfWords[0]);
 				}
 				
-				//insert each new word into word table.
+				//insert each new words into words table.
 				$sqlAddWord = 'INSERT INTO words (word_id, word_value, rep_id) VALUES (DEFAULT, \'' . $listOfWords[$i] . '\', \'' . $repId . '\');';
 				$result =  run_sql($sqlAddWord);
 
-		  		// Get word id
+		  		// Get words id
 				$sql = 'SELECT word_id FROM words WHERE word_value =\'' . $listOfWords[$i] . '\';';
 				$result =  run_sql($sql);
 				$row = $result->fetch_assoc();
@@ -114,9 +111,9 @@
 			}
 			else
 			{ 
-		        //The word already exists in the database.
-		        //echo "the word already exists.";
-		         //Do Nothing if the word already exists in the DB.
+		        //The words already exists in the database.
+		        //echo "the words already exists.";
+		         //Do Nothing if the words already exists in the DB.
 			}
 		}
 	}
