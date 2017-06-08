@@ -3,25 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="12edee79-1447-422d-9d0e-c663b5949161" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndicTextAnalyzer/gujarati_parser.php" afterPath="$PROJECT_DIR$/IndicTextAnalyzer/gujarati_parser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndicTextAnalyzer/hindi_parser.php" afterPath="$PROJECT_DIR$/IndicTextAnalyzer/hindi_parser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndicTextAnalyzer/malayalam_parser.php" afterPath="$PROJECT_DIR$/IndicTextAnalyzer/malayalam_parser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndicTextAnalyzer/telugu_parser.php" afterPath="$PROJECT_DIR$/IndicTextAnalyzer/telugu_parser.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/IndicTextAnalyzer/word_processor.php" afterPath="$PROJECT_DIR$/IndicTextAnalyzer/word_processor.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/PHPExcel/PHPExcel/Reader/Excel5.php" afterPath="$PROJECT_DIR$/PHPExcel/PHPExcel/Reader/Excel5.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_puzzle.php" afterPath="$PROJECT_DIR$/add_puzzle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_puzzle_process.php" afterPath="$PROJECT_DIR$/add_puzzle_process.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/add_words_process.php" afterPath="$PROJECT_DIR$/add_words_process.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/admin_edit_synonyms.php" afterPath="$PROJECT_DIR$/admin_edit_synonyms.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/change_puzzle.php" afterPath="$PROJECT_DIR$/change_puzzle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/common_sql_functions.php" afterPath="$PROJECT_DIR$/common_sql_functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/create_puzzle.php" afterPath="$PROJECT_DIR$/create_puzzle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/export_db.php" afterPath="$PROJECT_DIR$/export_db.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/javascript/puzzle.js" afterPath="$PROJECT_DIR$/javascript/puzzle.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/puzzle.php" afterPath="$PROJECT_DIR$/puzzle.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sql_scripts/name_in_synonym_database.sql" afterPath="$PROJECT_DIR$/sql_scripts/name_in_synonym_database.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/upload.php" afterPath="$PROJECT_DIR$/upload.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/utility_functions.php" afterPath="$PROJECT_DIR$/utility_functions.php" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -68,7 +50,7 @@
         <entry file="file://$PROJECT_DIR$/add_puzzle_process.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="13">
-              <caret line="101" column="42" lean-forward="true" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
+              <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
               <folding>
                 <marker date="1496622934278" expanded="true" signature="219:341" ph="INSERT INTO puzzles... " />
                 <marker date="1496622934278" expanded="true" signature="503:632" ph="INSERT INTO puzzle_words... " />
@@ -98,8 +80,8 @@
       <file leaf-file-name="common_sql_functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/common_sql_functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="293">
-              <caret line="87" column="18" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+            <state relative-caret-position="1445">
+              <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
               <folding>
                 <marker date="1496622706280" expanded="true" signature="214:313" ph="SELECT * FRO... puzzle_words" />
                 <marker date="1496622706280" expanded="true" signature="972:1058" ph="SELECT * FRO... characters" />
@@ -128,16 +110,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="add_puzzle.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/add_puzzle.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-777">
-              <caret line="33" column="64" lean-forward="false" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="64" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="admin_edit_synonyms.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/admin_edit_synonyms.php">
           <provider selected="true" editor-type-id="text-editor">
@@ -159,11 +131,21 @@
       <file leaf-file-name="change_puzzle.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/change_puzzle.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="297">
-              <caret line="25" column="67" lean-forward="true" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+            <state relative-caret-position="323">
+              <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
               <folding>
-                <marker date="1496600142518" expanded="true" signature="3790:3939" ph="UPDATE puzzl... " />
+                <marker date="1496886125226" expanded="true" signature="3642:3791" ph="UPDATE puzzl... " />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -196,7 +178,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/index.php" />
         <option value="$PROJECT_DIR$/language_processor_functions.php" />
         <option value="$PROJECT_DIR$/upload.php" />
         <option value="$PROJECT_DIR$/javascript/puzzle.js" />
@@ -206,6 +187,9 @@
         <option value="$PROJECT_DIR$/create_puzzle.php" />
         <option value="$PROJECT_DIR$/common_sql_functions.php" />
         <option value="$PROJECT_DIR$/add_puzzle_process.php" />
+        <option value="$PROJECT_DIR$/styles/main_style.css" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/change_puzzle.php" />
       </list>
     </option>
   </component>
@@ -217,8 +201,10 @@
   </component>
   <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
-    <option name="width" value="974" />
-    <option name="height" value="1047" />
+    <option name="x" value="-8" />
+    <option name="y" value="-8" />
+    <option name="width" value="1936" />
+    <option name="height" value="1056" />
   </component>
   <component name="ProjectView">
     <navigator currentView="ProjectPane" proportions="" version="1">
@@ -244,6 +230,20 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="Name-in-Synonym-rebus" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Name-in-Synonym-rebus" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Name-in-Synonym-rebus" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="styles" />
               <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
             </PATH_ELEMENT>
           </PATH>
@@ -356,22 +356,22 @@
       <workItem from="1496538532709" duration="2299000" />
       <workItem from="1496597755769" duration="1658000" />
       <workItem from="1496600108687" duration="8772000" />
-      <workItem from="1496617139617" duration="5985000" />
+      <workItem from="1496617139617" duration="7064000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="19608000" />
+    <option name="totallyTimeSpent" value="20687000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="974" height="1047" extended-state="0" />
+    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21294363" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.10625" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33152175" sideWeight="0.50417536" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.33809" sideWeight="0.49582464" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3347826" sideWeight="0.49582464" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32946795" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -897,13 +897,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/styles/main_style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="44" column="20" lean-forward="true" selection-start-line="44" selection-start-column="20" selection-end-line="44" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/login.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -995,14 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/index.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="271">
-          <caret line="35" column="39" lean-forward="true" selection-start-line="35" selection-start-column="39" selection-end-line="35" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/puzzle.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1083,14 +1068,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/add_puzzle.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-777">
-          <caret line="33" column="64" lean-forward="false" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/language_processor_functions.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="34">
@@ -1099,10 +1076,79 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/admin_edit_synonyms.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="190" column="59" lean-forward="false" selection-start-line="190" selection-start-column="43" selection-end-line="190" selection-end-column="59" />
+          <folding>
+            <marker date="1496600142586" expanded="true" signature="2767:2829" ph="SELECT * FRO... words" />
+            <marker date="1496600142586" expanded="true" signature="3138:3189" ph="SELECT * FRO... words" />
+            <marker date="1496600142586" expanded="true" signature="4855:4924" ph="SELECT puzzl... puzzle_words" />
+            <marker date="1496600142586" expanded="true" signature="5012:5069" ph="DELETE FROM " />
+            <marker date="1496600142586" expanded="true" signature="5129:5189" ph="DELETE FROM " />
+            <marker date="1496600142586" expanded="true" signature="5300:5354" ph="DELETE FROM " />
+            <marker date="1496600142586" expanded="true" signature="5842:5882" ph="SELECT * FRO... puzzles" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_puzzle_process.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13">
+          <caret line="101" column="42" lean-forward="false" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
+          <folding>
+            <marker date="1496622934278" expanded="true" signature="219:341" ph="INSERT INTO puzzles... " />
+            <marker date="1496622934278" expanded="true" signature="503:632" ph="INSERT INTO puzzle_words... " />
+            <marker date="1496622934278" expanded="true" signature="503:636" ph="INSERT INTO puzzle_words... " />
+            <marker date="1496622934278" expanded="true" signature="503:666" ph="INSERT INTO puzzle_words... " />
+            <marker date="1496622934278" expanded="true" signature="752:817" ph="SELECT word_... characters" />
+            <marker date="1496622934278" expanded="true" signature="972:1035" ph="SELECT word_... words" />
+            <marker date="1496622934278" expanded="true" signature="1332:1476" ph="INSERT INTO characters... " />
+            <marker date="1496622934278" expanded="true" signature="1680:1695" ph="..." />
+            <marker date="1496622934278" expanded="true" signature="1979:2225" ph="..." />
+            <marker date="1496622934278" expanded="true" signature="2007:2131" ph="..." />
+            <marker date="1496622934278" expanded="true" signature="5317:5373" ph="SELECT * FRO... words" />
+            <marker date="1496622934278" expanded="true" signature="5460:5516" ph="SELECT * FRO... words" />
+            <marker date="1496622934278" expanded="true" signature="5680:5792" ph="INSERT INTO words... " />
+            <marker date="1496622934278" expanded="true" signature="5817:5929" ph="INSERT INTO words... " />
+            <marker date="1496622934278" expanded="true" signature="6021:6139" ph="INSERT INTO words... " />
+            <marker date="1496622934278" expanded="true" signature="6253:6371" ph="INSERT INTO words... " />
+            <marker date="1496622934278" expanded="true" signature="6464:6561" ph="SELECT rep_i... words" />
+            <marker date="1496622934278" expanded="true" signature="6949:7005" ph="..." />
+            <marker date="1496622934278" expanded="true" signature="7057:7086" ph="..." />
+            <marker date="1496622934278" expanded="true" signature="7191:7206" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/styles/main_style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="164" column="10" lean-forward="true" selection-start-line="164" selection-start-column="10" selection-end-line="164" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="8" lean-forward="false" selection-start-line="16" selection-start-column="8" selection-end-line="16" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/add_puzzle.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="33" column="64" lean-forward="false" selection-start-line="33" selection-start-column="54" selection-end-line="33" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/common_sql_functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="87" column="18" lean-forward="false" selection-start-line="87" selection-start-column="18" selection-end-line="87" selection-end-column="18" />
+        <state relative-caret-position="1445">
+          <caret line="85" column="1" lean-forward="true" selection-start-line="85" selection-start-column="1" selection-end-line="85" selection-end-column="1" />
           <folding>
             <marker date="1496622706280" expanded="true" signature="214:313" ph="SELECT * FRO... puzzle_words" />
             <marker date="1496622706280" expanded="true" signature="972:1058" ph="SELECT * FRO... characters" />
@@ -1130,57 +1176,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/admin_edit_synonyms.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="190" column="59" lean-forward="false" selection-start-line="190" selection-start-column="43" selection-end-line="190" selection-end-column="59" />
-          <folding>
-            <marker date="1496600142586" expanded="true" signature="2767:2829" ph="SELECT * FRO... words" />
-            <marker date="1496600142586" expanded="true" signature="3138:3189" ph="SELECT * FRO... words" />
-            <marker date="1496600142586" expanded="true" signature="4855:4924" ph="SELECT puzzl... puzzle_words" />
-            <marker date="1496600142586" expanded="true" signature="5012:5069" ph="DELETE FROM " />
-            <marker date="1496600142586" expanded="true" signature="5129:5189" ph="DELETE FROM " />
-            <marker date="1496600142586" expanded="true" signature="5300:5354" ph="DELETE FROM " />
-            <marker date="1496600142586" expanded="true" signature="5842:5882" ph="SELECT * FRO... puzzles" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/add_puzzle_process.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13">
-          <caret line="101" column="42" lean-forward="true" selection-start-line="101" selection-start-column="42" selection-end-line="101" selection-end-column="42" />
-          <folding>
-            <marker date="1496622934278" expanded="true" signature="219:341" ph="INSERT INTO puzzles... " />
-            <marker date="1496622934278" expanded="true" signature="503:632" ph="INSERT INTO puzzle_words... " />
-            <marker date="1496622934278" expanded="true" signature="503:636" ph="INSERT INTO puzzle_words... " />
-            <marker date="1496622934278" expanded="true" signature="503:666" ph="INSERT INTO puzzle_words... " />
-            <marker date="1496622934278" expanded="true" signature="752:817" ph="SELECT word_... characters" />
-            <marker date="1496622934278" expanded="true" signature="972:1035" ph="SELECT word_... words" />
-            <marker date="1496622934278" expanded="true" signature="1332:1476" ph="INSERT INTO characters... " />
-            <marker date="1496622934278" expanded="true" signature="1680:1695" ph="..." />
-            <marker date="1496622934278" expanded="true" signature="1979:2225" ph="..." />
-            <marker date="1496622934278" expanded="true" signature="2007:2131" ph="..." />
-            <marker date="1496622934278" expanded="true" signature="5317:5373" ph="SELECT * FRO... words" />
-            <marker date="1496622934278" expanded="true" signature="5460:5516" ph="SELECT * FRO... words" />
-            <marker date="1496622934278" expanded="true" signature="5680:5792" ph="INSERT INTO words... " />
-            <marker date="1496622934278" expanded="true" signature="5817:5929" ph="INSERT INTO words... " />
-            <marker date="1496622934278" expanded="true" signature="6021:6139" ph="INSERT INTO words... " />
-            <marker date="1496622934278" expanded="true" signature="6253:6371" ph="INSERT INTO words... " />
-            <marker date="1496622934278" expanded="true" signature="6464:6561" ph="SELECT rep_i... words" />
-            <marker date="1496622934278" expanded="true" signature="6949:7005" ph="..." />
-            <marker date="1496622934278" expanded="true" signature="7057:7086" ph="..." />
-            <marker date="1496622934278" expanded="true" signature="7191:7206" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/change_puzzle.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="25" column="67" lean-forward="true" selection-start-line="25" selection-start-column="67" selection-end-line="25" selection-end-column="67" />
+        <state relative-caret-position="323">
+          <caret line="22" column="8" lean-forward="false" selection-start-line="22" selection-start-column="8" selection-end-line="22" selection-end-column="8" />
           <folding>
-            <marker date="1496600142518" expanded="true" signature="3790:3939" ph="UPDATE puzzl... " />
+            <marker date="1496886125226" expanded="true" signature="3642:3791" ph="UPDATE puzzl... " />
           </folding>
         </state>
       </provider>
