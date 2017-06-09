@@ -59,7 +59,8 @@
         </div><br><br>
         <a href="export_db.php">[4] Export the logical_char list (Source: Database; Target: Excel file)</a><br>
         <a href="export_db.php">[5]Export the puzzle list (Source: Database; Target: Excel file)</a><br>
-        <a href="admin_manage_users.php">[6] Manage Users (add, delete, update) (Extra Credit)</a>
+        <a href="admin_manage_users.php">[6] Manage Users (add, delete, update) (Extra Credit)</a><br>
+          <a href="list_words.php">[10] Edit Words</a>
       </div>
 
       <script>

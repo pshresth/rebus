@@ -162,7 +162,7 @@
   margin-left: 5px;
   margin-bottom: 5px;
   margin-top: 5px;
-  border: px solid black;
+  border: 1px solid black;
   font-weight: bold;
   text-align: center;
   font-size: 17px;
@@ -461,4 +461,9 @@ body {
 
 .altPuzzleInput:nth-child(even){
   width: 20em;
+}
+
+.thumbnailSize{
+  height: 100px;
+  width: 100px;
 }

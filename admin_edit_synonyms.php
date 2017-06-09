@@ -104,9 +104,10 @@
 <body>
   <?PHP echo getTopNav(); ?>
   <?php 
-	 if(isset($_GET['words']))
+	 if(isset($_GET['word']))
 	 {
-		$wordProvided = $_GET['words'];
+		$wordProvided = $_GET['word'];
+		echo $wordProvided;
 		if($wordProvided != NULL)
 		{
 			$sqlcheck = 'SELECT * FROM words WHERE word_value = \''. $wordProvided. '\';';
@@ -163,16 +164,14 @@
 		foreach ($synonyms as $word)
 		{
 			$word_id = $word["word_id"];
-			
-			// for later use to add new random puzzle_words
-			$sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word_id = '.$word_id.';';
-			$puzzle_words = run_sql($sql_puzzle_words);
-			
+
+
+
 			$sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \''. $word_id. '\';';
 			run_sql($sqlDeleteChar);
 
-			$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
-			run_sql($aqlDeletePuzzleWord);
+			//$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
+			//run_sql($aqlDeletePuzzleWord);
 			
 			run_sql('SET foreign_key_checks = 0;');
 			
@@ -180,7 +179,11 @@
 			run_sql($sqlDeletewords);
 			
 			run_sql('SET foreign_key_checks = 1;');
-      
+
+            // for later use to add new random puzzle_words
+            $sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word = '.$word["word_value"].';';
+            $puzzle_words = run_sql($sql_puzzle_words);
+
 			$word_added = "";
 			// add new random puzzle_words
 			while($puzzle_word = $puzzle_words->fetch_assoc())

@@ -138,7 +138,6 @@ function generateExactPuzzle($nameOfPuzzle, $puzzle_id)
     } else { // puzzle exists
         $puzzle_chars = getWordChars($nameEntered);
         $word_array = getWordValuesFromPuzzleWords($puzzle_id);
-        var_dump($word_array);
         $clues_array = getClueValuesFromPuzzleWords($puzzle_id);
         $i = 0;
         foreach ($puzzle_chars as $char) {
@@ -150,7 +149,7 @@ function generateExactPuzzle($nameOfPuzzle, $puzzle_id)
             } else {
                 $words .= ',' . buildJScriptWords($word_chars);
             }
-            var_dump($clues_array);
+           // var_dump($clues_array);
             echo '<tr><td>' . $clues_array[$i] . '</td><td>';
             //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
             $wordlen = count($word_chars);
@@ -224,7 +223,7 @@ function generatePuzzle($nameOfPuzzle)
         echo '</tr>';
         $i++;
     }
-    var_dump($image_array);
+    //var_dump($image_array);
     return $words;
 }
 
@@ -328,10 +327,10 @@ function pullInputFromSave()
         array_push($word_id_array, validate_input($_POST[$word . "" . $i]));
         array_push($clue_id_array, validate_input($_POST[$clue . "" . $i]));
     }
-    echo "pullInputfromSave Line357: ";
-    var_dump($word_id_array);
-    echo "pullInputfromSave Line359: ";
-    var_dump($clue_id_array);
+   // echo "pullInputfromSave Line357: ";
+    //($word_id_array);
+   // echo "pullInputfromSave Line359: ";
+    //var_dump($clue_id_array);
     array_push($input, $puzzleName, $word_id_array, $clue_id_array);
     return $input;
 }
@@ -361,6 +360,33 @@ function getClueIdArray($clue_array)
         array_push($clue_id_array, getWordIdFromWord($word));
     }
     return $clue_id_array;
+}
+
+function getImage($puzzle, $index)
+{
+    $image = $puzzle->image_array[$index];
+    if(empty($image))
+    {
+        $clue =  $puzzle->clues_array[$index];
+        echo $image;
+        $sql = "SELECT * FROM words where rep_id = (SELECT rep_id from words WHERE word_value = '$clue')";
+        $result = run_sql($sql);
+        $numofRows = $result->num_rows;
+        if($numofRows > 0)
+        {
+            while ($row= $result->fetch_assoc()){
+                if(!empty($row['image_name'])){
+                    $image = $row['image_name'];
+                    return "./Images/$image.jpg";
+                }
+            }
+            return "./Images/noImage.jpg";
+        }
+        else{
+            return "./Images/noImage.jpg";
+        }
+    }
+    return "./Images/$image.jpg";
 }
 
 function playAgain()
@@ -544,7 +570,9 @@ class Puzzle
                 }
                 $j++;
             }
-            $htmlTable .= "<td>" . $this->image_array[$i] . "</td>";
+            $image = getImage($this, $i);
+            echo $image;
+            $htmlTable .= "<td><img class=\"thumbnailSize\" src=".$image." alt =".$image."></td>";
             $htmlTable .= "</div>";
             $i++;
         }
