@@ -149,7 +149,7 @@ function generateExactPuzzle($nameOfPuzzle, $puzzle_id)
             } else {
                 $words .= ',' . buildJScriptWords($word_chars);
             }
-           // var_dump($clues_array);
+            // var_dump($clues_array);
             echo '<tr><td>' . $clues_array[$i] . '</td><td>';
             //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
             $wordlen = count($word_chars);
@@ -327,9 +327,9 @@ function pullInputFromSave()
         array_push($word_id_array, validate_input($_POST[$word . "" . $i]));
         array_push($clue_id_array, validate_input($_POST[$clue . "" . $i]));
     }
-   // echo "pullInputfromSave Line357: ";
+    // echo "pullInputfromSave Line357: ";
     //($word_id_array);
-   // echo "pullInputfromSave Line359: ";
+    // echo "pullInputfromSave Line359: ";
     //var_dump($clue_id_array);
     array_push($input, $puzzleName, $word_id_array, $clue_id_array);
     return $input;
@@ -365,28 +365,36 @@ function getClueIdArray($clue_array)
 function getImage($puzzle, $index)
 {
     $image = $puzzle->image_array[$index];
-    if(empty($image))
-    {
-        $clue =  $puzzle->clues_array[$index];
-        echo $image;
-        $sql = "SELECT * FROM words where rep_id = (SELECT rep_id from words WHERE word_value = '$clue')";
+    if (empty($image)) {
+        $clue = $puzzle->word_array[$index];
+        //echo $image;
+        $sql = "SELECT * FROM words where word = '$clue'";
         $result = run_sql($sql);
-        $numofRows = $result->num_rows;
-        if($numofRows > 0)
-        {
-            while ($row= $result->fetch_assoc()){
-                if(!empty($row['image_name'])){
-                    $image = $row['image_name'];
-                    return "./Images/$image.jpg";
+        $numOfRows = $result->num_rows;
+        if ($numOfRows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                var_dump($row);
+                if (!empty($row['image'])) {
+                    echo $image = $row['image'];
+                    $imageLocation = "./Images/$image";
+                    if (file_exists($imageLocation)) {
+                        return "./Images/$image";
+                    } else {
+                        return "./Images/noImage.jpg";
+                    }
                 }
             }
             return "./Images/noImage.jpg";
-        }
-        else{
+        } else {
             return "./Images/noImage.jpg";
         }
     }
-    return "./Images/$image.jpg";
+    $imageLocation = "./Images/$image";
+    if (file_exists($imageLocation)) {
+        return "./Images/$image";
+    } else {
+        return "./Images/noImage.jpg";
+    }
 }
 
 function playAgain()
@@ -505,16 +513,17 @@ class Puzzle
             if ($this->puzzle_id !== -1) {
                 $word_array = getWordValuesFromPuzzleWords($this->puzzle_id);
                 $clues_array = getClueValuesFromPuzzleWords($this->puzzle_id);
-                foreach ($clues_array as $value) {
+                foreach ($word_array as $value) {
                     array_push($image_array, getImageName($value));
                 }
                 break;
             }
             if ($index != false) {
-                array_push($word_array, getWordValue($index));
+                $wordVal = getWordValue($index);
+                array_push($word_array, $wordVal);
                 $clueword = getRandomClueWord($index);
                 array_push($clues_array, $clueword);
-                array_push($image_array, getImageName($clueword));
+                array_push($image_array, getImageName($wordVal));
 
             } else {
                 array_push($word_array, $char);
@@ -553,16 +562,22 @@ class Puzzle
      */
     function createInputBoxes()
     {
-        $htmlTable = '<div class="container"><h1>Here\'s your "Name in Synonyms"</h1><table class="table table-condensed main-tables" id="puzzle_table"><thead><tr><th>Clue</th><th>Synonym</th><th>ImageName</th></tr></thead><tbody>';
+        $htmlTable = '<div class="container"><h1>Here\'s your "Rebus Puzzle"</h1><table class="table table-condensed main-tables" id="puzzle_table"><thead><tr><th>Clue</th><th>Image</th><th>Word</th></tr></thead><tbody>';
         $i = 0;
         foreach ($this->puzzle_chars as $puzzleChar) {
             $word_chars = getWordChars($this->word_array[$i]);
-            $htmlTable .= "<tr><td>" . $this->clues_array[$i] . "</td><td>";
+            $pos = array_search($puzzleChar, $word_chars) + 1;
+            $len = count($word_chars);
+            $htmlTable .= "<tr><td>" . $pos . '/' . $len . "</td>";
+            $image = getImage($this, $i);
+            //echo $image;
+            $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td>";
             $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . ' (' . $this->char_indexes[$i] . '/ ' . count($word_chars) . ')" style="display:none" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none"/>';
             $j = 0;
             $flag = false;
             foreach ($word_chars as $char) {
                 if ($char === $puzzleChar && !$flag) {
+
                     $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
                     $flag = true;
                 } else {
@@ -570,9 +585,7 @@ class Puzzle
                 }
                 $j++;
             }
-            $image = getImage($this, $i);
-            echo $image;
-            $htmlTable .= "<td><img class=\"thumbnailSize\" src=".$image." alt =".$image."></td>";
+
             $htmlTable .= "</div>";
             $i++;
         }

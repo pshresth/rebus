@@ -32,7 +32,7 @@
       $sqlUpdate ="";
       if (isset($_GET['puzzleName'])) {
         $nameEntered = validate_input($_GET['puzzleName']);
-        echo create_puzzle_table($nameEntered, "change_puzzle.php?");	
+        echo create_puzzle_table($nameEntered, "change_puzzle.php?");
       }
       else if ($_SERVER["REQUEST_METHOD"] == "POST"){
         if (isset($_POST["words"])) {
@@ -63,7 +63,7 @@
                 $word2 = mb_strtolower(validate_input($_POST[$tempClue]), 'UTF-8');
                 //echo "words: " . $words. $clue;
                 $char = substr($name, $j, 1);
-                $char = 
+                $char =
                   //echo "char: " . $char;
                   $index = strpos($word1, $char);
                 //echo "index: " . $index;

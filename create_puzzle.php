@@ -45,8 +45,8 @@
 		run_sql('SET foreign_key_checks = 1;');
 	}
 
-  function input_puzzle_words($word_array, $clue_array, $puzzle_id) {
-    $sql='';
+  function input_puzzle_words($word_array, $clue_array, $puzzle_id)
+  {
     for($i = 0; $i < count($word_array); $i++) {
       $sql = 'INSERT INTO puzzle_words (puzzle_id, position_in_name, word, clue) VALUES 
       ('. $puzzle_id .', '. $i .', \''.$word_array[$i].'\', \'' . $clue_array[$i].'\');';
@@ -80,7 +80,6 @@
 			$parsedWord = getWordChars($puzzle_name);
 			$namelen = count($parsedWord);
 			$puzzlewords = [];
-			$word_chosen = "";
 			for($i = 0; $i < $namelen; $i++)
 			{
 				$word_chosen = add_puzzle_word($puzzle_id, $parsedWord[$i], $i, $puzzlewords);
@@ -200,8 +199,8 @@ function get_clue_words($puzzle_id)
 }
   
 
-  function getShowSolution($puzzleName) {
-    $html = "";
+  function getShowSolution($puzzleName)
+  {
     if(adminSessionExists() || sessionExists()) {
       $html = '<input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="main_buttons(\'show\');">';
     } else {

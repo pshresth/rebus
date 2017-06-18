@@ -109,18 +109,18 @@
 }
 
 .main-tables a {
-  float: 
+
   color: black;
   text-decoration: none;
 }
 
 .pop_up {
   position: fixed;
-  text-align: :center;
+  text-align :center;
   z-index: 20;
   bottom: 25%;
   width: 100% !important;
-  height: 250;
+  height: 250px;
 }
 
 .pop_up_img_fail {

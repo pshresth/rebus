@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <?PHP
+    <?PHP
     require_once('add_puzzle_process.php');
     require_once('utility_functions.php');
     session_start();
@@ -23,80 +23,70 @@
 <title>Final Project</title>
 
 <body>
-  <?PHP echo getTopNav(); ?>
-  <font class="crumb">Name in Synonym <img src="./pic/arrow.png" /> Add Puzzle</font>
-  <?php
-    $input = "";
-    if ($_SERVER["REQUEST_METHOD"] == "POST")
-    {
-      if (isset($_POST["puzzleWord"]))
-      {	// User submited a puzzle name
+<?PHP echo getTopNav(); ?>
+<font class="crumb">Name in Synonym <img src="./pic/arrow.png"/> Add Puzzle</font>
+<?php
+$input = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    if (isset($_POST["puzzleWord"])) {    // User submitted a puzzle name
         $input = mb_strtolower(validate_input($_POST["puzzleWord"]), 'UTF-8');
         if (strlen($input) > 0) {
             // puzzle name already exists
-             echo create_puzzle_table($input);
+            echo create_puzzle_table($input);
+        } else {
+            echo '<script>alert("Invalid Input!");</script>' . create_word_input();
         }
-        else {
-          echo '<script>alert("Invalid Input!");</script>' . create_word_input();
-        }
-
-      }
-      else if(isset($_POST["words"]))
-      {	// User submited puzzle
+    } else if (isset($_POST["words"])) {    // User submited puzzle
         $name = $size = "";
         $list = array();
-        if(empty($_POST["words"]) && empty($_POST["size"])) {
-          //should not happen
+        if (empty($_POST["words"]) && empty($_POST["size"])) {
+            //should not happen
         } else {
-          $name = mb_strtolower(validate_input($_POST["words"]), 'UTF-8');
-          $size = validate_input($_POST["size"]);
-          $puzzleflag = false;
-          $errorflag = false;
-          $chars = getWordChars($name);
-          for ($j = 0; $j < $size; $j++) {
-            $tempWord = "words". $j;
-            $tempClue = "clue" . $j;
-            // valid input
-            $words = mb_strtolower(validate_input($_POST[$tempWord]), 'UTF-8');
-            $clue = mb_strtolower(validate_input($_POST[$tempClue]), 'UTF-8');
-            //echo "words: " . $words. $clue;
-            $char = $chars[$j];
-            //echo "char: " . $char;
-            $index = getCharacterIndex($words, $char);
-            //echo "index: " . $index;
-            if(empty($_POST[$tempWord]) || empty($_POST[$tempClue])) { // failed input
-              // left one of the Synonym or Clues empty
-              // let user know of error
-              if ($errorflag == false) {
-                echo create_puzzle_table($name);
-                echo display_error("Please give every synonym and clue a value!");
-                return;
-              }
-              if ($index === FALSE){
-                echo create_puzzle_table($name);
-                echo display_error("Char not found in words!");
-                return;
-              }
-            }
-            else {
-                if ($puzzleflag === FALSE) {
-                  // add to puzzle
-                  /* FIXME: Need to give identifier of user that creates the puzzle eg. insertIntoPUzzle($name, $email) */
-                   $puzzleId = insertIntoPuzzle($name);
-                  $puzzleflag = TRUE;
+            $name = mb_strtolower(validate_input($_POST["words"]), 'UTF-8');
+            $size = validate_input($_POST["size"]);
+            $puzzleflag = false;
+            $errorflag = false;
+            $chars = getWordChars($name);
+            for ($j = 0; $j < $size; $j++) {
+                $tempWord = "words" . $j;
+                // valid input
+                $words = mb_strtolower(validate_input($_POST[$tempWord]), 'UTF-8');
+                //echo "words: " . $words;
+                $char = $chars[$j];
+                //echo "char: " . $char;
+                $index = getCharacterIndex($words, $char);
+                //echo "index: " . $index;
+                if (empty($_POST[$tempWord])) { // failed input
+                    // left one of the Synonym or Clues empty
+                    // let user know of error
+                    if ($errorflag == false) {
+                        echo create_puzzle_table($name);
+                        echo display_error("Please give every synonym and clue a value!");
+                        return;
+                    }
+                    if ($index === FALSE) {
+                        echo create_puzzle_table($name);
+                        echo display_error("Char not found in words!");
+                        return;
+                    }
+                } else {
+                    if ($puzzleflag === FALSE) {
+                        // add to puzzle
+                        /* FIXME: Need to give identifier of user that creates the puzzle eg. insertIntoPUzzle($name, $email) */
+                        $puzzleId = insertIntoPuzzle($name);
+                        $puzzleflag = TRUE;
+                    }
+                    // add to words
+                    insertIntoWords($words, $clue);
+
+                    // add to char
+                    insertIntoCharacters(getMaxWordId($words));
+
+                    // add to puzzle words
+                    insertIntoPuzzleWords($puzzleId, $j, $words);
+                    //array_push($list, $words, $clue); // just for testing
                 }
-                // add to words
-                insertIntoWords($words, $clue);
-
-                // add to char
-                insertIntoCharacters(getMaxWordId($words));
-                insertIntoCharacters(getMaxWordId($clue));
-
-                // add to puzzle words
-                insertIntoPuzzleWords($puzzleId, $j, $words, $clue);
-                //array_push($list, $words, $clue); // just for testing
             }
-          }
         }
         echo createHeader(validate_input($_POST["words"]));
         echo "<div class='container'>";
@@ -105,13 +95,12 @@
         echo "</tbody></table><br><br><br><br>";
         echo createFooter();
         echo "</div>";
-      }
     }
-    else {
-      // first place the program goes when the user selects "add a puzzle"
-      echo create_word_input();
-    }
-    ?>
+} else {
+    // first place the program goes when the user selects "add a puzzle"
+    echo create_word_input();
+}
+?>
 </body>
 
 </html>

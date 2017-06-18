@@ -52,7 +52,7 @@ function getCharIndex($word_id, $char_val)
 function getWordIdFromWord($word)
 {
   // Get words if from words table
-  $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $word . '\';';
+  $sql = 'SELECT word_id FROM words WHERE word =\'' . $word . '\';';
   $result =  run_sql($sql);
   // $num_rows = $result-> // finish check for num rows == 0 and > 1
   $row = $result->fetch_assoc();
@@ -98,7 +98,7 @@ function getMaxWordId($index = -1)
     $count = $row["Count"];
     return ($count + 1);
   } else {
-    $sql = 'SELECT word_id FROM words WHERE word_value =\'' . $index . '\';';
+    $sql = 'SELECT word_id FROM words WHERE word =\'' . $index . '\';';
     $result = run_sql($sql);
     $row = $result->fetch_assoc();
     $word_id = $row["word_id"];
@@ -135,7 +135,7 @@ function getWordValue($word_id)
   {
     // should almost always land here
     $row = $result->fetch_assoc();
-    return $row["word_value"];
+    return $row["word"];
   }else if($num_rows == 0)
   {
     return null; // word_id doesn't exist
@@ -145,10 +145,10 @@ function getWordValue($word_id)
   }
 }
 
-// returns the word_value of the words with the word_id = rep_id of the word_id given in the parameter.
+// returns the english_word of the word_id given in the parameter.
 function getClueWord($word_id)
 {
-  $sql = 'SELECT * FROM words WHERE word_id = (SELECT rep_id FROM words WHERE word_id = \''.$word_id.'\');';
+  $sql = 'SELECT * FROM words WHERE word_id = \''.$word_id.'';
   $result =  run_sql($sql);
   $num_rows = $result->num_rows;
   if ($num_rows > 0)
@@ -157,7 +157,7 @@ function getClueWord($word_id)
     {
       // should almost always land here
       $row = $result->fetch_assoc();
-      return $row["word_value"];
+      return $row["english_name"];
     }
     else
     {
@@ -166,7 +166,7 @@ function getClueWord($word_id)
       {
         if($word_id != $row["word_id"])
         {
-          return $row["word_value"];
+          return $row["english_name"];
         }
       }
     }
@@ -180,22 +180,23 @@ function getClueWord($word_id)
 
 
 function getClue($word_id) {
-  $sqlStatement = 'SELECT * FROM words WHERE rep_id=\''.$word_id.'\' AND word_id!=\''.$word_id.'\';';
+  $sqlStatement = 'SELECT * FROM words WHERE word_id=\''.$word_id.'\';';
   $result =  run_sql($sqlStatement);
   $num_rows = $result->num_rows;
   if ($num_rows > 0) {
     $row  = $result->fetch_assoc();
-    return $row["word_value"];
+    return $row["english_word"];
   }
   return null;
 }
 
-function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength) {
-  $sqlStatement = '';
+function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength)
+{
   $result;
   $num_rows;
   if ($preferedPosition !== -1) {
-    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE characters.character_value = \'' . $char . '\' AND characters.character_index=\'' . $preferedPosition . '\' AND LENGTH(words.word_value) > '.$minLength.' AND LENGTH(words.word_value) < '.$maxLength.';';
+    ///echo $char;
+    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE (characters.character_value = \'' . $char . '\') AND (characters.character_index=\'' . $preferedPosition . '\') AND (LENGTH(words.word) > '.$minLength.') AND (LENGTH(words.word) < '.$maxLength.')';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
     if ($num_rows <= 0) {
@@ -203,15 +204,17 @@ function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength) {
     }
   } 
   if ($preferedPosition == -1) {
-    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE characters.character_value = \'' . $char . '\' AND LENGTH(words.word_value) > '.$minLength.' AND LENGTH(words.word_value) < '.$maxLength.';';
+    $sqlStatement = 'SELECT * FROM characters JOIN words ON words.word_id = characters.word_id WHERE (characters.character_value = \'' . $char . '\') AND (LENGTH(words.word) > '.$minLength.') AND (LENGTH(words.word) < '.$maxLength.')';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
   }
+   // echo $num_rows;
   if ($num_rows > 0) {
     $index = 0;
     $randomNumber = mt_rand(0, $num_rows-1);
     while ($row  = $result->fetch_assoc()) {
       if ($index === $randomNumber) {
+       // echo $row['word_value'];
         return $row["word_id"];
       }
       $index++;
@@ -222,7 +225,7 @@ function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength) {
 }
 
 function getRandomClueWord($word_id) {
-  $sqlStatement = 'SELECT * FROM words WHERE rep_id=(SELECT rep_id FROM words WHERE word_id = \''.$word_id.'\') AND word_id!=\''.$word_id.'\'';
+  $sqlStatement = 'SELECT * FROM words WHERE word_id= '.$word_id.'';
   $result =  run_sql($sqlStatement);
   $num_rows = $result->num_rows;
   if ($num_rows > 0) {
@@ -230,7 +233,7 @@ function getRandomClueWord($word_id) {
     $randomNumber = mt_rand(0, $num_rows-1);
     while ($row  = $result->fetch_assoc()) {
       if ($index === $randomNumber) {
-        return $row["word_value"];
+        return $row["english_word"];
       }
       $index++;
     }
@@ -239,7 +242,7 @@ function getRandomClueWord($word_id) {
 }
 
 function getRandomClueFromWord($word_value) {
-    $sqlStatement = 'SELECT * FROM words WHERE rep_id=(SELECT rep_id FROM words WHERE word_value = \''.$word_value.'\') AND word_id!=\''.rep_id.'\'';
+    $sqlStatement = 'SELECT * FROM words WHERE word='.$word_value.'';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
     if ($num_rows > 0) {
@@ -247,7 +250,7 @@ function getRandomClueFromWord($word_value) {
         $randomNumber = mt_rand(0, $num_rows-1);
         while ($row  = $result->fetch_assoc()) {
             if ($index === $randomNumber) {
-                return $row["word_value"];
+                return $row["english_word"];
             }
             $index++;
         }
@@ -257,12 +260,12 @@ function getRandomClueFromWord($word_value) {
 
 function getImageName($clueWord)
 {
- $sqlStatement = 'SELECT * FROM words WHERE word_value = \''.$clueWord.'\'';
+ $sqlStatement = 'SELECT * FROM words WHERE word = \''.$clueWord.'\'';
   $result =  run_sql($sqlStatement);
   $num_rows = $result->num_rows;
   $row = $result->fetch_assoc();
   if ($num_rows > 0) {
-        return $row["image_name"];
+        return $row["image"];
   }
   return false;
 }
@@ -300,7 +303,7 @@ function getClueValuesFromPuzzleWords($puzzle_id) {
     while ($row  = $result->fetch_assoc()) {
       array_push($words, $row["clue"]);
     }
-    var_dump($words);
+    //var_dump($words);
     return $words;
   }
   return false;
