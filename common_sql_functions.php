@@ -241,7 +241,7 @@ function getRandomClueWord($word_id) {
   return false;
 }
 
-function getRandomClueFromWord($word_value) {
+function getClueFromWord($word_value) {
     $sqlStatement = 'SELECT * FROM words WHERE word='.$word_value.'';
     $result =  run_sql($sqlStatement);
     $num_rows = $result->num_rows;
@@ -288,6 +288,15 @@ function getWordValuesFromPuzzleWords($puzzle_id) {
   if ($num_rows > 0) {
     while ($row  = $result->fetch_assoc()) {
       array_push($words, $row["word"]);
+        $word = $row["word"];
+        // Check if word exists in the word table
+        $sql = 'SELECT * FROM words WHERE word = \''.$word.'\';';
+        try {
+            run_sql($sql);
+        }catch (Exception $e){
+            $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $row['english_word'] . '\',  \'' . $row['english_word'] . '.jpg\');';
+            run_sql($sql);
+        }
     }
     return $words;
   }

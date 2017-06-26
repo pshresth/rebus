@@ -15,10 +15,65 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src = "javascript/typeahead.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
     <title>Final Project</title>
 </head>
 <body>
+<style type="text/css">
+    .bs-example{
+        font-family: sans-serif;
+        position: relative;
+        margin: 50px;
+    }
+    .typeahead, .tt-query, .tt-hint {
+        border: 2px solid #CCCCCC;
+        border-radius: 8px;
+        font-size: 24px;
+        height: 30px;
+        line-height: 30px;
+        outline: medium none;
+        padding: 8px 12px;
+        width: 396px;
+    }
+    .typeahead {
+        background-color: #FFFFFF;
+    }
+    .typeahead:focus {
+        border: 2px solid #0097CF;
+    }
+    .tt-query {
+        box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    }
+    .tt-hint {
+        color: #999999;
+    }
+    .tt-dropdown-menu {
+        background-color: #FFFFFF;
+        border: 1px solid rgba(0, 0, 0, 0.2);
+        border-radius: 8px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+        margin-top: 12px;
+        padding: 8px 0;
+        width: 422px;
+    }
+    .tt-suggestion {
+        font-size: 24px;
+        line-height: 24px;
+        padding: 3px 20px;
+    }
+    .tt-suggestion.tt-is-under-cursor {
+        background-color: #0097CF;
+        color: #FFFFFF;
+    }
+    .tt-suggestion p {
+        margin: 0;
+    }
+</style>
 <?php
 require('db_configuration.php');
 ?>
@@ -30,17 +85,120 @@ require('db_configuration.php');
         <button class="pop_up_button" onclick="toggle_display('pop_up_fail')">OK</button>
     </div>
 </div>
+
+
 <div class="container">
-<!--    <form method="post">-->
-<!--        <select name="size">-->
-<!--            <option value="50">View 50</option>-->
-<!--            <option value="25"><a href="#size=25&page=1"/>View 25</option>-->
-<!--            <option value="100">View 100</option>-->
-<!--            <option value="All">View All</option>-->
-<!--        </select>-->
-<!--        <input type="hidden"/>-->
-<!---->
-<!--    </form>-->
+    <form action="" method="post">
+    <img src="./pic/searchIcon.png" style="height: 40px; width: 40px">
+    <input  type="text" name="key" id="key" onkeyup="showHint(this.value)" autocomplete="off" spellcheck="false" placeholder="Search for names.." >
+        <p><span id="txtHint"></span></p>
+    <!--    <div id="result"></div>-->
+    </form>
+</div>
+    <script>
+        function showHint(str) {
+            if (str.length == 0) {
+                document.getElementById("txtHint").innerHTML = "";
+                return;
+            } else {
+                var xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function() {
+                    if (this.readyState == 4 && this.status == 200) {
+                        document.getElementById("txtHint").innerHTML = this.responseText;
+                    }
+                };
+                xmlhttp.open("GET", "search.php?key=" + str, true);
+                xmlhttp.send();
+            }
+        }
+//        $(document).ready(function(){
+//            $('typeahead').typeahead({
+//                name: 'typeahead',
+//                remote:'list_words.php?key=%QUERY',
+//                limit : 10
+//            });
+//        });
+    </script>
+
+    <?php
+//    $search=$_GET['key'];
+//    $array = array();
+//    echo $sql = "SELECT * FROM words where word LIKE '%{$search}%' or english_word LIKE '%{$search}%'";
+//     $result = run_sql($sql);
+//    while($row=$result->fetch_assoc())
+//    {
+//        $array[] = $row['english_word'];
+//    }
+//    echo $data = json_encode($array, JSON_FORCE_OBJECT);
+    ?>
+
+        <?php
+
+//        if(ISSET($_REQUEST['key'])) {
+//            $search = $_REQUEST['key'];
+//            $sql = 'SELECT * FROM words where word LIKE \'%' . $search . '%\' or english_word LIKE \'%' . $search . '%\';';
+//            $result = run_sql($sql);
+
+            if(ISSET($_POST['key'])) {
+                $search = $_POST['key'];
+                $sql = 'SELECT * FROM words where word LIKE \'%' . $search . '%\' or english_word LIKE \'%' . $search . '%\';';
+                $result = run_sql($sql);
+//                while($row=$result->fetch_assoc())
+//                {
+//                    $word = $row['word'];
+//                    $eng_word = $row['english_word'];
+//                    $b_word = '<strong>'.$search.'</strong>';
+//                    $b_eng_word ='<strong>'.$search.'</strong>';
+//                    $final_word = str_ireplace($search, $b_word, $word);
+//                    $final_eng_word = str_ireplace($search, $b_eng_word, $eng_word);
+//
+//                    echo '<div class="show" align="left">';
+//                    echo '<img src="" style="width:50px; height:50px; float:left; margin-right:6px;" /><span class="name"><?php echo $final_word;
+//                    echo '</div>';
+
+                //}
+          //  }
+        }else {
+            $sql = 'SELECT * FROM words;';
+            $result = run_sql($sql);
+          //  $resArr = mysqli_fetch_array($result, MYSQLI_NUM);
+        }
+
+        $data = array();
+        while($row = $result->fetch_assoc())
+        {
+            array_push($data, $row);
+        }
+        $count =0;
+        $limit = 50;
+        $totalRows = $result->num_rows;
+        if(isset($_GET['page']))
+        {
+            $page=$_GET['page'] + 1;
+            $offset = $limit * ($page-1) ;
+
+        }else{
+            $page = 1;
+            $offset = 0;
+
+        }
+       // echo "Max Page:";
+       $maxPages = ceil($totalRows/$limit);
+       // $sql = 'SELECT * FROM words LIMIT '.$offset.','.$limit.' ;';
+       // $result = run_sql($sql);
+
+//        echo "Page;" .$page;
+//        echo $offset;
+//        $remainingRows = $totalRows - ($page * $limit);
+//        echo "Rem";
+//        echo $left_rec = $remainingRows - ($page * $limit);
+        $i=0;
+        while ($i < $maxPages){
+            echo "<a href = \"?page=$i\" style=\"font-size:160%;\"> [" .($i+1)."] </a> ";
+            $i++;
+        }
+
+echo '<div>
     <table class="table table-condensed main-tables" id="puzzle_table">
         <thead>
         <tr>
@@ -51,52 +209,31 @@ require('db_configuration.php');
             <th>Actions</th>
         </tr>
         </thead>
-        <tbody>
-        <?php
-        $sql = 'SELECT * FROM words;';
-        $result = run_sql($sql);
-        $resArr = mysqli_fetch_array($result, MYSQLI_NUM );
-        $count = 0;
-        $data = array();
-        while($row = $result->fetch_assoc())
-        {
-            array_push($data, $row);
-        }
-        $limit = 50;
-        $totalRows = count($data);
-        if(isset($_GET['page']))
-        {
-            $page=$_GET['page'] + 1;
-            $offset = $limit * ($page-1) ;
-        }else{
-            $page = 1;
-            $offset = 0;
-        }
+        <tbody>';
 
-       // echo "Max Page:";
-        $maxPages = ceil($totalRows/$limit);
-        $sql = 'SELECT * FROM words LIMIT '.$offset.','.$limit.' ;';
-        $result = run_sql($sql);
+//        if( $page > 1 && $page < $maxPages) {
+//            $last = $page - 2;
+//            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a> | ";
+//            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
+//        }else if( $page == 1 ) {
+//            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
+//       }else{
+//            $last = $page - 2;
+//            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a>";
+//        }
 
-        //echo "Page;" .$page;
-//        $remainingRows = $totalRows - ($page * $limit);
-//        echo "Rem";
-//        echo $left_rec = $remainingRows - ($page * $limit);
+       // var_dump($data);
+//        echo "Page Display:";
+//        echo $limit *$page;
+//        echo "offset:".$offset;
+//        echo "Count=".$count;
+        for($count=$offset; $count < $limit * $page; $count++){
+       // while ($row = $result->fetch_assoc()) {
+            if(count($data) > $count) {
+            $row = $data[$count];
 
-        if( $page > 1 && $page < $maxPages) {
-            $last = $page - 2;
-            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a> | ";
-            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
-        }else if( $page == 1 ) {
-            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
-       }else{
-            $last = $page - 2;
-            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a>";
-        }
-
-        while ($row = $result->fetch_assoc()) {
-            $word_id = $row['word_id'];
-            echo '<tr>
+                $word_id = $row['word_id'];
+                echo '<tr>
           <td>' . $word_id . '</td>
           <td>' . $row['word'] . '</td>
           <td>' . $row['english_word'] . '</td>
@@ -113,7 +250,8 @@ require('db_configuration.php');
             </form>
           </td>
           </tr>';
-            $count++;
+                // $count++;
+            }
         }
 
 

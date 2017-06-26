@@ -1,5 +1,5 @@
 <?php
-	require('IndicTextAnalyzer\word_processor.php');
+	require('./IndicTextAnalyzer/word_processor.php');
 	function getWordChars($word)
 	{
 		$letters = new wordProcessor($word,"");

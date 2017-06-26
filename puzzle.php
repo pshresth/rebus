@@ -191,7 +191,7 @@ function generatePuzzle($nameOfPuzzle)
         $word = get_random_word($char, $word_array);
         if ($word != null) {
             array_push($word_array, getWordValue($word));
-            $clueword = getRandomClueFromWord($word);
+            $clueword = getClueFromWord($word);
             array_push($clues_array, $clueword);
             array_push($image_array, getImageName($clueword));
 
@@ -507,20 +507,27 @@ class Puzzle
         $word_array = array();
         $clues_array = array();
         $image_array = array();
+        $wordId_array = array();
         $puzzle_chars = getWordChars($this->puzzleName);
         foreach ($puzzle_chars as $char) {
             $index = getWordIdFromChar($char, $this->position, $this->minLength, $this->maxLength);
             if ($this->puzzle_id !== -1) {
+               // echo($this->puzzle_id);
                 $word_array = getWordValuesFromPuzzleWords($this->puzzle_id);
+               // var_dump($word_array);
                 $clues_array = getClueValuesFromPuzzleWords($this->puzzle_id);
+                $wordId_array = getWordValuesFromPuzzleWords($this->puzzle_id);
                 foreach ($word_array as $value) {
                     array_push($image_array, getImageName($value));
                 }
                 break;
-            }
+
+        }
             if ($index != false) {
                 $wordVal = getWordValue($index);
+                $wordId = getWordIdFromWord($wordVal);
                 array_push($word_array, $wordVal);
+                array_push($wordId_array, $wordId);
                 $clueword = getRandomClueWord($index);
                 array_push($clues_array, $clueword);
                 array_push($image_array, getImageName($wordVal));
@@ -531,6 +538,7 @@ class Puzzle
             }
         }
         $this->puzzle_chars = $puzzle_chars;
+        $this->wordId_array = $wordId_array;
         $this->word_array = $word_array;
         $this->clues_array = $clues_array;
         $this->image_array = $image_array;
@@ -545,7 +553,8 @@ class Puzzle
         $i = 0;
         foreach ($this->puzzle_chars as $char) {
             $word_chars = getWordChars($this->word_array[$i]);
-            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+
+            // this is for building a comma separate string of the words for the puzzle. For later use in javascript.
             if ($i == 0) {
                 $words .= buildJScriptWords($word_chars);
             } else {
@@ -562,7 +571,7 @@ class Puzzle
      */
     function createInputBoxes()
     {
-        $htmlTable = '<div class="container"><h1>Here\'s your "Rebus Puzzle"</h1><table class="table table-condensed main-tables" id="puzzle_table"><thead><tr><th>Clue</th><th>Image</th><th>Word</th></tr></thead><tbody>';
+        $htmlTable = '<div class="container"><h1>Here\'s your "'.$this->puzzleName.'"</h1><table class="table table-condensed main-tables" id="puzzle_table" ><thead><tr><th>Clue</th><th>Image</th><th>Word</th></tr></thead><tbody>';
         $i = 0;
         foreach ($this->puzzle_chars as $puzzleChar) {
             $word_chars = getWordChars($this->word_array[$i]);
@@ -570,9 +579,15 @@ class Puzzle
             $len = count($word_chars);
             $htmlTable .= "<tr><td>" . $pos . '/' . $len . "</td>";
             $image = getImage($this, $i);
-            //echo $image;
-            $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td>";
-            $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . ' (' . $this->char_indexes[$i] . '/ ' . count($word_chars) . ')" style="display:none" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none"/>';
+            if($image === "./Images/noImage.jpg")
+            {
+                $htmlTable .= "<td>".$puzzleChar."</td><td>";
+            }
+            else {
+                //echo $image;
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td>";
+            }
+            $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none"/>';
             $j = 0;
             $flag = false;
             foreach ($word_chars as $char) {
@@ -595,22 +610,41 @@ class Puzzle
 
     function createAdminInputBoxes()
     {
-        $htmlTable = '<div class="container"><h1>Here\'s your "Name in Synonyms"</h1><table class="table table-condensed main-tables" id="puzzle_table" style="width:100%"><thead><tr><th>Clue</th><th>Synonym</th></tr></thead><tbody>';
+        $htmlTable = '<div class="container"><h1>Here\'s your puzzle for "'.$this->puzzleName.'"</h1><table class="table table-condensed main-tables" id="puzzle_table" style="width:100%"><thead><tr><th>Word Id</th><th>Image</th><th>Index</th><th>English Word</th><th>Word</th></tr></thead><tbody>';
         $i = 0;
         foreach ($this->puzzle_chars as $puzzleChar) {
             $word_chars = getWordChars($this->word_array[$i]);
-            $htmlTable .= "<tr><td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . getWordIdFromWord($this->clues_array[$i]) . "'/></td><td>";
-            $j = 0;
-            $flag = false;
-            foreach ($word_chars as $char) {
-                if ($char === $puzzleChar && !$flag) {
-                    $htmlTable .= '<input type=\'hidden\' name=\'word' . $i . '\' value="' . getWordIdFromWord($this->word_array[$i]) . '"/><input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
-                    $flag = true;
-                } else {
-                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline"/>';
-                }
-                $j++;
+          //  $htmlTable .= "<tr><td>".$this->wordId_array[$i]."</td>";
+            $id = $this->wordId_array[$i];
+            $htmlTable .= '<tr><td>
+                        <input class="puzzleInput word_char" type="text" name="id" placeholder=" ' .$id. ' ">
+                        <input type="hidden" name="word_id" value="'.$id.'">
+                        <input type="submit" value="Image" name="submit"></td>';
+            if(isset( $_POST['submit']))
+            {
+                echo "Image Changed";
+                //echo $sub = $_POST['submit'];
+                echo $newId = $_POST['id'];
             }
+            $image =getImage($this, $i);
+            $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
+
+            $pos = array_search($puzzleChar, $word_chars) + 1;
+            $len = count($word_chars);
+            $htmlTable .= "<td>" . $pos . '/' . $len . "</td>";
+            $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . getWordIdFromWord($this->clues_array[$i]) . "'/></td>";
+            $htmlTable .= "<td>". $this->word_array[$i] . "</td></tr></form>";
+//            $j = 0;
+//            $flag = false;
+//            foreach ($word_chars as $char) {
+//                if ($char === $puzzleChar && !$flag) {
+//                    $htmlTable .= '<input type=\'hidden\' name=\'word' . $i . '\' value="' . getWordIdFromWord($this->word_array[$i]) . '"/><input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
+//                    $flag = true;
+//                } else {
+//                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline"/>';
+//                }
+//                $j++;
+//            }
             $htmlTable .= "</div>";
             $i++;
         }
@@ -657,16 +691,15 @@ class Puzzle
     function createTableFooter()
     {
         $this->buttons = '<div class="container" ><input class="main-buttons" type="button" name="submit_solution" 
-                value="Submit Solution" onclick="main_buttons(\'submit\');">
+                value="Submit Solution" onclick="main_buttons(\"submit\");">
       ' . getShowSolution($this->puzzleName) . '<input class="main-buttons" type="button" name="changeInputMode" 
                 value="Change Input Mode" onclick="change_puzzle_input()"></div>';
-        $this->admin_buttons = '<div class="container"><h2 style="margin-top:0;">Show synonyms between <input 
-                class="word_char active" type="number" maxLength="2" name="minLength" value="' . $this->minLength . '" 
-                style="display:inline"/> and <input class="word_char active" type="number" maxLength="2" name="maxLength" 
+        $this->admin_buttons = '<div class="container"><input class="word_char active" type="hidden" maxLength="2" name="minLength" value="' . $this->minLength . '" 
+                style="display:inline"/><input class="word_char active" type="hidden" maxLength="2" name="maxLength" 
                 value="' . $this->maxLength . '" style="display:inline"/><input class="word_char active" type="hidden" 
-                m name="puzzleWord" value="' . $this->puzzleName . '"/> characters<br>Prioritize the synonyms with character in position <input 
-                class="word_char active" type="number" maxLength="2" name="position" value="' . $this->position . '" style="display:inline"/>
-                </h2><div style="text-align:center"><input class="main-buttons" type="submit" name="iDesign" value="Refresh"/>
+                m name="puzzleWord" value="' . $this->puzzleName . '"/> <input 
+                class="word_char active" type="hidden" maxLength="2" name="position" value="' . $this->position . '" style="display:inline"/>
+                <div style="text-align:center"><input class="main-buttons" type="submit" name="iDesign" value="Refresh"/>
                 <input class="main-buttons" type="submit" name="saveIDesign" value="Save"/></div></div>';
     }
 }
@@ -674,7 +707,8 @@ class Puzzle
 ?>
 
 
-<script>
+<script type="text/javascript">
+
     // main function for the buttons when they're clicked.
     function main_buttons(button_name) {
         // the words should be seperated by commas and the characters of the words by '-'.
@@ -717,12 +751,12 @@ class Puzzle
         var input_word = "";
         var alt_input_word = "";
         var theWord = rebuildWord(word);
-        var childrenLength = table.rows[i].cells[1].children.length;
+        var childrenLength = table.rows[i].cells[2].children.length;
 
-        alt_input_word += table.rows[i].cells[1].children[1].value;
+        alt_input_word += table.rows[i].cells[2].children[1].value;
         for (var j = 0; j < childrenLength - 2; j++) {
             var k = j + 2;
-            input_word += table.rows[i].cells[1].children[k].value;
+            input_word += table.rows[i].cells[2].children[k].value;
         }
 
         if (theWord != input_word && theWord != alt_input_word) {
@@ -763,16 +797,16 @@ class Puzzle
         var nWord = word;
 
         word_array = nWord.split("-");
-        childrenLength = table.rows[i].cells[1].children.length;
-        if (table.rows[i].cells[1].children[1].value.length > 0) {
+        childrenLength = table.rows[i].cells[2].children.length;
+        if (table.rows[i].cells[2].children[1].value.length > 0) {
             clear_puzzle();
         }
         for (var j = 0; j < word_array.length; j++) {
-            table.rows[i].cells[1].children[1].value += word_array[j];
+            table.rows[i].cells[2].children[1].value += word_array[j];
         }
         for (var j = 0; j < childrenLength - 2; j++) {
             var k = j + 2;
-            table.rows[i].cells[1].children[k].value = word_array[j];
+            table.rows[i].cells[2].children[k].value = word_array[j];
         }
     }
     // clears the character values for all of the words in the puzzle table.
@@ -782,10 +816,10 @@ class Puzzle
         var childrenLength = 0;
 
         for (var i = 1; i < tableLength; i++) {
-            childrenLength = table.rows[i].cells[1].children.length;
+            childrenLength = table.rows[i].cells[2].children.length;
             for (var j = 0; j < childrenLength; j++) {
-                if (!(table.rows[i].cells[1].children[j].className.includes("active"))) {
-                    table.rows[i].cells[1].children[j].value = "";
+                if (!(table.rows[i].cells[2].children[j].className.includes("active"))) {
+                    table.rows[i].cells[2].children[j].value = "";
                 }
             }
         }

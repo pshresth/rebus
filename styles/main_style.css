@@ -55,7 +55,7 @@
   border: 2px solid black;
   color: black;
   padding: 15px 32px;
-  width: 250px;
+  width: auto;
   height: 80px;
   text-align: center;
   text-decoration: none;
@@ -466,4 +466,15 @@ body {
 .thumbnailSize{
   height: 100px;
   width: 100px;
+}
+
+#searchInput {
+  background-image: url('/pic/searchIcon.png'); /* the image is not showing */
+  background-position: 10px 12px; /* Position the search icon */
+  background-repeat: no-repeat; /* Do not repeat the icon image */
+  width: 94%; /* Full-width */
+  font-size: 20px; /* Increase font-size */
+  padding: 12px 20px 12px 40px; /* Add some padding */
+  border: 1px solid #ddd; /* Add a grey border */
+  margin-bottom: 12px; /* Add some space below the input */
 }
