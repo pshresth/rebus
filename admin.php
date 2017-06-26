@@ -64,6 +64,24 @@ echo getTopNav();
     <!--
             <a href="admin_manage_users.php">[6] Manage Users (add, delete, update) (Extra Credit)</a><br> -->
     <a href="list_words.php">[4] Edit Words</a>
+    <table align="center" class="adminTable">
+        <tr>
+            <td align="center">
+                <a href="list_words.php"><img src="./pic/adminEdit.jpeg" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize">
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/import.png" class="thumbnailSize"></a>
+            </td>
+        </tr>
+        <tr>
+            <td align="center"><a href="list_words.php">Word List</a></td>
+            <td align="center"><a href="export_db.php">Export</a></td>
+            <td align="center"><a href="#">Import</a></td>
+        </tr>
+    </table>
 </div>
 
 <script>

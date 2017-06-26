@@ -478,3 +478,8 @@ body {
   border: 1px solid #ddd; /* Add a grey border */
   margin-bottom: 12px; /* Add some space below the input */
 }
+
+.adminTable{
+  border: 1px solid black;
+  width: 60%;
+}
