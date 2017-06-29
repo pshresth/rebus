@@ -34,8 +34,8 @@
             <?PHP
             echo '<input class="main-buttons" type="submit" name="randomPlay" value="Show me.." />';
             if (adminSessionExists()) {
-                echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design... (Option 1)" />';
-              echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design... (Option 2)" />';
+                //echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design... (Option 1)" />';
+              echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design..." />';
             }
             ?>
           </div>

@@ -132,10 +132,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['addWord'] == '') {
 if (isset($_POST['submit'])) {
     $words = validate_input($_POST['addWord']);
     if ($words == '') {
-        echo "<p class= \"fontword\" style=\" color:red;\">You did not enter ans words. Please try again.</p>";
+        echo "<p class= \"fontword\" style=\" color:red;\">You did not enter any words. Please try again.</p>";
 
     } else if (count(explode(',', $words)) < 2) {
-        echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words seperated by a comma. Please try again.</p>";
+        echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words separated by a comma. Please try again.</p>";
     } else {
         $list = explode(',', $words);
         insertWordsAndCharacter($list);

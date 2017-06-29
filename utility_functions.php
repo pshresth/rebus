@@ -12,6 +12,8 @@ function validate_input($data)
     //$data = trim($data);
     $data = str_replace("'", "", $data);
 
+    $data = str_replace(" ", "", $data);
+
     return $data;
 }
 
