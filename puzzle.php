@@ -359,6 +359,7 @@ function getClueIdArray($clue_array) {
 }
 
 function getImage($puzzle, $index) {
+   // var_dump($puzzle->image_array);
     $image = $puzzle->image_array[$index];
     if (empty($image)) {
         $clue = $puzzle->word_array[$index];
@@ -518,6 +519,7 @@ class Puzzle {
             } else {
                 array_push($word_array, $char);
                 array_push($clues_array, $char);
+                array_push($image_array, $char);
             }
         }
         $this->puzzle_chars = $puzzle_chars;
@@ -594,9 +596,9 @@ class Puzzle {
             //  $htmlTable .= "<tr><td>".$this->wordId_array[$i]."</td>";
             $id = $this->wordId_array[$i];
             $htmlTable .= '<tr><td>
-                        <input class="puzzleInput word_char" type="text" name="wordid" placeholder=" ' . $id . ' "/>
+                        <input class="puzzleInput word_char" type="text" name="wordId" placeholder=" ' . $id . ' "/>
                         <input class="word_char active" type="hidden" name="puzzleWord" value="' . $this->puzzleName . '"/>
-                        <input type="submit" value="Image" name="old_wordid" value ='.$id.'></td>';
+                        <input type="submit" value="Image" name="old_wordId" alt ='.$id.'></td>';
             if (isset($_POST['submit'])) {
                 echo "Image Changed";
                 //echo $sub = $_POST['submit'];
@@ -667,7 +669,7 @@ class Puzzle {
     function createTableFooter()
     {
         $this->buttons = '<div class="container" ><input class="main-buttons" type="button" name="submit_solution" 
-                value="Submit Solution" onclick="main_buttons(\"submit\");">
+                value="Submit Solution" onclick="main_buttons(\'submit\');">
       ' . getShowSolution($this->puzzleName) . '<input class="main-buttons" type="button" name="changeInputMode" 
                 value="Change Input Mode" onclick="change_puzzle_input()"></div>';
         $this->admin_buttons = '<div class="container"><input class="word_char active" type="hidden" maxLength="2" name="minLength" value="' . $this->minLength . '" 
@@ -686,7 +688,7 @@ class Puzzle {
     /**
      *     main function for the buttons when they're clicked.
      */
-    function main_buttons(button_name) {
+    function main_buttons(button_name){
         // the words should be seperated by commas and the characters of the words by '-'.
         var words = "<?php echo $words ?>";
         var wordsArray = words.split(",");
@@ -827,15 +829,15 @@ class Puzzle {
         }
     }
 
-    function changeWordInPuzzle(newId) {
-        alert("Here: " + newId);
-        var puzzle = "<?php echo $puzzle?>";
-        var words = "<?php echo $words ?>";
-        var table = document.getElementById("puzzle_table");
-        var newid = document.getElementById("id").value;
-        var tableLength = table.rows.length;
-        table.row[]
-    }
+//    function changeWordInPuzzle(newId) {
+//        alert("Here: " + newId);
+//        var puzzle = "<?php //echo $puzzle?>//";
+//        var words = "<?php //echo $words ?>//";
+//        var table = document.getElementById("puzzle_table");
+//        var newid = document.getElementById("id").value;
+//        var tableLength = table.rows.length;
+//       // table.row[]
+//    }
 </script>
 </body>
 
