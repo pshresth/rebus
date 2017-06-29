@@ -56,7 +56,7 @@
         <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span>
         <span class="icon-bar"></span><span class="icon-bar"></span>
         </button><a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
-        <div class="name-wrapper"><font class="nav-font">Name in Synonyms</font>
+        <div class="name-wrapper"><font class="nav-font">REBUS</font>
         </div></div><div class="collapse navbar-collapse">
         <ul class="nav navbar-nav"><li><a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
         </li><li><a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br>Puzzle</button></a></li><li><a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
@@ -74,7 +74,7 @@
         </button>
         <a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
         <div class="name-wrapper">
-        <font class="nav-font">Name in Synonyms</font>
+        <font class="nav-font">REBUS</font>
         </div>
         </div>
         <div class="collapse navbar-collapse">

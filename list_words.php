@@ -197,7 +197,7 @@ require('db_configuration.php');
             echo "<a href = \"?page=$i\" style=\"font-size:160%;\"> [" .($i+1)."] </a> ";
             $i++;
         }
-
+echo'<a href="./add_word.php"><img src="./pic/adminAddWord.png" style="margin-left:57%"></a>';
 echo '<div>
     <table class="table table-condensed main-tables" id="puzzle_table">
         <thead>
@@ -241,8 +241,8 @@ echo '<div>
           <td>
           <a href="admin_edit_synonyms.php?id=' . $word_id . '"&button=edit">
           <img class="table_image" src="pic/edit.jpg" alt="Edit ' . $word_id . ' word"></a>
-          <a href="list_words.php?id=' . $word_id . '"&button=delete">
-          <img class="table_image" src="pic/delete.jpg" alt="Deleteword"></a>
+          <a href="list_words.php?id=' . $word_id . '&button=delete">
+          <img class="table_image" src="pic/delete.jpg" alt="deleteWord"></a>
             <form class="upload" method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
               <label class="upload"><input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
               <input class="upload" type="hidden" name="word_id" value="' . $word_id . '" />
@@ -284,23 +284,23 @@ echo '<div>
         }
 
         // *** delete button functionality ***
-        //        if(isset($_GET['word_id']))
-        //        {
-        //            if($_GET['button'] == 'delete')
-        //            {
-        //                $id = $_GET['word_id'];
-        //
-        //                $sql = 'DELETE FROM puzzle_words WHERE puzzle_id='.$id.';';
-        //                $result =  $db->query($sql);
-        //
-        //                $sql = 'DELETE FROM puzzles WHERE puzzle_id='.$id.';';
-        //                $result =  $db->query($sql);
-        //                //header("Location:list_puzzles.php"); stoped woking and gave an error
-        //                echo "<meta http-equiv=\"refresh\" content=\"0;URL=list_puzzles.php\">";
-        //            }
-        //        }
-        //
-        //        ?>
+                if(isset($_GET['id']))
+                {
+                    if($_GET['button'] === 'delete')
+                    {
+                        $id = $_GET['id'];
+
+                        $sql = 'DELETE FROM words WHERE word_id='.$id.';';
+                        //$result =  $db->query($sql);
+                        $result = run_sql($sql);
+                        echo $result;
+
+                        //header("Location:list_puzzles.php"); stoped woking and gave an error
+                        //echo "<meta http-equiv=\"refresh\" content=\"0;URL=list_puzzles.php\">";
+                    }
+                }
+
+                ?>
         <script>
             function validateForm() {
                 var eng = document.forms["importFrom"]["fileToUpload"].value;
