@@ -559,15 +559,15 @@ class Puzzle {
             $word_chars = getWordChars($this->word_array[$i]);
             $pos = array_search($puzzleChar, $word_chars) + 1;
             $len = count($word_chars);
-            $htmlTable .= "<tr><td>" . $pos . '/' . $len . "</td>";
+            $htmlTable .= "<tr><td align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</td>";
             $image = getImage($this, $i);
             if ($image === "./Images/noImage.jpg") {
                 $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
             } else {
                 //echo $image;
-                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td>";
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
             }
-            $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none"/>';
+            $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none;" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none;"/>';
             $j = 0;
             $flag = false;
             foreach ($word_chars as $char) {
