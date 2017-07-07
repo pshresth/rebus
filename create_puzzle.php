@@ -124,7 +124,7 @@
 	// added to the puzzle_words for this puzzle.
 	function get_random_word($character, $puzzlewords)
 	{
-				$sql =  'SELECT word_id FROM characters WHERE character_value = \''. $character .'\' GROUP BY word_id;';
+				$sql =  'SELECT * FROM characters WHERE character_value = \''. $character .'\' GROUP BY word_id;';
 				$result =  run_sql($sql);
 				$rows =[];
 				while ($row= $result->fetch_assoc())
@@ -138,9 +138,9 @@
 					var_dump($puzzlewords);
 					$numofRows = count($rows);
 					echo 'Rows count: ' . $numofRows . ' <br>';
-					$random = rand(0, $numofRows-1);
+					$random = rand(0, $numofRows - 1);
 					echo 'Random: ' . $random . ' <br>';
-					$word = $rows[$random]["word_value"];
+					$word = $rows[$random]["word"];
 					
 					if(!in_array($word, $puzzlewords, true))
 					{

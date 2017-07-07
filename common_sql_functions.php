@@ -224,6 +224,40 @@ function getWordIdFromChar($char, $preferedPosition, $minLength, $maxLength)
   return false;
 }
 
+// adds a random puzzle_word for the puzzle with name puzzle_name for the character at
+    // the index in the puzzle_name. $puzzlewords are the existing puzzle_words for the puzzle.
+    // Returns the word_id of the words added to puzzle_words. Returns null if no words could be
+    // added to the puzzle_words for this puzzle.
+function getRandomWord($character, $puzzleWords)
+{
+    $sql = 'SELECT * FROM characters INNER JOIN words ON words.word_id = characters.word_id WHERE (characters.character_value = \'' . $character .'\')';
+    $result =  run_sql($sql);
+    $rows = array();
+    while ($row= $result->fetch_assoc()){
+        array_push($rows, $row);
+    }
+    $chosen_word = null;
+
+    while (true){
+        //var_dump($puzzleWords);
+        $numRows = count($rows);
+        //echo 'Rows count: ' . $numRows . ' <br>';
+        $random = rand(0, $numRows - 1);
+        //echo 'Random: ' . $random . ' <br>';
+        $word = $rows[$random]["word"];
+        if(!in_array($word, $puzzleWords, true))
+        {
+            $chosen_word = $rows[$random];
+            break;
+        }
+        else{
+            unset($rows[$random]);
+        }
+    }
+    return $chosen_word;
+}
+
+
 function getRandomClueWord($word_id) {
   $sqlStatement = 'SELECT * FROM words WHERE word_id= '.$word_id.'';
   $result =  run_sql($sqlStatement);
@@ -278,6 +312,39 @@ function checkPuzzleId($puzzle_id) {
     return true;
   }
   return false; 
+}
+
+function getWordFromPuzzleWords($puzzle_id) {
+    $sql = 'SELECT * FROM puzzle_words WHERE puzzle_words.puzzle_id=\''.$puzzle_id.'\' ORDER BY position_in_name;';
+    $result =  run_sql($sql);
+    $num_rows = $result->num_rows;
+
+    $wordList = array();
+    if ($num_rows > 0) {
+        while ($row  = $result->fetch_assoc()) {
+            // Check if word exists in the word table
+            $wordInfo = array();
+            $word = $row['word'];
+            $clue = $row['clue'];
+            $sql = 'SELECT * FROM words WHERE word = \''.$word.'\';';
+               $res =  run_sql($sql);
+                if($res->num_rows !== 0) {
+                    $word_row = $res->fetch_assoc();
+                    $clue = $word_row['english_word'];
+                    $word_id = $word_row['word_id'];
+                    $image = $word_row['image'];
+                }else{
+                $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $clue . '\',  \'' . $clue . '.jpg\');';
+                $word_id = run_sql($sql);
+                $image = $clue . '.jpg';
+            }
+            array_push($wordInfo, $word_id, $word, $clue, $image);
+            array_push($wordList, $wordInfo);
+        }
+    }
+//    echo "wordlist: ";
+//    var_dump($wordList);
+    return $wordList;
 }
 
 function getWordValuesFromPuzzleWords($puzzle_id) {

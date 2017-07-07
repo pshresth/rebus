@@ -29,7 +29,7 @@
 $input = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST["puzzleWord"])) {    // User submitted a puzzle name
-        $input = mb_strtolower(validate_input($_POST["puzzleWord"]), 'UTF-8');
+      echo  $input = mb_strtolower(validate_input($_POST["puzzleWord"]), 'UTF-8');
         if (strlen($input) > 0) {
             // puzzle name already exists
             echo create_puzzle_table($input);

@@ -39,7 +39,7 @@ $words = "";
 $nameEntered = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['randomPlay']) && isset($_POST['puzzleWord'])) { //random puzzle
-        $puzzleName = validate_input($_POST['puzzleWord']);
+       $puzzleName = validate_input($_POST['puzzleWord']);
         if (strlen($puzzleName) > 0) {
             $puzzle = new Puzzle($puzzleName, -1, -1, 2, 20);
             $words = $puzzle->js_solution;
@@ -126,175 +126,175 @@ else if (isset($_GET['puzzleName'])) {  // come back to play puzzle from login
      * step5: generate puzzle
      * step6: gernerate js
      */
-function generateExactPuzzle($nameOfPuzzle, $puzzle_id) {
-    $words = "";
-    $nameEntered = validate_input($nameOfPuzzle);
-    $puzzle_id = validate_input($puzzle_id);
-    $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
-    // check if the name already exists
-    $nameExist = checkPuzzleId($puzzle_id);
-    echo "NameofPuzzle" . $nameOfPuzzle;
-    if (!$nameExist) {
-        generatePuzzle($nameEntered);
-    } else { // puzzle exists
-        echo $puzzle_chars = getWordChars($nameEntered);
-        $word_array = getWordValuesFromPuzzleWords($puzzle_id);
-        $clues_array = getClueValuesFromPuzzleWords($puzzle_id);
-       // var_dump($word_array);
-        //var_dump($clues_array);
-        $i = 0;
-        foreach ($puzzle_chars as $char) {
-            $word_chars = getWordChars($word_array[$i]);
-
-            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
-            if ($i == 0) {
-                $words .= buildJScriptWords($word_chars);
-            } else {
-                $words .= ',' . buildJScriptWords($word_chars);
-            }
-            // var_dump($clues_array);
-            echo '<tr><td>' . $clues_array[$i] . '</td><td>';
-            //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
-            $wordlen = count($word_chars);
-
-            for ($j = 0; $j < $wordlen; ++$j) {
-                if ($char === $word_chars[$j]) {
-                    echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
-                } else {
-                    echo '<input class="word_char" type="text" maxLength="7" value=""/>';
-                }
-            }
-            echo '</tr>';
-            $i++;
-        }
-        return $words;
-    }
-}
+//function generateExactPuzzle($nameOfPuzzle, $puzzle_id) {
+//    $words = "";
+//    $nameEntered = validate_input($nameOfPuzzle);
+//    $puzzle_id = validate_input($puzzle_id);
+//    $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
+//    // check if the name already exists
+//    $nameExist = checkPuzzleId($puzzle_id);
+//    echo "NameofPuzzle" . $nameOfPuzzle;
+//    if (!$nameExist) {
+//        generatePuzzle($nameEntered);
+//    } else { // puzzle exists
+//        echo $puzzle_chars = getWordChars($nameEntered);
+//        $word_array = getWordValuesFromPuzzleWords($puzzle_id);
+//        $clues_array = getClueValuesFromPuzzleWords($puzzle_id);
+//       // var_dump($word_array);
+//        //var_dump($clues_array);
+//        $i = 0;
+//        foreach ($puzzle_chars as $char) {
+//            $word_chars = getWordChars($word_array[$i]);
+//
+//            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+//            if ($i == 0) {
+//                $words .= buildJScriptWords($word_chars);
+//            } else {
+//                $words .= ',' . buildJScriptWords($word_chars);
+//            }
+//            // var_dump($clues_array);
+//            echo '<tr><td>' . $clues_array[$i] . '</td><td>';
+//            //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
+//            $wordlen = count($word_chars);
+//
+//            for ($j = 0; $j < $wordlen; ++$j) {
+//                if ($char === $word_chars[$j]) {
+//                    echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
+//                } else {
+//                    echo '<input class="word_char" type="text" maxLength="7" value=""/>';
+//                }
+//            }
+//            echo '</tr>';
+//            $i++;
+//        }
+//        return $words;
+//    }
+//}
 
 /**
  * Generates a random puzzle given a name for the puzzle
  * @param  string $nameOfPuzzle name of the puzzle
  * @return string words that are used to display js solution
  */
-function generatePuzzle($nameOfPuzzle) {
-    $words = "";
-    $nameEntered = validate_input($nameOfPuzzle);
-    $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
-    //echo "<p>NameEntered: $nameEntered</p>";
-
-    $puzzle_chars = getWordChars($nameEntered);
-    $word_array = array();
-    $clues_array = array();
-    $image_array = array();
-
-    $i = 0;
-    foreach ($puzzle_chars as $char) {
-        //echo "<p>char: $char</p>";
-        $word = get_random_word($char, $word_array);
-        if ($word != null) {
-            array_push($word_array, getWordValue($word));
-            $clueword = getClueFromWord($word);
-            array_push($clues_array, $clueword);
-            array_push($image_array, getImageName($clueword));
-
-        } else {
-            array_push($word_array, $char);
-            array_push($clues_array, $char);
-            array_push($image_array, getImageName($char));
-        }
-        $word_chars = getWordChars($word_array[$i]);
-
-        // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
-        if ($i == 0) {
-            $words .= buildJScriptWords($word_chars);
-        } else {
-            $words .= ',' . buildJScriptWords($word_chars);
-        }
-        //var_dump($clues_array);
-        echo '<tr><td>' . $clues_array[$i] . '</td><td>';
-        //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
-        $wordlen = count($word_chars);
-
-        for ($j = 0; $j < $wordlen; ++$j) {
-            if ($char === $word_chars[$j]) {
-                echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
-            } else {
-                echo '<input class="word_char" type="text" maxLength="7" value=""/>';
-            }
-        }
-        echo '</tr>';
-        $i++;
-    }
-    //var_dump($image_array);
-    return $words;
-}
-
-function createPuzzle($nameEntered) {
-    $nameExist = false;
-    $words = "";
-    // clean up the name entered
-    $nameEntered = validate_input($nameEntered);
-    $nameEntered = mb_strtolower($nameEntered, 'UTF-8');
-
-
-    // check if the name already exists
-    $nameExist = checkName($nameEntered);
-    if (!$nameExist) {
-        create_puzzle($nameEntered);
-        create_puzzle_words($nameEntered);
-    }
-
-    $puzzle_id = getPuzzleId($nameEntered);
-
-    if ($puzzle_id != null) {
-        $puzzle_name_chars = getWordChars($nameEntered);
-        // get length of puzzle name
-        $nameLen = count($puzzle_name_chars);
-
-        // for each character in the puzzle name
-        for ($i = 0; $i < $nameLen; ++$i) {
-            // get the word_id from the puzzle_words table at position $i in the puzzle name.
-            $word_id = getWordId($puzzle_id, $i);
-
-            // then get the word_value of that word_id
-            $word_value = getWordValue($word_id);
-
-            // get the character array of the word
-            $word_chars = getWordChars($word_value);
-
-            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
-            if ($i == 0) {
-                $words .= buildJScriptWords($word_chars);
-            } else {
-                $words .= ',' . buildJScriptWords($word_chars);
-            }
-
-            // output the clue word of the word (the word_value with the word_id = rep_id of this words)
-            $clue_word = getClueWord($word_id);
-
-            // Add clue words to first column of the row
-            echo '<tr>
-							 <td>' . $clue_word . '</td>
-							 <td>';
-
-            $char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
-            $wordlen = count($word_chars);
-
-            for ($j = 0; $j < $wordlen; ++$j) {
-                if (in_array($j, $char_indexes)) {
-                    echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
-                } else {
-                    echo '<input class="word_char" type="text" maxLength="7" value=""/>';
-                }
-            }
-            echo '</tr>';
-        }
-    } else {
-        // set name-textbox on index.php to error message that name doesn't exist
-        // re
-    }
-    return $words;
-}
+//function generatePuzzle($nameOfPuzzle) {
+//    $words = "";
+//    $nameEntered = validate_input($nameOfPuzzle);
+//    $nameEntered = mb_strtolower($nameOfPuzzle, 'UTF-8');
+//    echo "<p>NameEntered: $nameEntered</p>";
+//
+//    $puzzle_chars = getWordChars($nameEntered);
+//    $word_array = array();
+//    $clues_array = array();
+//    $image_array = array();
+//
+//    $i = 0;
+//    foreach ($puzzle_chars as $char) {
+//        echo "<p>char: $char</p>";
+//        $word = get_random_word($char, $word_array);
+//        if ($word != null) {
+//            array_push($word_array, getWordValue($word));
+//            $clueword = getClueFromWord($word);
+//            array_push($clues_array, $clueword);
+//            array_push($image_array, getImageName($clueword));
+//
+//        } else {
+//            array_push($word_array, $char);
+//            array_push($clues_array, $char);
+//            array_push($image_array, getImageName($char));
+//        }
+//        $word_chars = getWordChars($word_array[$i]);
+//
+//        // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+//        if ($i == 0) {
+//            $words .= buildJScriptWords($word_chars);
+//        } else {
+//            $words .= ',' . buildJScriptWords($word_chars);
+//        }
+//        //var_dump($clues_array);
+//        echo '<tr><td>' . $clues_array[$i] . '</td><td>';
+//        //$char_indexes = mb_strpos($)//getCharIndex($word_id, $puzzle_name_chars[$i]);
+//        $wordlen = count($word_chars);
+//
+//        for ($j = 0; $j < $wordlen; ++$j) {
+//            if ($char === $word_chars[$j]) {
+//                echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
+//            } else {
+//                echo '<input class="word_char" type="text" maxLength="7" value=""/>';
+//            }
+//        }
+//        echo '</tr>';
+//        $i++;
+//    }
+//    //var_dump($image_array);
+//    return $words;
+//}
+//
+//function createPuzzle($nameEntered) {
+//    $nameExist = false;
+//    $words = "";
+//    // clean up the name entered
+//    $nameEntered = validate_input($nameEntered);
+//    $nameEntered = mb_strtolower($nameEntered, 'UTF-8');
+//
+//
+//    // check if the name already exists
+//    $nameExist = checkName($nameEntered);
+//    if (!$nameExist) {
+//        create_puzzle($nameEntered);
+//        create_puzzle_words($nameEntered);
+//    }
+//
+//    $puzzle_id = getPuzzleId($nameEntered);
+//
+//    if ($puzzle_id != null) {
+//        $puzzle_name_chars = getWordChars($nameEntered);
+//        // get length of puzzle name
+//        $nameLen = count($puzzle_name_chars);
+//
+//        // for each character in the puzzle name
+//        for ($i = 0; $i < $nameLen; ++$i) {
+//            // get the word_id from the puzzle_words table at position $i in the puzzle name.
+//            $word_id = getWordId($puzzle_id, $i);
+//
+//            // then get the word_value of that word_id
+//            $word_value = getWordValue($word_id);
+//
+//            // get the character array of the word
+//            $word_chars = getWordChars($word_value);
+//
+//            // this is for building a comma seperate string of the words for the puzzle. For later use in javascript.
+//            if ($i == 0) {
+//                $words .= buildJScriptWords($word_chars);
+//            } else {
+//                $words .= ',' . buildJScriptWords($word_chars);
+//            }
+//
+//            // output the clue word of the word (the word_value with the word_id = rep_id of this words)
+//            $clue_word = getClueWord($word_id);
+//
+//            // Add clue words to first column of the row
+//            echo '<tr>
+//							 <td>' . $clue_word . '</td>
+//							 <td>';
+//
+//            $char_indexes = getCharIndex($word_id, $puzzle_name_chars[$i]);
+//            $wordlen = count($word_chars);
+//
+//            for ($j = 0; $j < $wordlen; ++$j) {
+//                if (in_array($j, $char_indexes)) {
+//                    echo '<input class="word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" readonly/>';
+//                } else {
+//                    echo '<input class="word_char" type="text" maxLength="7" value=""/>';
+//                }
+//            }
+//            echo '</tr>';
+//        }
+//    } else {
+//        // set name-textbox on index.php to error message that name doesn't exist
+//        // re
+//    }
+//    return $words;
+//}
 
 // Takes in an array of characters and builds a string by seperating them with '-'. Returns the string.
 function buildJScriptWords($word_chars) {
@@ -548,34 +548,40 @@ class Puzzle {
         $image_array = array();
         $wordId_array = array();
         $puzzle_chars = getWordChars($this->puzzleName);
-        foreach ($puzzle_chars as $char) {
-            $index = getWordIdFromChar($char, $this->position, $this->minLength, $this->maxLength);
-            if ($this->puzzle_id !== -1) {
-                // echo($this->puzzle_id);
-                $word_array = getWordValuesFromPuzzleWords($this->puzzle_id);
-                // var_dump($word_array);
-                $clues_array = getClueValuesFromPuzzleWords($this->puzzle_id);
-                $wordId_array = getWordValuesFromPuzzleWords($this->puzzle_id);
-              //  var_dump($word_array);
-                foreach ($word_array as $value) {
-                    array_push($image_array, getImageName($value));
-                }
-                break;
+        //var_dump($puzzle_chars);
+        if($this->puzzle_id !== -1){
+          //  echo 'Puzzle ID: '.($this->puzzle_id);
+            $wordList = getWordFromPuzzleWords($this->puzzle_id);
+            foreach ($wordList as $word) {
+                array_push($wordId_array, $word[0]);
+                array_push($word_array, $word[1]);
+                array_push($clues_array, $word[2]);
+                array_push($image_array, $word[3]);
             }
-            if ($index != false) {
-                $wordVal = getWordValue($index);
-                $wordId = getWordIdFromWord($wordVal);
-                array_push($word_array, $wordVal);
-                array_push($wordId_array, $wordId);
-                $clueword = getRandomClueWord($index);
-                array_push($clues_array, $clueword);
-                array_push($image_array, getImageName($wordVal));
-            } else {
-                array_push($word_array, $char);
-                array_push($clues_array, $char);
-                array_push($image_array, $char);
+
+        }else{
+            foreach ($puzzle_chars as $char) {
+               // echo "<p>char: $char</p>";
+                $word = getRandomWord($char, $word_array);
+                //echo "Result";
+               // var_dump($word);
+                if (!empty($word)) {
+                    array_push($word_array, $word['word']);
+                    array_push($clues_array, $word['english_word']);
+                    array_push($wordId_array, $word['word_id']);
+                    array_push($image_array, $word['image']);
+                } else {
+                    array_push($word_array, $char);
+                    array_push($clues_array, $char);
+                    array_push($image_array, $char);
+                }
             }
         }
+//        echo "Dump: ";
+//        var_dump($wordId_array);
+//        var_dump($word_array);
+//        var_dump($clues_array);
+//        var_dump($image_array);
         $this->puzzle_chars = $puzzle_chars;
         $this->wordId_array = $wordId_array;
         $this->word_array = $word_array;
@@ -614,7 +620,7 @@ class Puzzle {
             $pos = array_search($puzzleChar, $word_chars) + 1;
             $len = count($word_chars);
             $htmlTable .= "<tr><td align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</td>";
-            $image = getImage($this, $i);
+            $image = "./Images/" . $this->image_array[$i];
             if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
                 $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
             } else {
@@ -652,12 +658,13 @@ class Puzzle {
                         <input type="hidden" name="oldWordId'.$i.'" value="' .$id. '"/>
                         </td>';
 
-            $image = getImage($this, $i);
+            //$image = getImage($this, $i);
+            $image = "./Images/" . $this->image_array[$i];
             if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
-                $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
+                $htmlTable .= "<td>" . $puzzleChar . "</td>";
             } else {
                 //echo $image;
-                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
             }
 
             $pos = array_search($puzzleChar, $word_chars) + 1;
@@ -665,16 +672,16 @@ class Puzzle {
             $htmlTable .= "<td>" . $pos . '/' . $len . "</td>";
             $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . $this->clues_array[$i] . "'/></td>";
             $htmlTable .= "<td>" . $this->word_array[$i] . "<input type='hidden' name='word" . $i . "' value='" . $this->word_array[$i] . "'/></td></tr></form>";
-            $flag = false;
-            for ($j=0; $j <count($word_chars); $j++) {
-                if (($j === ($pos - 1)) && !$flag) {
-                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
-                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
-                    $flag = true;
-                } else {
-                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
-                }
-            }
+//            $flag = false;
+//            for ($j=0; $j <count($word_chars); $j++) {
+//                if (($j === ($pos - 1)) && !$flag) {
+//                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
+//                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
+//                    $flag = true;
+//                } else {
+//                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
+//                }
+//            }
             $htmlTable .= "</div>";
             $i++;
         }
@@ -692,6 +699,7 @@ class Puzzle {
         $i = 0;
         foreach ($this->puzzle_chars as $char) {
             $word_chars = getWordChars($this->word_array[$i]);
+            //var_dump($word_chars);
             $j = 0;
             foreach ($word_chars as $char2) {
                 if ($char === $char2) {
