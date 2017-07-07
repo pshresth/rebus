@@ -33,14 +33,7 @@ else{
 session_start();
 echo getTopNav();
 ?>
-<div id="export">
-    <div id="import">
-        <form id="edit_word_form" class="upload" action="admin_edit_synonyms.php" method="get">
-            <a class="upload" href="#" onclick="document.getElementById('edit_word_form').submit()">[1]Edit Synonyms for
-                the word:</a>
-            <input class="upload" type="textbox" name="word"/>
-        </form>
-    </div>
+<!--<div id="export">
     <br><br>
     <h2 class="upload">[3]Import the word list (Source: Excel File; Target: Database)</h2>
     <div id="import">
@@ -58,7 +51,7 @@ echo getTopNav();
             <label class="upload"><input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
             <input class="upload" type="submit" value="Submit File" name="submit">
         </form>
-    </div>
+    </div> -->
     <br><br>
     <table align="center" class="adminTable">
         <tr>
@@ -75,7 +68,7 @@ echo getTopNav();
                 <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/import.png" class="thumbnailSize">
+                <a href="uploadPage.php"><img src="./pic/import.png" class="thumbnailSize">
             </td>
             <td align="center">
                 <a href="#"><img src="./pic/configure.png" class="thumbnailSize"></a>

@@ -340,9 +340,10 @@ body {
 #export {
   padding-left: 1em;
   padding-top: 1em;
-  display: inline;
-  float: left;
-  width: 100%;
+  width: 60%;
+  border: 2px solid black;
+  margin-left: 15%;
+  margin-top: 5%;
 }
 
 #export a {
@@ -437,6 +438,7 @@ body {
 #import {
   display: inline-block;
   height: auto;
+  margin-left: 15%;
 }
 
 #strongUpload {
@@ -484,8 +486,8 @@ body {
 }
 
 .adminTable{
-  border: 1px solid black;
-  width: 80%;
+  margin-top: 2%;
+  width: 60%;
 }
 
 table tr.separator {
