@@ -574,7 +574,7 @@ class Puzzle {
                     array_push($wordId_array, "");
                     array_push($word_array, $char);
                     array_push($clues_array, $char);
-                    array_push($image_array, $char);
+                    array_push($image_array, "");
                 }
             }
         }
@@ -621,12 +621,12 @@ class Puzzle {
             $pos = array_search($puzzleChar, $word_chars) + 1;
             $len = count($word_chars);
             $htmlTable .= "<tr><td align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</td>";
-            $image = "./Images/" . $this->image_array[$i];
-            if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
-                $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
-            } else {
-                //echo $image;
+
+            if (!empty($this->image_array[$i])) {
+                $image = "./Images/" . $this->image_array[$i];
                 $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
+            } else {
+                $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
             }
             $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none;" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none;"/>';
             $flag = false;
@@ -659,13 +659,11 @@ class Puzzle {
                         <input type="hidden" name="oldWordId'.$i.'" value="' .$id. '"/>
                         </td>';
 
-            //$image = getImage($this, $i);
-            $image = "./Images/" . $this->image_array[$i];
-            if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
-                $htmlTable .= "<td>" . $puzzleChar . "</td>";
-            } else {
-                //echo $image;
+            if (!empty($this->image_array[$i])) {
+                $image = "./Images/" . $this->image_array[$i];
                 $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
+            } else {
+                $htmlTable .= "<td>" . $puzzleChar . "</td>";
             }
 
             $pos = array_search($puzzleChar, $word_chars) + 1;

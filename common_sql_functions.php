@@ -303,12 +303,14 @@ function getWordFromPuzzleWords($puzzle_id)
     $sql = 'SELECT * FROM puzzle_words WHERE puzzle_words.puzzle_id=\'' . $puzzle_id . '\' ORDER BY position_in_name;';
     $result = run_sql($sql);
     $num_rows = $result->num_rows;
-
+    $image = "";
     $wordList = array();
     if ($num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
             // Check if word exists in the word table
             $wordInfo = array();
+            $image = "";
+            $word_id = "";
             $word = $row['word'];
             $clue = $row['clue'];
             $sql = 'SELECT * FROM words WHERE word = \'' . $word . '\';';
@@ -319,9 +321,10 @@ function getWordFromPuzzleWords($puzzle_id)
                 $word_id = $word_row['word_id'];
                 $image = $word_row['image'];
             } else {
-                $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $clue . '\',  \'' . $clue . '.jpg\');';
-                $word_id = run_sql($sql);
-                $image = $clue . '.jpg';
+                if(count($word) > 1) {
+                    $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $clue . '\',  \'\');';
+                    $word_id = run_sql($sql);
+                }
             }
             array_push($wordInfo, $word_id, $word, $clue, $image);
             array_push($wordList, $wordInfo);
