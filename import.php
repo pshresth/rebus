@@ -34,7 +34,7 @@
 			$image = $sheet->getCell('C'.$row)->getValue();
 
 			// to remove invalid character eg: \u00a0
-            $word =mb_strtolower(str_replace(chr(194) . chr(160), '', $word));
+            $word = validate_word($word);
             $english_word = validate_input($english_word);
             $image = validate_input($image);
 

@@ -571,6 +571,7 @@ class Puzzle {
                     array_push($wordId_array, $word['word_id']);
                     array_push($image_array, $word['image']);
                 } else {
+                    array_push($wordId_array, "");
                     array_push($word_array, $char);
                     array_push($clues_array, $char);
                     array_push($image_array, $char);

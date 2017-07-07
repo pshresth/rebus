@@ -7,13 +7,22 @@
 function validate_input($data)
 {
     $data = stripslashes($data);
-   // $data = preg_replace('/\s+/', '', $data);
+    // $data = preg_replace('/\s+/', '', $data);
     $data = htmlspecialchars($data);
     //$data = trim($data);
     $data = str_replace("'", "", $data);
     $data = str_replace(" ", "", $data);
     $data = mb_strtolower($data);
 
+    return $data;
+}
+
+// Strips white spaces and converts the word to lower case
+function validate_word($data)
+{
+    $data = str_replace(chr(194) . chr(160), '', $data);
+    $data = str_replace(" ", "", $data);
+    $data = mb_strtolower($data);
     return $data;
 }
 
@@ -53,7 +62,8 @@ function display_error($message = -1)
  * @param string $data you want to test for sqlinject
  */
 function containsSql($data)
-{ // NOTE: we should just use real_escape_string(); and  prepared statements.
+{
+    // NOTE: we should just use real_escape_string(); and  prepared statements.
     $flag = false;
     $encoding = 'UTF-8';
     $dataLower = mb_strtolower($data, $encoding);
