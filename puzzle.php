@@ -41,6 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['randomPlay']) && isset($_POST['puzzleWord'])) { //random puzzle
        $puzzleName = validate_input($_POST['puzzleWord']);
         if (strlen($puzzleName) > 0) {
+            //echo $puzzleName;
             $puzzle = new Puzzle($puzzleName, -1, -1, 2, 20);
             $words = $puzzle->js_solution;
             echo $puzzle->htmlTable;
@@ -722,7 +723,9 @@ class Puzzle {
         $puzzleName = $this->puzzleName;
         // $word_id_array = getWordIdArray($this->word_array);
         //$clue_id_array = getClueIdArray($this->clues_array);
-        savePuzzle($puzzleName, $this->word_array, $this->clues_array);
+        if(adminSessionExists()) {
+            savePuzzle($puzzleName, $this->word_array, $this->clues_array);
+        }
     }
 
     function createTableFooter()
