@@ -79,6 +79,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $clue_id_array = array_pop($puzzleInfo);
         $word_id_array = array_pop($puzzleInfo);
         $puzzleName = array_pop($puzzleInfo);
+      //  var_dump($word_id_array);
         savePuzzle($puzzleName, $word_id_array, $clue_id_array);
         echo "<script>alert('Puzzle: $puzzleName was saved.');</script>";
         echo "<form method='POST' action='#'>";
@@ -88,10 +89,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $maxLength = (int)validate_input($_POST['maxLength']);
         $puzzle = new Puzzle($puzzleName, -1, $preferedPosition, $minLength, $maxLength);
         $words = $puzzle->js_solution;
-        // FIXME: is you have time change to show all char
         echo $puzzle->createAdminInputBoxes();
         echo $puzzle->admin_buttons;
         echo "</form>";
+    } else if(isset($_POST['UpdateImages'])) {
+        $puzzleName = $_POST['puzzleWord'];
+        $puzzleInfo = updatePuzzle();
     }
 } else if (isset($_GET['puzzleName']) && isset($_GET['id'])) { // play button from puzzle list
     $puzzleName = validate_input($_GET['puzzleName']);
@@ -104,11 +107,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         tryAgain();
     }
-}else if(isset($_GET['puzzleName']) && isset($_GET['wordid']) && isset($_GET['old_wordid'])){
-    echo $old_wordid = $_GET['old_wordid'];
-    echo $new_wordif = $_GET['wordid'];
-    echo $puzzleName = $_GET['puzzleName'];
-
 }
 else if (isset($_GET['puzzleName'])) {  // come back to play puzzle from login
     $puzzleName = validate_input($_GET['puzzleName']);
@@ -139,9 +137,11 @@ function generateExactPuzzle($nameOfPuzzle, $puzzle_id) {
     if (!$nameExist) {
         generatePuzzle($nameEntered);
     } else { // puzzle exists
-        $puzzle_chars = getWordChars($nameEntered);
+        echo $puzzle_chars = getWordChars($nameEntered);
         $word_array = getWordValuesFromPuzzleWords($puzzle_id);
         $clues_array = getClueValuesFromPuzzleWords($puzzle_id);
+       // var_dump($word_array);
+        //var_dump($clues_array);
         $i = 0;
         foreach ($puzzle_chars as $char) {
             $word_chars = getWordChars($word_array[$i]);
@@ -319,17 +319,14 @@ function pullInputFromSave() {
     $clue = 'clue';
     $i = 0;
     if (isset($_POST['puzzleWord'])) {
-        $puzzleName = mb_strtolower(validate_input($_POST['puzzleWord']), 'UTF-8');
+       $puzzleName = mb_strtolower(validate_input($_POST['puzzleWord']), 'UTF-8');
     }
+
     for ($i = 0; isset($_POST[$word . "" . $i]) && isset($_POST[$clue . "" . $i]); $i++) {
-        echo($_POST[$word . "" . $i]);
+       // echo($_POST[$word . "" . $i]);
         array_push($word_id_array, validate_input($_POST[$word . "" . $i]));
         array_push($clue_id_array, validate_input($_POST[$clue . "" . $i]));
     }
-    // echo "pullInputfromSave Line357: ";
-    //($word_id_array);
-    // echo "pullInputfromSave Line359: ";
-    //var_dump($clue_id_array);
     array_push($input, $puzzleName, $word_id_array, $clue_id_array);
     return $input;
 }
@@ -339,6 +336,8 @@ function savePuzzle($puzzleName, $word_array, $clue_array){
     create_puzzle($puzzleName);
     // create puzzle_words
     $puzzle_id = (getMaxPuzzleId(-1) - 1);
+   // echo $puzzleName;
+   // var_dump($word_array);
     input_puzzle_words($word_array, $clue_array, $puzzle_id);
 }
 
@@ -405,6 +404,60 @@ function tryAgain() {
       </form>';
 }
 
+function updatePuzzle()
+{
+    $new_id_array = array();
+    $old_id_array = array();
+    $image_array = array();
+    $new_id = 'newWordId';
+    $old_id = 'oldWordId';
+    $word_array = array();
+    $clue_array = array();
+    $i = 0;
+    if (isset($_POST['puzzleWord'])) {
+        $puzzleName = mb_strtolower(validate_input($_POST['puzzleWord']), 'UTF-8');
+        $puzzle = getWordChars($puzzleName);
+    }
+
+    for ($i = 0; isset($_POST[$new_id.$i]) && isset($_POST[$old_id.$i]); $i++) {
+        if(!empty($_POST[$new_id.$i])) {
+            array_push($new_id_array, validate_input($_POST[$new_id.$i]));
+        }
+        else{
+            echo "No new ID for ".($_POST[$old_id.$i]). "was provided. It will not update.";
+            array_push($new_id_array, validate_input($_POST[$old_id.$i]));
+        }
+        array_push($old_id_array, validate_input($_POST[$old_id.$i]));
+    }
+
+    for($i=0; $i < count($new_id_array); $i++){
+        if(getCharIndex($new_id_array[$i],$puzzle[$i]) === null){
+            echo "<script>alert('Word id: $new_id_array[$i] does not contain the right character: $puzzle[$i]. It will not be updated.');</script>";
+            $new_id_array[$i] = $old_id_array[$i];
+        }
+        $word = getWordValue($new_id_array[$i]);
+        array_push($word_array, $word);
+        $clue = getClue($new_id_array[$i]);
+        array_push($clue_array, $clue);
+        array_push($image_array, getImageName($word));
+    }
+
+  echo "<form method='POST' action='#'>";
+    $puzzleName = validate_input($_POST['puzzleWord']);
+    $preferedPosition = (int)validate_input($_POST['position']);
+    $minLength = (int)validate_input($_POST['minLength']);
+    $maxLength = (int)validate_input($_POST['maxLength']);
+    $puzzle = new Puzzle($puzzleName, -1, $preferedPosition, $minLength, $maxLength);
+    $puzzle->word_array = $word_array;
+    $puzzle->clues_array = $clue_array;
+    $puzzle->image_array = $image_array;
+    $puzzle->wordId_array = $new_id_array;
+    echo "'Puzzle: $puzzleName has been updated!";
+    $words = $puzzle->js_solution;
+    echo $puzzle->createAdminInputBoxes();
+    echo $puzzle->admin_buttons;
+    echo "</form>";
+}
 /**
  * Puzzle class that represents a puzzle in the database
  */
@@ -503,6 +556,7 @@ class Puzzle {
                 // var_dump($word_array);
                 $clues_array = getClueValuesFromPuzzleWords($this->puzzle_id);
                 $wordId_array = getWordValuesFromPuzzleWords($this->puzzle_id);
+              //  var_dump($word_array);
                 foreach ($word_array as $value) {
                     array_push($image_array, getImageName($value));
                 }
@@ -561,24 +615,22 @@ class Puzzle {
             $len = count($word_chars);
             $htmlTable .= "<tr><td align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</td>";
             $image = getImage($this, $i);
-            if ($image === "./Images/noImage.jpg") {
+            if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
                 $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
             } else {
                 //echo $image;
                 $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
             }
             $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none;" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none;"/>';
-            $j = 0;
             $flag = false;
-            foreach ($word_chars as $char) {
-                if ($char === $puzzleChar && !$flag) {
-                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline" readonly/>';
-                    //$htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
+            for ($j=0; $j <count($word_chars); $j++) {
+                if (($j === ($pos - 1)) && !$flag) {
+                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
+                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
                     $flag = true;
                 } else {
                     $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
                 }
-                $j++;
             }
 
             $htmlTable .= "</div>";
@@ -596,33 +648,33 @@ class Puzzle {
             //  $htmlTable .= "<tr><td>".$this->wordId_array[$i]."</td>";
             $id = $this->wordId_array[$i];
             $htmlTable .= '<tr><td>
-                        <input class="puzzleInput word_char" type="text" name="wordId" placeholder=" ' . $id . ' "/>
-                        <input class="word_char active" type="hidden" name="puzzleWord" value="' . $this->puzzleName . '"/>
-                        <input type="submit" value="Image" name="old_wordId" alt ='.$id.'></td>';
-            if (isset($_POST['submit'])) {
-                echo "Image Changed";
-                //echo $sub = $_POST['submit'];
-                echo $newId = $_POST['id'];
-            }
+                        <input class="puzzleInput word_char" type="text" name="newWordId'.$i.'" placeholder=" ' . $id . ' "/>
+                        <input type="hidden" name="oldWordId'.$i.'" value="' .$id. '"/>
+                        </td>';
+
             $image = getImage($this, $i);
-            $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
+            if (strcasecmp($image, "./Images/noImage.jpg") === 0) {
+                $htmlTable .= "<td>" . $puzzleChar . "</td><td>";
+            } else {
+                //echo $image;
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
+            }
 
             $pos = array_search($puzzleChar, $word_chars) + 1;
             $len = count($word_chars);
             $htmlTable .= "<td>" . $pos . '/' . $len . "</td>";
-            $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . getWordIdFromWord($this->clues_array[$i]) . "'/></td>";
-            $htmlTable .= "<td>" . $this->word_array[$i] . "</td></tr></form>";
-//            $j = 0;
-//            $flag = false;
-//            foreach ($word_chars as $char) {
-//                if ($char === $puzzleChar && !$flag) {
-//                    $htmlTable .= '<input type=\'hidden\' name=\'word' . $i . '\' value="' . getWordIdFromWord($this->word_array[$i]) . '"/><input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
-//                    $flag = true;
-//                } else {
-//                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline"/>';
-//                }
-//                $j++;
-//            }
+            $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . $this->clues_array[$i] . "'/></td>";
+            $htmlTable .= "<td>" . $this->word_array[$i] . "<input type='hidden' name='word" . $i . "' value='" . $this->word_array[$i] . "'/></td></tr></form>";
+            $flag = false;
+            for ($j=0; $j <count($word_chars); $j++) {
+                if (($j === ($pos - 1)) && !$flag) {
+                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
+                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
+                    $flag = true;
+                } else {
+                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
+                }
+            }
             $htmlTable .= "</div>";
             $i++;
         }
@@ -675,9 +727,11 @@ class Puzzle {
         $this->admin_buttons = '<div class="container"><input class="word_char active" type="hidden" maxLength="2" name="minLength" value="' . $this->minLength . '" 
                 style="display:inline"/><input class="word_char active" type="hidden" maxLength="2" name="maxLength" 
                 value="' . $this->maxLength . '" style="display:inline"/><input class="word_char active" type="hidden" 
-                m name="puzzleWord" value="' . $this->puzzleName . '"/> <input 
+                name="puzzleWord" value="' . $this->puzzleName . '"/> <input 
                 class="word_char active" type="hidden" maxLength="2" name="position" value="' . $this->position . '" style="display:inline"/>
-                <div style="text-align:center"><input class="main-buttons" type="submit" name="iDesign" value="Refresh"/>
+                <div style="text-align:center">
+                <input class="main-buttons" type="submit" name="UpdateImages" value="Update Images"/>
+                <input class="main-buttons" type="submit" name="iDesign" value="Refresh"/>
                 <input class="main-buttons" type="submit" name="saveIDesign" value="Save"/></div></div>';
     }
 }

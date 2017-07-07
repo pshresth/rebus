@@ -38,6 +38,10 @@
 	}
 	function create_puzzle($name, $email = 'admin')
 	{
+		if(!adminSessionExists())
+		{
+			$email = 'user';
+		}
 		$sql = 'INSERT INTO puzzles (puzzle_id, puzzle_name, creator_email) VALUES
 		(DEFAULT, \''.$name.'\', \'' . $email . '\');';
 		run_sql('SET foreign_key_checks = 0;');
@@ -138,7 +142,7 @@
 					echo 'Random: ' . $random . ' <br>';
 					$word = $rows[$random]["word_value"];
 					
-					if(!in_array($word, $puzzlewords))
+					if(!in_array($word, $puzzlewords, true))
 					{
 						$chosen_word = $word;
 						break;

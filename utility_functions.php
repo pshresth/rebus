@@ -11,8 +11,8 @@ function validate_input($data)
     $data = htmlspecialchars($data);
     //$data = trim($data);
     $data = str_replace("'", "", $data);
-
     $data = str_replace(" ", "", $data);
+    $data = mb_strtolower($data);
 
     return $data;
 }

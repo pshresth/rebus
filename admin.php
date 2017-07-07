@@ -42,7 +42,6 @@ echo getTopNav();
         </form>
     </div>
     <br><br>
-    <a href="export_db.php">[2]Export the word list (Source: Database; Target: Excel file)</a><br>
     <h2 class="upload">[3]Import the word list (Source: Excel File; Target: Database)</h2>
     <div id="import">
         <p id="error" style="display: none;">Error: You must select a file to import</p>
@@ -61,25 +60,63 @@ echo getTopNav();
         </form>
     </div>
     <br><br>
-    <!--
-            <a href="admin_manage_users.php">[6] Manage Users (add, delete, update) (Extra Credit)</a><br> -->
-    <a href="list_words.php">[4] Edit Words</a>
     <table align="center" class="adminTable">
         <tr>
             <td align="center">
-                <a href="list_words.php"><img src="./pic/adminEdit.jpeg" class="thumbnailSize"></a>
+                <a href="add_word.php"><img src="./pic/addAWord.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize">
+                <a href="list_words.php"><img src="./pic/wordList.png" class="thumbnailSize">
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/import.png" class="thumbnailSize"></a>
+                <a href="#"><img src="./pic/users.png" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/import.png" class="thumbnailSize">
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/configure.png" class="thumbnailSize"></a>
             </td>
         </tr>
         <tr>
-            <td align="center"><a href="list_words.php">Word List</a></td>
-            <td align="center"><a href="export_db.php">Export</a></td>
-            <td align="center"><a href="#">Import</a></td>
+            <td align="center"><a href="list_words.php">Add Word</a></td>
+            <td align="center"><a href="export_db.php">Word List</a></td>
+            <td align="center"><a href="#">Users</a></td>
+            <td align="center"><a href="list_words.php">Export</a></td>
+            <td align="center"><a href="export_db.php">Import</a></td>
+            <td align="center"><a href="#">Configure</a></td>
+        </tr>
+        <tr class="separator"><td></td></tr>
+        <tr>
+            <td align="center">
+                <a href="#"><img src="./pic/backUp.png" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/report.png" class="thumbnailSize">
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/oneWordManyPuzzles.png" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/manyWordsOnePuzzle.png" class="thumbnailSize"></a>
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/startProject.png" class="thumbnailSize">
+            </td>
+            <td align="center">
+                <a href="#"><img src="./pic/stopProject.png" class="thumbnailSize"></a>
+            </td>
+        </tr>
+        <tr>
+            <td align="center"><a href="list_words.php">Backup</a></td>
+            <td align="center"><a href="export_db.php">Report</a></td>
+            <td align="center"><a href="#">One Word <br> Many Puzzle</a></td>
+            <td align="center"><a href="list_words.php">Many Words <br> One Puzzle</a></td>
+            <td align="center"><a href="export_db.php">Start <br> Project</a></td>
+            <td align="center"><a href="#">Stop <br> Project</a></td>
         </tr>
     </table>
 </div>

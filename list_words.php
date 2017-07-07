@@ -197,7 +197,7 @@ require('db_configuration.php');
             echo "<a href = \"?page=$i\" style=\"font-size:160%;\"> [" .($i+1)."] </a> ";
             $i++;
         }
-echo'<a href="./add_word.php"><img src="./pic/adminAddWord.png" style="margin-left:57%"></a>';
+echo'<a href="./add_word.php"><img src="./pic/adminAddWord.png" style="margin-left:48%"></a>';
 echo '<div>
     <table class="table table-condensed main-tables" id="puzzle_table">
         <thead>

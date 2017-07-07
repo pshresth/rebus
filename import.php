@@ -34,7 +34,7 @@
 			$image = $sheet->getCell('C'.$row)->getValue();
 
 			// to remove invalid character eg: \u00a0
-            $word = str_replace(chr(194) . chr(160), '', $word);
+            $word =mb_strtolower(str_replace(chr(194) . chr(160), '', $word));
             $english_word = validate_input($english_word);
             $image = validate_input($image);
 
@@ -44,7 +44,7 @@
 
 			// Insert new data into Words & Characters Table
 			insertIntoWordsTable($word, $english_word, $image);
-			insertIntoCharactersTable($word);
+			//insertIntoCharactersTable($word);
 		}
 		echo '<h2 style="color:	green;" class="upload">Import Successful!</h2>';
 	}

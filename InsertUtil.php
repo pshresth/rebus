@@ -22,6 +22,16 @@ function insertIntoWordsTable($word, $eng_word, $image)
         //insert each new words into words table.
         $sqlAddWord = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $eng_word . '\', \'' . $image . '\');';
         $result = run_sql($sqlAddWord);
+        $word_id = $result;
+        $logicalChars = getWordChars($word);
+
+        for ($j = 0; $j < count($logicalChars); $j++) {
+            //insert each letter into char table.
+            if($logicalChars[$j] != " ") {
+                $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\'' . $word_id . '\', \'' . $j . '\', \'' . $logicalChars[$j] . '\');';
+                run_sql($sqlAddLetters);
+            }
+        }
     } else {
         //The words already exists in the database.
         //echo "the words already exists.";

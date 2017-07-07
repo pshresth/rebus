@@ -289,7 +289,7 @@ function getWordValuesFromPuzzleWords($puzzle_id) {
     while ($row  = $result->fetch_assoc()) {
       array_push($words, $row["word"]);
         $word = $row["word"];
-        // Check if word exists in the word table
+                // Check if word exists in the word table
         $sql = 'SELECT * FROM words WHERE word = \''.$word.'\';';
         try {
             run_sql($sql);
