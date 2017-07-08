@@ -62,7 +62,7 @@ echo getTopNav();
                 <a href="list_words.php"><img src="./pic/wordList.png" class="thumbnailSize">
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/users.png" class="thumbnailSize"></a>
+                <a href="admin_manage_users.php"><img src="./pic/users.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
                 <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize"></a>
@@ -77,7 +77,7 @@ echo getTopNav();
         <tr>
             <td align="center"><a href="list_words.php">Add Word</a></td>
             <td align="center"><a href="export_db.php">Word List</a></td>
-            <td align="center"><a href="#">Users</a></td>
+            <td align="center"><a href="admin_manage_users.php">Users</a></td>
             <td align="center"><a href="list_words.php">Export</a></td>
             <td align="center"><a href="export_db.php">Import</a></td>
             <td align="center"><a href="#">Configure</a></td>

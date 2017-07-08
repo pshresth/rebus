@@ -34,7 +34,17 @@ function create_user_table()
     $listOfUsers = getUserInfo();
     while (sizeof($listOfUsers) > 0) {
         $user = array_pop($listOfUsers);
-        $htmlTableBody .= "<tr><td>" . $user->name . "</td><td>" . $user->email . "</td><td>" . $user->isVerified . "</td><td>" . $user->isAdmin . "</td></tr>";
+        $htmlTableBody .=
+            "<tr><td>" . $user->name . "</td><td>" . $user->email . "</td><td>" . $user->isVerified . "</td><td>" . $user->isAdmin . "</td>
+                 <td>
+                    <a href=\"#\">
+                        <img class=\"table_image\" src=\"pic/edit.jpg\" alt=\"Edit\">
+                    </a>
+                    <a href=\"#\">
+                        <img class=\"table_image\" src=\"pic/delete.jpg\" alt=\"deleteWord\">
+                    </a>
+                 </td>
+             </tr>";
     }
     return $htmlTableBody;
 }
