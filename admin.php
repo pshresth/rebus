@@ -14,7 +14,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Rebus Admin</title>
 </head>
 <?PHP
 require('session_validation.php');

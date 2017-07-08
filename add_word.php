@@ -22,7 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="javascript/typeahead.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Rebus Add</title>
 </head>
 <body>
 <?php
@@ -92,7 +92,7 @@ require('db_configuration.php');
                 $result = run_sql($sql);
                 $uploadOk = 1;
 
-            echo '<h2 style="color:	green;" class="upload">Import Successful!</h2>';
+            echo '<h2 style="color:	green;" class="upload">Success: Word is added.</h2>';
 
 
         }

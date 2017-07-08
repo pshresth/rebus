@@ -12,7 +12,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Rebus</title>
 </head>
 
 <body>
@@ -649,44 +649,54 @@ class Puzzle {
     }
 
     function createAdminInputBoxes() {
-        $htmlTable = '<div class="container"><h1 style="color:red;">"' . $this->puzzleName . '"</h1><table class="table table-condensed main-tables" id="puzzle_table" style="width:100%"><thead><tr><th>Word Id</th><th>Image</th><th>Index</th><th>English Word</th><th>Word</th></tr></thead><tbody>';
-        $i = 0;
-        foreach ($this->puzzle_chars as $puzzleChar) {
-            $word_chars = getWordChars($this->word_array[$i]);
-            //  $htmlTable .= "<tr><td>".$this->wordId_array[$i]."</td>";
-            $id = $this->wordId_array[$i];
-            $htmlTable .= '<tr><td>
-                        <input class="puzzleInput word_char" type="text" name="newWordId'.$i.'" placeholder=" ' . $id . ' "/>
-                        <input type="hidden" name="oldWordId'.$i.'" value="' .$id. '"/>
-                        </td>';
+        $htmlTable = '<div class="container"><h1 style="color:red;">"' . $this->puzzleName . '"</h1>
+        <table class="table table-condensed main-tables" id="puzzle_table" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Word Id</th>
+                    <th>Image</th>
+                    <th>Index</th>
+                    <th>Word</th>
+                    <th>English Word</th>
+                    </tr></thead>
+                    <tbody>';
+                        $i = 0;
+                        foreach ($this->puzzle_chars as $puzzleChar) {
+                            $word_chars = getWordChars($this->word_array[$i]);
+                            //  $htmlTable .= "<tr><td>".$this->wordId_array[$i]."</td>";
+                            $id = $this->wordId_array[$i];
+                            $htmlTable .= '<tr><td>
+                                        <input class="puzzleInput word_char" type="text" name="newWordId'.$i.'" placeholder=" ' . $id . ' "/>
+                                        <input type="hidden" name="oldWordId'.$i.'" value="' .$id. '"/>
+                                        </td>';
 
-            if (!empty($this->image_array[$i])) {
-                $image = "./Images/" . $this->image_array[$i];
-                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
-            } else {
-                $htmlTable .= "<td>" . $puzzleChar . "</td>";
-            }
+                            if (!empty($this->image_array[$i])) {
+                                $image = "./Images/" . $this->image_array[$i];
+                                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td>";
+                            } else {
+                                $htmlTable .= "<td>" . $puzzleChar . "</td>";
+                            }
 
-            $pos = array_search($puzzleChar, $word_chars) + 1;
-            $len = count($word_chars);
-            $htmlTable .= "<td>" . $pos . '/' . $len . "</td>";
-            $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . $this->clues_array[$i] . "'/></td>";
-            $htmlTable .= "<td>" . $this->word_array[$i] . "<input type='hidden' name='word" . $i . "' value='" . $this->word_array[$i] . "'/></td></tr></form>";
-//            $flag = false;
-//            for ($j=0; $j <count($word_chars); $j++) {
-//                if (($j === ($pos - 1)) && !$flag) {
-//                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
-//                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
-//                    $flag = true;
-//                } else {
-//                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
-//                }
-//            }
-            $htmlTable .= "</div>";
-            $i++;
-        }
-        $htmlTable .= '</tbody></table></div>';
-        return $htmlTable;
+                            $pos = array_search($puzzleChar, $word_chars) + 1;
+                            $len = count($word_chars);
+                            $htmlTable .= "<td>" . $pos . '/' . $len . "</td>";
+                            $htmlTable .= "<td>" . $this->word_array[$i] . "<input type='hidden' name='word" . $i . "' value='" . $this->word_array[$i] . "'/></td>";
+                            $htmlTable .= "<td>" . $this->clues_array[$i] . "<input type='hidden' name='clue" . $i . "' value='" . $this->clues_array[$i] . "'/></td></tr></form>";
+                //            $flag = false;
+                //            for ($j=0; $j <count($word_chars); $j++) {
+                //                if (($j === ($pos - 1)) && !$flag) {
+                //                    // $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" style="display:inline"/>';
+                //                    $htmlTable .= '<input class="puzzleInput word_char active" type="text" maxLength="7" value="' . $word_chars[$j] . '" style="display:inline" readonly/>';
+                //                    $flag = true;
+                //                } else {
+                //                    $htmlTable .= '<input class="puzzleInput word_char" type="text" maxLength="7" value="" style="display:inline"/>';
+                //                }
+                //            }
+                            $htmlTable .= "</div>";
+                            $i++;
+                        }
+      $htmlTable .= '</tbody></table></div>';
+    return $htmlTable;
     }
 
     /**

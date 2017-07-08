@@ -13,7 +13,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
   </head>
-  <title>Final Project</title>
+  <title>Rebus</title>
   <body>
     <?PHP
     session_start();
