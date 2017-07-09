@@ -27,6 +27,7 @@
 <body>
 <?php
 require('db_configuration.php');
+require('InsertUtil.php');
 ?>
 <?PHP echo getTopNav(); ?>
 <div id="pop_up_fail" class="container pop_up" style="display:none">
@@ -87,10 +88,10 @@ require('db_configuration.php');
 
                 $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $eng . '\',\'' . $imageName . '\');';
 
-
                 //$sql = 'UPDATE words SET image=\'' . $imageName . '\' WHERE word_id=' . $_POST['word_id'] . '';
                 $result = run_sql($sql);
                 $uploadOk = 1;
+                insertIntoCharactersTable($word);
 
             echo '<h2 style="color:	green;" class="upload">Success: Word is added.</h2>';
 

@@ -56,7 +56,9 @@
           <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
           <img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img></a>
           <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
-          <img class="table_image" src="pic/delete.jpg" alt="Delete '.$row["puzzle_name"].' puzzle"></img></a>
+          <img class="table_image" src="pic/delete.png" alt="Delete '.$row["puzzle_name"].' puzzle"></img></a>
+          <a href="#">
+          <img class="table_image" src="pic/print.png" alt="Print '.$row["puzzle_name"].' puzzle"></img></a>
           </td>
           </tr>';
             $count++;
