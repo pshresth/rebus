@@ -4,7 +4,8 @@
     <?PHP
     require_once('db_configuration.php');
     require_once('create_puzzle.php');
-    require_once('add_words_process.php');
+    //require_once('add_words_process.php');
+    //require('InsertUtil.php');
     session_start();
     require('session_validation.php');
     ?>
@@ -19,186 +20,127 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <style>
-        .text {
-            position: relative;
-            top: 20px;
-            height: 30px;
-            margin-left: 30px;
-            width: 680px;
-        }
-
-        .fontword {
-            font-size: 30px;
-        }
-
-        .divInputs {
-            position: relative;
-            top: 80px;
-            height: 140px;
-            margin-left: 200px;
-            width: 980px;
-        }
-
-        .inputleft {
-            border-radius: 25px;
-            height: 130px;
-            width: 450px;
-            border-width: 3px;
-            border-style: solid;
-            margin-top: 90px;
-            margin-left: 0px;
-        }
-
-        .inputright {
-            border-radius: 25px;
-            height: 130px;
-            width: 450px;
-            border-width: 3px;
-            border-style: solid;
-            margin-top: -135px;
-            margin-left: 530px;
-        }
-
-        .textbox {
-            background-color: transparent;
-            border: 0px solid;
-            outline: none;
-            margin-left: 15px;
-            margin-top: 10px;
-            height: 100px;
-            width: 340px;
-            font-size: 35px;
-        }
-
-        .imagediv {
-            margin-top: -100px;
-            margin-left: 460px;
-        }
-
-        .addButton {
-            background-color: #70baeb;
-            border: 2px solid black;
-            color: black;
-            padding: 15px 32px;
-            width: 320px;
-            height: 60px;
-            text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 30px;
-            margin: 4px 2px;
-            cursor: pointer;
-            border-radius: 12px;
-            margin-left: 430px;
-            margin-top: 50px;
-        }
-
-    </style>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/main_style.css" type="text/css">
 </head>
-<title>Final Project</title>
-<body>
-<?PHP echo getTopNav(); ?>
-<?php
-if (isset($_GET['word'])) {
-    $word_id= $_GET['id'];
-    echo $wordProvided;
-    if ($wordProvided != NULL) {
-        $sqlcheck = 'SELECT * FROM words WHERE word_id = \'' . $word_id. '\';';
-        $result = run_sql($sqlcheck);
-        $row = $result->fetch_assoc();
-        $word_id = $row["word_id"];
-        $show = $wordProvided;
-        $data = $row["english_word"];
+<title>Rebus Edit Words</title>
+    <body>
+    <?PHP echo getTopNav();
 
-        if ($data != $wordProvided) {
-            $show = $show . ", " . $data;
-        }
-    }
-}
+        if (isset($_GET['id'])) {
+            $word_id= $_GET['id'];
+            //echo $word_id;
+            if ($word_id != NULL) {
+                $sqlcheck = 'SELECT * FROM words WHERE word_id = \'' . $word_id. '\';';
+                $result = run_sql($sqlcheck);
+                $row = $result->fetch_assoc();
+                $word_id = $row["word_id"];
+                $word = $row["word"];
+                $eng_word = $row["english_word"];
+                $img = $row["image"];
+               // echo $word . ',' . $eng_word . ',' . $img;
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST' && !$_POST['updateWord'] == '') {
-    echo "<div class='result' id='confirmText'>";
-    echo "<font class='fontword'>Thank you. The synonym list has been updated.<br><br>";
-    echo "Would you like to update another set of synonyms?</font>";
-    echo "</div>";
-
-    echo "<form method='post' id='inputForm'>";
-    echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox'></input></div>";
-    echo "<br>
-			<input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
-			</form>
-			</div>";
-} else {
-    echo "<div class='result' id='confirmText'>";
-    echo "<font class='fontword'>Name In Synonym <img src='./pic/arrow.png'> Edit Synonyms<br><br>";
-    echo "Here are all the synonyms of the words \"<font color='blue'>  $wordProvided  </font>\" <br>";
-    echo "You can add, delete, or update any words in the list</font>";
-    echo "</div>";
-    echo "<form method='post' id='inputForm'>";
-    echo "<div class='inputDiv'><input type='textbox' name='updateWord' id='name-textbox' value='$show' ></input></div>";
-    echo "<br>
-			<input class='addButton' id='addButton' type='submit' name='submit' value='Update Word Pairs'>
-			</form>
-			</div>";
-}
-
-if (isset($_POST['submit'])) {
-    foreach ($synonyms as $word) {
-        $word_id = $word["word_id"];
-
-
-        $sqlDeleteChar = 'DELETE FROM characters WHERE word_id = \'' . $word_id . '\';';
-        run_sql($sqlDeleteChar);
-
-        //$aqlDeletePuzzleWord = 'DELETE FROM puzzle_words WHERE word_id = \''. $word_id . '\';';
-        //run_sql($aqlDeletePuzzleWord);
-
-        run_sql('SET foreign_key_checks = 0;');
-
-        $sqlDeletewords = 'DELETE FROM words WHERE word_id = \'' . $word_id . '\';';
-        run_sql($sqlDeletewords);
-
-        run_sql('SET foreign_key_checks = 1;');
-
-        // for later use to add new random puzzle_words
-        $sql_puzzle_words = 'SELECT puzzle_id, position_in_name FROM puzzle_words WHERE word = ' . $word["word_value"] . ';';
-        $puzzle_words = run_sql($sql_puzzle_words);
-
-        $word_added = "";
-        // add new random puzzle_words
-        while ($puzzle_word = $puzzle_words->fetch_assoc()) {
-            $puzzle_id = $puzzle_word["puzzle_id"];
-            // get array of words associated with puzzle_id in puzzle_words
-            $puzzlewords = get_puzzle_words($puzzle_id);
-            $index = $puzzle_word["position_in_name"];
-
-            // get character in puzzle name at index
-            $sql_getPuzzle = 'SELECT * FROM puzzles WHERE puzzle_id = ' . $puzzle_id . ';';
-            $result = run_sql($sql_getPuzzle);
-            $row = $result->fetch_assoc();
-            $puzzle_name = $row["puzzle_name"];
-            $parsed_name = getWordChars($puzzle_name);
-            $character = $parsed_name[$index];
-
-            $word_added = add_puzzle_word($puzzle_id, $character, $index, $puzzlewords);
-
-            if ($word_added == null) {
-                // no words could be added. More should probably be done (some type of default action).
+//                if ($data != $wordProvided) {
+//                    $show = $show . ", " . $data;
+//                }
             }
         }
-    }
 
-    $newWords = trim($_POST['updateWord']);
+    echo '<div>
+        <br>
+        <br>
+        <!--    <button type="button" id="addRow" name="addRow" onclick="AddTableRows()">Add More Rows</button>-->
+        <table class="table table-condensed main-tables" id="word_table" style="margin-left: 5%">
+            <thead>
+            <tr>
+                <th>Word</th>
+                <th>English Word</th>
+                <th>Image Thumbnail</th>
+                <th>Update Thumbnail</th>
+                <th>Action</th>
+            </tr>
+            </thead>
+            <tbody>
+            <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                <tr>
+                    <td><input type="textbox" name="word" id="name" value=" '.$word.' " style="background-color:#d1d3d6" disabled/></td>
+                    <td><input type="textbox" name="eng_word" id="eng_word" value=" '.$eng_word.' " /></td>
+                    <td><img class="thumbnailSize" src="./Images/' . $row['image'] . '" alt ="' . $row['image'] . '"></td>
+                    <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload" /></td>
+                    <td><input class="upload" type="submit" value="Update Word" name="submit" /></td>
+                </tr>
+            </form>';
+        ?>
 
-    $list = explode(',', $newWords);
+            <?php
 
-    insertWordsAndCharacter($list);
-}
-?>
-</body>
+
+            if (isset($_POST['submit'])) {
+                if (isset($_POST['word'])) {
+                    $word = $_POST['word'];
+                }
+                if (isset($_POST['eng_word'])) {
+                    $eng = $_POST['eng_word'];
+                }
+                            $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
+                            //echo $inputFileName;
+
+                            $target_dir = "./Images/";
+                            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                            //echo $target_file;
+                            $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+                            $imageName = basename($_FILES["fileToUpload"]["name"]);
+                            // echo $imageName;
+                            if(!empty($imageName)) {
+                                copy($inputFileName, $target_file);
+                            }
+
+                $sql = 'UPDATE words SET word = \''.$word.'\', english_word = \''.$eng.'\', image =\''.$img.'\' WHERE word_id = '.$word_id.';';
+
+                $result = run_sql($sql);
+                $uploadOk = 1;
+
+//                //update the characters table
+//                $logicalChars = getWordChars($word);
+//
+//                for ($j = 0; $j < count($logicalChars); $j++) {
+//                    //insert each letter into char table.
+//                    if($logicalChars[$j] != " ") {
+//                        $sqlAddLetters = 'UPDATE characters SET word_id = \''. $word_id.'\', character_index = \''. $j.'\', character_value = \''. $logicalChars.'\') where word_id = ' .$word_id. ';';
+//                        run_sql($sqlAddLetters);
+//                    }
+//                }
+
+                echo '<h2 style="color:	green;" class="upload">Success: Word is updated.</h2>';
+
+
+            }
+            ?>
+            <script>
+                function validateForm() {
+                    var eng = document.forms["importFrom"]["fileToUpload"].value;
+                    if (eng == "") {
+
+                        document.getElementById("error").style = "display:block;background-color: #ce4646;padding:5px;color:#fff;";
+                        return false;
+                    }
+                }
+
+                function AddTableRows() {
+                    alert("add rows");
+                    // Find a <table> element with id="myTable":
+                    var table = document.getElementById("myTable");
+
+                    // Create an empty <tr> element and add it to the 1st position of the table:
+                    var row = table.insertRow(git);
+
+                }
+
+            </script>
+            </tbody>
+        </table>
+    </div>
+    </body>
 </html>
