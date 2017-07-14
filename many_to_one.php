@@ -27,27 +27,15 @@ require('session_validation.php');
 <div>
     <form action="generate_multiple_puzzles.php" method="post">
         <div class="container">
-            <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textBox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="clearFields();" />
+            <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="this.placeholder = ''"  />
             </div>
             <br>
             <div style="text-align:center">
-                <?PHP
-                echo '<input class="main-buttons" type="submit" name="randomPlay" value="Show me.." />';
-                //                if (adminSessionExists()) {
-                //                    //echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design... (Option 1)" />';
-                //                    echo '<input class="main-buttons" type="submit" name="iDesign" value="I will design..." />';
-                //                }
-                //                ?>
+                <input class="main-buttons" type="submit" name="randomPlay" value="Show me.." />
             </div>
         </div>
     </form>
 </div>
-<script type="text/javascript">
-    function clearFields() {
-        document.getElementById("name-textBox").value = "";
-    }
-
-</script>
 
 <?php
 if (isset($_POST['submit'])) {
