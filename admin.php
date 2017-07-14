@@ -79,13 +79,13 @@ echo getTopNav();
             <td align="center"><a href="export_db.php">Word List</a></td>
             <td align="center"><a href="admin_manage_users.php">Users</a></td>
             <td align="center"><a href="list_words.php">Export</a></td>
-            <td align="center"><a href="export_db.php">Import</a></td>
+            <td align="center"><a href="uploadPage.php">Import</a></td>
             <td align="center"><a href="#">Configure</a></td>
         </tr>
         <tr class="separator"><td></td></tr>
         <tr>
             <td align="center">
-                <a href="#"><img src="./pic/backUp.png" class="thumbnailSize"></a>
+                <a href="backup.php"><img src="./pic/backUp.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
                 <a href="#"><img src="./pic/report.png" class="thumbnailSize">
@@ -104,11 +104,11 @@ echo getTopNav();
             </td>
         </tr>
         <tr>
-            <td align="center"><a href="list_words.php">Backup</a></td>
-            <td align="center"><a href="export_db.php">Report</a></td>
+            <td align="center"><a href="backup.php">Backup</a></td>
+            <td align="center"><a href="#">Report</a></td>
             <td align="center"><a href="#">One Word <br> Many Puzzle</a></td>
-            <td align="center"><a href="list_words.php">Many Words <br> One Puzzle</a></td>
-            <td align="center"><a href="export_db.php">Start <br> Project</a></td>
+            <td align="center"><a href="#">Many Words <br> One Puzzle</a></td>
+            <td align="center"><a href="#">Start <br> Project</a></td>
             <td align="center"><a href="#">Stop <br> Project</a></td>
         </tr>
     </table>
