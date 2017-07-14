@@ -91,10 +91,10 @@ echo getTopNav();
                 <a href="#"><img src="./pic/report.png" class="thumbnailSize">
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/oneWordManyPuzzles.png" class="thumbnailSize"></a>
+                <a href="one_to_many.php"><img src="./pic/oneWordManyPuzzles.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/manyWordsOnePuzzle.png" class="thumbnailSize"></a>
+                <a href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png" class="thumbnailSize"></a>
             </td>
             <td align="center">
                 <a href="#"><img src="./pic/startProject.png" class="thumbnailSize">
@@ -106,8 +106,8 @@ echo getTopNav();
         <tr>
             <td align="center"><a href="backup.php">Backup</a></td>
             <td align="center"><a href="#">Report</a></td>
-            <td align="center"><a href="#">One Word <br> Many Puzzle</a></td>
-            <td align="center"><a href="#">Many Words <br> One Puzzle</a></td>
+            <td align="center"><a href="one_to_many.php">One Word <br> Many Puzzle</a></td>
+            <td align="center"><a href="many_to_one.php">Many Words <br> One Puzzle</a></td>
             <td align="center"><a href="#">Start <br> Project</a></td>
             <td align="center"><a href="#">Stop <br> Project</a></td>
         </tr>
