@@ -62,7 +62,7 @@ function create_puzzle_table($word, $action = "add_puzzle.php")
     $characters = getWordChars($word);
     $table = "";
     $table .= "<div class='add_wrapper'><h1>Enter the words and clue for <div class='red'>" . $word . "</div></h1>";
-    $table .= "<form action='" . $action . "' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Synonym (words)</th><th>Clue</th></thead>";
+    $table .= "<form action='" . $action . "' method='post'><table class='create_puzzle_table'><thead><tr><th>No</th><th>Character</th><th>Words</th><th>English Word</th></thead>";
     for ($i = 0; $i < count($characters); $i++) {
         if ($i == 0) {
             $table .= "<tbody>";
@@ -74,7 +74,7 @@ function create_puzzle_table($word, $action = "add_puzzle.php")
             $table .= "<tr><td>" . ($i + 1) . "</td><td>" . $char . "</td><td><input contenteditable='true' spellcheck='true' type='text' name='words" . $i . "'/></td><td><input contenteditable='true' spellcheck='true' type='text' name='clue" . $i . "'/></td></tr>";
         }
     }
-    $table .= "</tbody></table><input type='hidden' name='words' value='" . $word . "'/><input type='hidden' name='size' value='" . count($characters) . "'/><input class='puzzleButton' type='submit' name='submit' value='Create Puzzle'></form></div>";
+    $table .= "</tbody></table><input type='hidden' name='words' value='" . $word . "'/><input type='hidden' name='size' value='" . count($characters) . "'/><input class='puzzleButton' type='submit' name='submit' value='Save Puzzle'></form></div>";
     return $table;
 }
 

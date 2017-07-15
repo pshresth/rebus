@@ -493,3 +493,32 @@ body {
 table tr.separator {
   height: 35px;
 }
+
+.print-fig{
+  display: inline-block;
+  broder: 1px;
+  margin: 20px;
+}
+
+.print-img{
+  height: 100px;
+  width: 100px;
+  vertical-align: top;
+}
+
+.print-figcaption{
+  width: 4em;
+  height: 50px;
+  padding: 5px;
+  margin-right: 5px;
+  margin-left: 5px;
+  margin-bottom: 5px;
+  margin-top: 5px;
+  border: 1px solid black;
+  font-weight: bold;
+  text-align: center;
+  font-size: 17px;
+  border-radius:10px;
+  -moz-border-radius:10px;
+  -webkit-border-radius:10px;
+}

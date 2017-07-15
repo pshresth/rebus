@@ -27,7 +27,7 @@
     <div>
       <form action="puzzle.php" method="post">
         <div class="container">
-          <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter your Name to see the Puzzle" onclick="clearFields();" />
+          <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter your Name to see the Puzzle" onclick="this.placeholder = ''" />
           </div>
           <br>
           <div style="text-align:center">
@@ -42,11 +42,5 @@
         </div>
       </form>
     </div>
-    <script type="text/javascript">
-      function clearFields() {
-        document.getElementById("name-textbox").value = "";
-      }
-
-    </script>
   </body>
 </html>

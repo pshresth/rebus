@@ -63,15 +63,18 @@
             </tr>
             </thead>
             <tbody>
-            <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
-                <tr>
-                    <td><input type="textbox" name="word" id="name" value=" '.$word.' " style="background-color:#d1d3d6" disabled/></td>
-                    <td><input type="textbox" name="eng_word" id="eng_word" value=" '.$eng_word.' " /></td>
-                    <td><img class="thumbnailSize" src="./Images/' . $row['image'] . '" alt ="' . $row['image'] . '"></td>
-                    <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload" /></td>
-                    <td><input class="upload" type="submit" value="Update Word" name="submit" /></td>
-                </tr>
-            </form>';
+                <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
+                    <tr>
+                        <td><input type="textbox" name="word" id="name" value=" '.$word.' " style="background-color:#d1d3d6" disabled/></td>
+                        <td><input type="textbox" name="eng_word" id="eng_word" value=" '.$eng_word.' " /></td>
+                        <td><img class="thumbnailSize" src="./Images/' . $row['image'] . '" alt ="' . $row['image'] . '"></td>
+                        <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload" /></td>
+                        <td><input class="upload" type="submit" value="Update Word" name="submit" /></td>
+                    </tr>
+                </form>
+            </tbody>
+        </table>
+    </div>';
         ?>
 
             <?php
@@ -139,8 +142,5 @@
                 }
 
             </script>
-            </tbody>
-        </table>
-    </div>
     </body>
 </html>

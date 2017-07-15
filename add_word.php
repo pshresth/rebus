@@ -22,7 +22,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
     <script src="javascript/typeahead.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Rebus Add</title>
+    <title>Rebus Add Word</title>
 </head>
 <body>
 <?php
