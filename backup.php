@@ -1,41 +1,6 @@
 <?php
-
-//$username = "prashant";
-//$password = "password$2";
-//$hostname = "localhost";
-//$dbName   = "ics325";
-//
-//// if mysqldump is on the system path you do not need to specify the full path
-//// simply use "mysqldump --add-drop-table ..." in this case
-//$dumpFileName = $dbName . "_" . date("Y-m-d_H-i-s").".sql";
-//$command = "C:\\xampp\\htdocs --add-drop-table --host=$hostname
-//    --user=$username ";
-//if ($password)
-//    $command.= "--password=". $password ." ";
-//$command.= $dbName;
-//$command.= " > " . $dumpFileName;
-//system($command);
-//
-//// zip the dump file
-//$zipFileName = $dbName . "_" . date("Y-m-d_H-i-s").".zip";
-//$zip = new ZipArchive();
-//if($zip->open($zipFileName,ZIPARCHIVE::CREATE))
-//{
-//    $zip->addFile($dumpFileName,$dumpFileName);
-//    $zip->close();
-//}
-//
-//// read zip file and send it to standard output
-//if (file_exists($zipFileName)) {
-//    header('Content-Description: File Transfer');
-//    header('Content-Type: application/octet-stream');
-//    header('Content-Disposition: attachment; filename='.basename($zipFileName));
-//    flush();
-//    readfile($zipFileName);
-//    exit;
-//}
-
-backup_tables('localhost','prashant','password$2','ics325');
+require('db_configuration.php');
+backup_tables(DATABASE_HOST,DATABASE_USER,DATABASE_PASSWORD,DATABASE_DATABASE);
 
 /* backup the db OR just a table */
 function backup_tables($host,$user,$pass,$name,$tables = '*')
@@ -90,7 +55,7 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
 
     //save file
     $today = date("m.d.y");
-    $handle = fopen('c:\\xampp\\htdocs\\Backup_'.$today.'.sql','w+');
+    $handle = fopen('..\\..\\htdocs\\Backup_'.$today.'.sql','w+');
     fwrite($handle,$return);
     fclose($handle);
 }

@@ -18,7 +18,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Rebus Edit Puzzle</title>
   </head>
     <?PHP echo getTopNav(); ?>
     <div id="pop_up_fail" class="container pop_up" style="display:none">
@@ -90,7 +90,7 @@
 
           } else {
             echo createHeader(validate_input($_POST["words"]));
-            echo '<table class="main-tables" id="puzzle_table"><tr><th>Clue</th><th>Synonym</th></tr>';
+            echo '<table class="main-tables" id="puzzle_table"><tr><th>Word</th><th>English Word</th></tr>';
             puzzleAddedTable(validate_input($_POST["words"]));
             echo "</table>";
             echo createFooter();

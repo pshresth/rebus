@@ -18,6 +18,7 @@
 <?PHP
 session_start();
 require('session_validation.php');
+require ('utility_functions.php');
 ?>
 <?PHP echo getTopNav(); ?>
 <div class="divTitle">
@@ -25,28 +26,31 @@ require('session_validation.php');
 </div>
 <br>
 <div>
-    <form action="generate_multiple_puzzles.php" method="post">
+    <form method="get">
         <div class="container">
-            <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="this.placeholder = ''"  />
+            <div class="inputDiv"><input type="textbox" name="puzzles" id="name-textbox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="this.placeholder = ''"  />
             </div>
             <br>
             <div style="text-align:center">
-                <input class="main-buttons" type="submit" name="randomPlay" value="Show me.." />
+                <input class="main-buttons" type="submit" value="Show me.." />
             </div>
         </div>
     </form>
 </div>
 
 <?php
-if (isset($_POST['submit'])) {
-    $words = validate_input($_POST['puzzleWord']);
+if (isset($_GET['puzzles'])) {
+    $words = validate_input($_GET['puzzles']);
     if ($words == '') {
         echo "<p class= \"fontword\" style=\" color:red;\">You did not enter any words. Please try again.</p>";
 
     }
-    if (count(explode(',', $words)) < 2) {
+    else if (count(explode(',', $words)) < 2) {
         echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words separated by a comma. Please try again.</p>";
-    }
+    }else{
+    // Everything is good redirect it to puzzle page
+    header("Location: generate_multiple_puzzles.php?puzzles=".$words);
+}
 }
 ?>
 </body>

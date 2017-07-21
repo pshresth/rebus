@@ -16,7 +16,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Rebus Puzzle List</title>
   </head>
   <body>
     <?php
@@ -57,7 +57,7 @@
           <img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img></a>
           <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
           <img class="table_image" src="pic/delete.png" alt="Delete '.$row["puzzle_name"].' puzzle"></img></a>
-          <a href="#">
+          <a href="print_puzzle.php?id='.$row["puzzle_id"].'">
           <img class="table_image" src="pic/print.png" alt="Print '.$row["puzzle_name"].' puzzle"></img></a>
           </td>
           </tr>';
