@@ -66,10 +66,12 @@ require('create_puzzle.php');
                         echo '</tr border="0"><tr>';
                     }
                     if (empty($image)) {
-                        echo "<td style='border-top: none;'><h1> $puzzleChars[$i] </h1><figcaption class=\"word_char\">" . $pos . '/' . $len . "</figcaption></td>";
+                        echo "<td align='center' style='border-top: none;'><h1> $puzzleChars[$i] </h1>
+                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
 
                     } else {
-                        echo "<td style='border-top: none;'><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "><figcaption class=\"word_char\">" . $pos . '/' . $len . "</figcaption></td>";
+                        echo "<td align='center' style='border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . ">
+                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
                         //echo "<tr align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</tr></td>";
                     }
                 }

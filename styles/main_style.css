@@ -472,6 +472,12 @@ body {
 .thumbnailSize{
   height: 100px;
   width: 100px;
+  transition:transform 0.25s ease;
+}
+
+.adminThumbnailSize{
+  height: 100px;
+  width: 100px;
 }
 
 #searchInput {
@@ -501,14 +507,14 @@ table tr.separator {
 }
 
 .print-img{
-  height: 100px;
-  width: 100px;
+  height: 150px;
+  width: 150px;
   vertical-align: top;
 }
 
-.print-figcaption{
+.print-figCaption{
   width: 4em;
-  height: 50px;
+  height: 35px;
   padding: 5px;
   margin-right: 5px;
   margin-left: 5px;
@@ -521,4 +527,21 @@ table tr.separator {
   border-radius:10px;
   -moz-border-radius:10px;
   -webkit-border-radius:10px;
+}
+
+.backUpSuccess {
+  width: 90%;
+  padding: 5px 0;
+  background-color: lightgreen;
+  margin-top:20px;
+  display: none;
+}
+
+img {
+  transition:transform 0.25s ease;
+}
+
+.thumbnailSize:hover {
+  -webkit-transform:scale(3.5);
+  transform:scale(3.5);
 }

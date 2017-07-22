@@ -43,7 +43,7 @@
 			<div class="name-wrapper"><font class="nav-font">REBUS</font>
 			</div></div>
 			<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" style="float: right;">
 				<li>
 					<a href="./admin.php"><button id="admin" class="navOption">Admin</button></a>
 				</li>

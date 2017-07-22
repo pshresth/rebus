@@ -53,7 +53,8 @@ require('create_puzzle.php');
             } else if ($i % 4 === 0) {
                 echo '</tr border="0"><tr>';
             }
-            echo "<td style='border-top: none;'><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "><figcaption class=\"word_char\">" . $pos . '/' . $len . "</figcaption></td>";
+            echo "<td align='center' style='border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . ">
+            <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
             //echo "<tr align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</tr></td>";
         }
         echo '</tr>';

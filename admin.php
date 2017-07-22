@@ -52,26 +52,28 @@ echo getTopNav();
             <input class="upload" type="submit" value="Submit File" name="submit">
         </form>
     </div> -->
+   <!-- <div class="backUpSuccess">The database backup has been saved in the Sql_Scripts Folder.</div>
+    <p id="demo"></p> -->
     <br><br>
     <table align="center" class="adminTable">
         <tr>
             <td align="center">
-                <a href="add_word.php"><img src="./pic/addAWord.png" class="thumbnailSize"></a>
+                <a href="add_word.php"><img src="./pic/addAWord.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="list_words.php"><img src="./pic/wordList.png" class="thumbnailSize">
+                <a href="list.php"><img src="./pic/wordList.png" class="adminThumbnailSize">
             </td>
             <td align="center">
-                <a href="admin_manage_users.php"><img src="./pic/users.png" class="thumbnailSize"></a>
+                <a href="admin_manage_users.php"><img src="./pic/users.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="export_db.php"><img src="./pic/export.png" class="thumbnailSize"></a>
+                <a href="export_db.php"><img src="./pic/export.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="uploadPage.php"><img src="./pic/import.png" class="thumbnailSize">
+                <a href="uploadPage.php"><img src="./pic/import.png" class="adminThumbnailSize">
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/configure.png" class="thumbnailSize"></a>
+                <a href="#"><img src="./pic/configure.png" class="adminThumbnailSize"></a>
             </td>
         </tr>
         <tr>
@@ -85,27 +87,27 @@ echo getTopNav();
         <tr class="separator"><td></td></tr>
         <tr>
             <td align="center">
-                <a href="backup.php"><img src="./pic/backUp.png" class="thumbnailSize"></a>
+                <a href="backup.php" onclick="backUpMessage()"><img src="./pic/backUp.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/report.png" class="thumbnailSize">
+                <a href="report.php"><img src="./pic/report.png" class="adminThumbnailSize">
             </td>
             <td align="center">
-                <a href="one_to_many.php"><img src="./pic/oneWordManyPuzzles.png" class="thumbnailSize"></a>
+                <a href="one_to_many.php"><img src="./pic/oneWordManyPuzzles.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png" class="thumbnailSize"></a>
+                <a href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/startProject.png" class="thumbnailSize">
+                <a href="#"><img src="./pic/startProject.png" class="adminThumbnailSize">
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/stopProject.png" class="thumbnailSize"></a>
+                <a href="#"><img src="./pic/stopProject.png" class="adminThumbnailSize"></a>
             </td>
         </tr>
         <tr>
-            <td align="center"><a href="backup.php">Backup</a></td>
-            <td align="center"><a href="#">Report</a></td>
+            <td align="center"><a href="backup.php" onclick="backUpMessage()">Backup</a></td>
+            <td align="center"><a href="report.php">Report</a></td>
             <td align="center"><a href="one_to_many.php">One Word <br> Many Puzzle</a></td>
             <td align="center"><a href="many_to_one.php">Many Words <br> One Puzzle</a></td>
             <td align="center"><a href="#">Start <br> Project</a></td>
@@ -115,13 +117,20 @@ echo getTopNav();
 </div>
 
 <script>
-    function validateForm() {
-        var eng = document.forms["importFrom"]["fileToUpload"].value;
-        if (eng == "") {
 
-            document.getElementById("error").style = "display:block;background-color: #ce4646;padding:5px;color:#fff;";
-            return false;
-        }
+//    function backUpMessage(){
+//        var x = document.getElementsByClassName('backUpSuccess');
+//        if (x.style.display === 'none') {
+//            x.style.visibility = 'block';
+//        }// else {
+//        //    x.style.visibility = 'hidden';
+//        //}
+//        return false;
+//    }
+
+    function backUpMessage() {
+        //document.getElementById("demo").innerHTML = "The database backup has been saved in the Sql_Scripts Folder.";
+        alert('The database backup has been saved in the Sql_Scripts Folder.');
     }
 
 </script>

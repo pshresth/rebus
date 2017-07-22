@@ -19,6 +19,12 @@
     <title>Rebus Puzzle List</title>
   </head>
   <body>
+  <style>
+      .tdWidth{
+          width:1px;
+          white-space:nowrap;
+      }
+  </style>
     <?php
     require('db_configuration.php');
     ?>
@@ -35,7 +41,7 @@
         <thead>
           <tr>
             <th>Puzzle Name</th>
-            <th>Actions</th>
+            <th class="tdWidth">Actions</th>
           </tr>
         </thead>
         <tbody>
@@ -51,7 +57,7 @@
             echo '<tr>
           <td>
           <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a></td>
-          <td><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'&id='.$row["puzzle_id"].'">
+          <td class="tdWidth"><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'&id='.$row["puzzle_id"].'">
           <img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img></a>
           <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
           <img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img></a>
