@@ -25,11 +25,17 @@ require('create_puzzle.php');
 <?PHP echo getTopNav(); ?>
 <div class="container">
     <?php
+    if (isset($_GET['max'])) { // this is for one to many puzzle which provides a MAX_COUNT
+        $maxProvided = true;
+        $max = $_GET['max'];
+    } else { // this is for one to many
+        $maxProvided = false;
+    }
     if (isset($_GET['puzzle'])) {
         $input = $_GET['puzzle'];
         $puzzles = explode(",", trim($input));
         $wordList = array(); // we will use this to keep track of words being used so no repetition occurs
-
+        echo '<h3 style="color:green;"><input type="checkbox" name="answer" onclick="toggleAnswer()">Show Answer</h3>';
         foreach ($puzzles as $puzzleWord) {
             echo '<div class="container"><h1 style="color:red;">Find the words for "' . $puzzleWord . '"</h1>';
             $puzzleChars = getWordChars($puzzleWord);
@@ -46,41 +52,68 @@ require('create_puzzle.php');
                         array_push($image_array, $word['image']);
                     } else {
                         array_push($word_array, $puzzleChars[$i]);
-                        array_push($image_array, getImage(""));
+                        array_push($image_array, "");
+                        if (!$maxProvided) {
+                            $generate = false;
+                          //  break;
+                        }
+                    }
+                }
+
+                //if ($generate) {
+                    $counter++;
+                    echo '<h1>Puzzle #' . $counter . '</h1>';
+                    echo '<table class="table" id="print_table" border="0">';
+                    for ($i = 0; $i < count($puzzleChars); $i++) {
+                        $word_chars = getWordChars($word_array[$i]);
+                        $pos = array_search($puzzleChars[$i], $word_chars) + 1;
+                        $len = count($word_chars);
+                        $image = getImageIfExists($image_array[$i]);
+                        $word = $word_array[$i];
+
+                        if ($i === 0) {
+                            echo '<tr>';
+                        } else if ($i % 4 === 0) {
+                            echo '</tr border="0"><tr>';
+                        }
+                        if (empty($image)) {
+                            echo "<td align='center' style='border-top: none; vertical-align: bottom;'><h1> $puzzleChars[$i] </h1>
+                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption>
+                              <div align='center' class='answerDiv'><h3>" . $word . "</h3></div></td>";
+                        } else {
+                            echo "<td align='center' style='border-top: none; vertical-align: bottom;'><img class=\"print-img\" src=" . $image . " alt =" . $image . ">
+                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption>
+                        <div align='center' class='answerDiv'><h3>" . $word . "</h3></div></td>";
+                        }
+                   }
+                    echo '</tr>';
+                    echo '</table>';
+              //  }
+                if ($maxProvided) {
+                    // only display max count number of puzzles
+                    if ($counter  == $max ) {
                         $generate = false;
                     }
                 }
-                $counter++;
-                echo '<h1>Puzzle #' . $counter . '</h1>';
-                echo '<table class="table" id="print_table" border="0">';
-                for ($i = 0; $i < count($puzzleChars); $i++) {
-                    $word_chars = getWordChars($word_array[$i]);
-                    $pos = array_search($puzzleChars[$i], $word_chars) + 1;
-                    $len = count($word_chars);
-
-                    $image = getImageIfExists($image_array[$i]);
-
-                    if ($i === 0) {
-                        echo '<tr>';
-                    } else if ($i % 4 === 0) {
-                        echo '</tr border="0"><tr>';
-                    }
-                    if (empty($image)) {
-                        echo "<td align='center' style='border-top: none;'><h1> $puzzleChars[$i] </h1>
-                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
-
-                    } else {
-                        echo "<td align='center' style='border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . ">
-                              <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
-                        //echo "<tr align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</tr></td>";
-                    }
-                }
-                echo '</tr>';
-                echo '</table>';
             }
         }
     }
     ?>
+
+    <script>
+
+        function toggleAnswer() {
+            var x = document.getElementsByClassName('answerDiv');
+            for(i = 0; i < x.length; i++ ){
+                if (x[i].style.display === 'block') {
+                    x[i].style.display = 'none';
+                } else {
+                    x[i].style.display = 'block';
+                }
+            }
+        }
+
+    </script>
 
 </div>
 </body>

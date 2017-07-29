@@ -56,16 +56,26 @@
           { 
             echo '<tr>
           <td>
-          <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a></td>
-          <td class="tdWidth"><a href="puzzle.php?puzzleName='.$row["puzzle_name"].'&id='.$row["puzzle_id"].'">
-          <img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle"></img></a>
-          <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
-          <img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle"></img></a>
-          <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
-          <img class="table_image" src="pic/delete.png" alt="Delete '.$row["puzzle_name"].' puzzle"></img></a>
-          <a href="print_puzzle.php?id='.$row["puzzle_id"].'">
-          <img class="table_image" src="pic/print.png" alt="Print '.$row["puzzle_name"].' puzzle"></img></a>
+          <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'">'.$row["puzzle_name"].'</a>
           </td>
+          <td class="tdWidth">
+            <a href="puzzle.php?puzzleName='.$row["puzzle_name"].'&id='.$row["puzzle_id"].'">
+                <img class="table_image" src="pic/play.png" alt="Play '.$row["puzzle_name"].' puzzle">
+            </a>';
+          if (adminSessionExists()) {
+            echo '
+              <a href="change_puzzle.php?puzzleName='.$row["puzzle_name"].'"&button=edit">
+                <img class="table_image" src="pic/edit.jpg" alt="Edit '.$row["puzzle_name"].' puzzle">
+              </a>
+              <a href="list_puzzles.php?puzzleID='.$row["puzzle_id"].'&button=delete">
+                <img class="table_image" src="pic/delete.png" alt="Delete '.$row["puzzle_name"].' puzzle">
+              </a>
+              <a target="_blank" href="print_puzzle.php?id='.$row["puzzle_id"].'">
+                <img class="table_image" src="pic/print.png" alt="Print '.$row["puzzle_name"].' puzzle">
+              </a>
+            ';
+          }
+          echo '</td>
           </tr>';
             $count++;
           }

@@ -21,14 +21,16 @@ require('session_validation.php');
 require ('utility_functions.php');
 ?>
 <?PHP echo getTopNav(); ?>
-<div class="divTitle">
+<div class="divTitle" align="center">
     <font class="font">Rebus Puzzle (Many To One)</font>
 </div>
 <br>
 <div>
-    <form method="get">
+    <form method="post" action="generate_multiple_puzzles.php">
         <div class="container">
-            <div class="inputDiv"><input type="textbox" name="puzzles" id="name-textbox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="this.placeholder = ''"  />
+            <div align="center">Enter MANY_TO_ONE_MAXCOUNT : <input type="textbox" name="max" placeholder="100" value="100" onclick="this.placeholder = ''"/>
+            </div>
+            <div class="inputDiv"><textarea name="puzzles" id="name-textbox" cols="40" rows="100" placeholder="Enter list of words to generate multiple puzzles" onclick="this.placeholder = ''" ></textarea>
             </div>
             <br>
             <div style="text-align:center">
@@ -39,14 +41,15 @@ require ('utility_functions.php');
 </div>
 
 <?php
-if (isset($_GET['puzzles'])) {
-    $words = validate_input($_GET['puzzles']);
+if (isset($_POST['puzzles'])) {
+   $words= preg_replace( "/\r\n/", ",", validate_input($_POST['puzzles']));
     if ($words == '') {
         echo "<p class= \"fontword\" style=\" color:red;\">You did not enter any words. Please try again.</p>";
 
     }
-    else if (count(explode(',', $words)) < 2) {
-        echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words separated by a comma. Please try again.</p>";
+    else if (count(explode(",", trim($words))) < 2) {
+
+        echo "<p class= \"fontword\" style=\" color:red;\">You must enter two or more words. Please try again.</p>";
     }else{
     // Everything is good redirect it to puzzle page
     header("Location: generate_multiple_puzzles.php?puzzles=".$words);

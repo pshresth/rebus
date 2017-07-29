@@ -12,8 +12,6 @@
         position: relative;
         top: 20px;
         height: 30px;
-        margin-left: 380px;
-        width: 640px;
       }
       
       .text {
@@ -92,7 +90,7 @@
     echo getTopNav(); 
   ?>
   <br><br><br>
-  <div class='divContainer'>
+  <div class='divContainer' align="center">
     <form method='POST' action='login.php'>
       <?php
         if (isset($_GET['puzzleName'])) {
@@ -100,14 +98,14 @@
           echo "<h1>Please login to see the solution</h1>";
           echo "<input type='hidden' name='puzzleName' value='".$puzzleName."' />";
         }
-        if (isset($_SESSION['valid_user'])){
-          echo "Valid User: ";
-          echo $_GET($_SESSION["valid_user"])."</br>";
-        }
-        else if (isset($_SESSION['valid_admin'])){
-          echo "Valid Admin: ";
-          echo $_GET($_SESSION['valid_admin']);
-        }
+//        if (isset($_SESSION['valid_user'])){
+//          echo "Valid User: ";
+//          echo $_GET($_SESSION["valid_user"])."</br>";
+//        }
+//        else if (isset($_SESSION['valid_admin'])){
+//          echo "Valid Admin: ";
+//          echo $_GET($_SESSION['valid_admin']);
+//        }
         else{
         }
 

@@ -32,9 +32,10 @@ function insertIntoWordsTable($word, $eng_word, $image)
                 run_sql($sqlAddLetters);
             }
         }
+        echo '<h2 style="color:	green;" class="upload">Success: Word is added.</h2>';
     } else {
         //The words already exists in the database.
-        //echo "the words already exists.";
+        echo '<h2 style="color:	red;" class="upload">Word already exists in the database.</h2>';
         //Do Nothing if the words already exists in the DB.
     }
 }

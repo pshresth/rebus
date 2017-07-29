@@ -212,22 +212,6 @@ echo '<div>
         </thead>
         <tbody>';
 
-//        if( $page > 1 && $page < $maxPages) {
-//            $last = $page - 2;
-//            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a> | ";
-//            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
-//        }else if( $page == 1 ) {
-//            echo "<a href = \"?page=$page\" style=\"font-size:160%;\">Next 50 Records >> </a>";
-//       }else{
-//            $last = $page - 2;
-//            echo "<a href = \"?page=$last\" style=\"font-size:160%;\"> << Last 50 Records</a>";
-//        }
-
-       // var_dump($data);
-//        echo "Page Display:";
-//        echo $limit *$page;
-//        echo "offset:".$offset;
-//        echo "Count=".$count;
         for($count=$offset; $count < $limit * $page; $count++){
        // while ($row = $result->fetch_assoc()) {
             if(count($data) > $count) {
@@ -241,9 +225,11 @@ echo '<div>
           <td><img class="thumbnailSize" src="./Images/' . $row['image'] . '" alt ="' . $row['image'] . '"></td>
           <td>
           <a href="admin_edit_synonyms.php?id=' . $word_id . '"&button=edit">
-          <img class="table_image" src="pic/edit.jpg" alt="Edit ' . $word_id . ' word"></a>
+            <img class="table_image" src="pic/edit.jpg" alt="Edit ' . $word_id . ' word">
+          </a>
           <a href="list_words.php?id=' . $word_id . '&button=delete">
-          <img class="table_image" src="pic/delete.jpg" alt="deleteWord"></a>
+            <img class="table_image" src="pic/delete.jpg" alt="deleteWord">
+          </a>
             <form class="upload" method="post" name="importFrom" enctype="multipart/form-data" onsubmit="return validateForm()">
               <label class="upload"><input class="upload" type="file" name="fileToUpload" id="fileToUpload"></label>
               <input class="upload" type="hidden" name="word_id" value="' . $word_id . '" />

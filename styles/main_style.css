@@ -545,3 +545,12 @@ img {
   -webkit-transform:scale(3.5);
   transform:scale(3.5);
 }
+
+.answerDiv{
+  display: none;
+  height: 30px;
+  text-align: center;
+  background-color: lightgreen;
+  font-size: xx-large;
+  font-style: oblique;
+}

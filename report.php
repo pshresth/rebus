@@ -126,7 +126,7 @@ require('session_validation.php');
 
     /* Report that displays number of words entry that do not have images */
 
-    $sql = "SELECT * FROM words where words.image IS NULL";
+    $sql = "SELECT * FROM words where words.image = ''";
     $result = run_sql($sql);
     $noimageWords = $result->num_rows;
 

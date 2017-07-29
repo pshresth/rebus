@@ -20,7 +20,7 @@
     require('session_validation.php');
     ?>
     <?PHP echo getTopNav(); ?>
-    <div class="divTitle">
+    <div class="divTitle" align="center">
       <font class="font">Rebus Puzzle</font>
     </div>
     <br>

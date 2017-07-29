@@ -4,7 +4,6 @@
     <?PHP
     session_start();
     require('session_validation.php');
-    // require('db_configuration.php');
     ?>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -42,7 +41,6 @@ require('InsertUtil.php');
 <div>
     <br>
     <br>
-<!--    <button type="button" id="addRow" name="addRow" onclick="AddTableRows()">Add More Rows</button>-->
     <table class="table table-condensed main-tables" id="word_table" style="margin-left: 5%">
         <thead>
         <tr>
@@ -55,10 +53,10 @@ require('InsertUtil.php');
         <tbody>
         <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
             <tr>
-                <td><input type="textbox" name="word" id="name" /></td>
-                <td><input type="textbox" name="eng_word" id="eng_word" /></td>
-                <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload" /></td>
-                <td><input class="upload" type="submit" value="Add Word" name="submit" /></td>
+                <td><input type="textbox" name="word" id="name"/></td>
+                <td><input type="textbox" name="eng_word" id="eng_word"/></td>
+                <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload"/></td>
+                <td><input class="upload" type="submit" value="Add Word" name="submit"/></td>
             </tr>
         </form>
 
@@ -73,50 +71,23 @@ require('InsertUtil.php');
                 $eng = $_POST['eng_word'];
             }
             //if (isset($_POST['fileToUpload'])) {
-                $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
-                //echo $inputFileName;
+            $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
+            //echo $inputFileName;
 
-                $target_dir = "./Images/";
-                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-                //echo $target_file;
-                $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
-                $imageName = basename($_FILES["fileToUpload"]["name"]);
-               // echo $imageName;
-            if(!empty($imageName)) {
+            $target_dir = "./Images/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            //echo $target_file;
+            $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+            $imageName = basename($_FILES["fileToUpload"]["name"]);
+            // echo $imageName;
+            if (!empty($imageName)) {
                 copy($inputFileName, $target_file);
             }
 
-                $sql = 'INSERT INTO words (word_id, word, english_word, image) VALUES (DEFAULT, \'' . $word . '\', \'' . $eng . '\',\'' . $imageName . '\');';
-
-                //$sql = 'UPDATE words SET image=\'' . $imageName . '\' WHERE word_id=' . $_POST['word_id'] . '';
-                $result = run_sql($sql);
-                $uploadOk = 1;
-                insertIntoCharactersTable($word);
-
-            echo '<h2 style="color:	green;" class="upload">Success: Word is added.</h2>';
-
-
+            insertIntoWordsTable($word, $eng, $imageName);
         }
 
-        // *** delete button functionality ***
-        // if(isset($_GET['word_id']))
-        // {
-        // if($_GET['button'] == 'delete')
-        // {
-        // $id = $_GET['word_id'];
-        //
-        // $sql = 'DELETE FROM puzzle_words WHERE puzzle_id='.$id.';';
-        // $result = $db->query($sql);
-        //
-        // $sql = 'DELETE FROM puzzles WHERE puzzle_id='.$id.';';
-        // $result = $db->query($sql);
-        // //header("Location:list_puzzles.php"); stoped woking and gave an error
-        // echo "
-
-        // }
-        // }
-        //
-        // ?>
+        ?>
         <script>
             function validateForm() {
                 var eng = document.forms["importFrom"]["fileToUpload"].value;
@@ -134,7 +105,6 @@ require('InsertUtil.php');
 
                 // Create an empty <tr> element and add it to the 1st position of the table:
                 var row = table.insertRow(git);
-
             }
 
         </script>

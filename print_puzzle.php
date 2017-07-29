@@ -16,13 +16,15 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Rebus Puzzle List</title>
+    <title>Rebus Print Puzzle</title>
 </head>
 <body>
 <?php
 require('create_puzzle.php');
+//require_once('dompdf/autoload.inc.php');
+//use Dompdf\Dompdf;
 ?>
-<?PHP echo getTopNav(); ?>
+<div style="width: 100%; background-color: #92d050; text-align: center;"><img src="./pic/logo.png" style="height: 200px; width:350px;"> </div>
 <div class="container">
     <?php
     if (isset($_GET['id'])) {
@@ -41,28 +43,84 @@ require('create_puzzle.php');
             array_push($clues_array, $word[2]);
             array_push($image_array, $word[3]);
         }
-        echo '<div class="container"><h1 style="color:red;">Find the words for "' . $puzzleWord . '"</h1>';
-        echo '<table class="table" id="print_table" border="0">';
+
+        $html = "";
+
+
+        $html .= '<div class="container"><h1 style="color:red;">Find the words for "' . $puzzleWord . '"</h1>';
+        $html .= '<h3 style="color:green;"><input type="checkbox" name="answer" onclick="toggleAnswer()">Show Answer</h3><br>';
+
+        $html .= '<table class="table" id="print_table" border="0">';
         for ($i = 0; $i < count($puzzleChars); $i++) {
             $word_chars = getWordChars($word_array[$i]);
             $pos = array_search($puzzleChars[$i], $word_chars) + 1;
             $len = count($word_chars);
             $image = getImage($image_array[$i]);
+            $word = $word_array[$i];
             if ($i === 0) {
-                echo '<tr>';
+                $html .= '<tr>';
             } else if ($i % 4 === 0) {
-                echo '</tr border="0"><tr>';
+                $html .= '</tr border="0"><tr>';
             }
-            echo "<td align='center' style='border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . ">
-            <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption></td>";
+            $html .= "<td align='center' style='vertical-align:bottom; border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . "><br>
+            <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption>
+            <div align='center' class='answerDiv'><h3>". $word ."</h3></div></td>";
             //echo "<tr align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</tr></td>";
         }
-        echo '</tr>';
+        $html .= '</tr>';
     } else {
         echo "Puzzle id not provided!!!";
     }
-    echo '</table>';
+    $html .= '</table>';
+//    echo '<form method="post" action="export_pdf.php">
+//              <input class="btn btn-primary" type="submit" name="PDF" value="Export to PDF" />
+//              <input type="hidden" name="html" value="" />
+//          </form>';
+    echo $html;
+
+
+
+//    if (isset($_POST["PDF"])) {
+//
+//        echo "etf";
+//
+//        // echo $content = $html;
+//        if (get_magic_quotes_gpc())
+//            $content = stripslashes($html);  // remove unwanted characters
+//
+//        $dompdf = new DOMPDF(); // creating dompdf object
+//        $dompdf->loadHtml($html); // load html data from above form
+//        $dompdf->setPaper('A4'); // set print page type
+//        $dompdf->render(); // generate pdf file
+//
+//        $f;
+//        $l;
+//        if (headers_sent($f, $l)) {
+//            echo $f, '<br/>', $l, '<br/>';
+//            die('now detect line');
+//        }
+//        //$dompdf->stream("mypage.pdf", array("Attachment" => false)); // save pdf file.I named it "mypage.pdf".
+//        $dompdf->stream();
+//        echo "End of file";
+//
+//        exit();
+//    }
     ?>
+
+    <script>
+        //Use a for loop to iterate through all the element with the same id.
+        function toggleAnswer() {
+            var x = document.getElementsByClassName('answerDiv');
+            for(i = 0; i < x.length; i++ ){
+                if (x[i].style.display === 'block') {
+                    x[i].style.display = 'none';
+                } else {
+                    x[i].style.display = 'block';
+                }
+            }
+        }
+    </script>
+
 
 </div>
 </body>

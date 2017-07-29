@@ -12,7 +12,7 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Final Project</title>
+    <title>Play Rebus</title>
 </head>
 
 <body>
@@ -215,18 +215,18 @@ function updatePuzzle()
         if (!empty($_POST[$new_id . $i])) {
             array_push($new_id_array, validate_input($_POST[$new_id . $i]));
         } else {
-            echo "No new ID for " . ($_POST[$old_id . $i]) . "was provided. It will not update.";
+            //echo "No new ID for " . ($_POST[$old_id . $i]) . "was provided. It will not update.";
             array_push($new_id_array, validate_input($_POST[$old_id . $i]));
         }
         array_push($old_id_array, validate_input($_POST[$old_id . $i]));
     }
 
     for ($i = 0; $i < count($new_id_array); $i++) {
+        $word = getWordValue($new_id_array[$i]);
         if (getCharIndex($new_id_array[$i], $puzzle[$i]) === null) {
-            echo "<script>alert('Word id: $new_id_array[$i] does not contain the right character: $puzzle[$i]. It will not be updated.');</script>";
+            echo "<script>alert('Word id $new_id_array[$i]: $word does not contain the character: $puzzle[$i]. It will not be updated.');</script>";
             $new_id_array[$i] = $old_id_array[$i];
         }
-        $word = getWordValue($new_id_array[$i]);
         array_push($word_array, $word);
         $clue = getClue($new_id_array[$i]);
         array_push($clue_array, $clue);
@@ -243,7 +243,7 @@ function updatePuzzle()
     $puzzle->clues_array = $clue_array;
     $puzzle->image_array = $image_array;
     $puzzle->wordId_array = $new_id_array;
-    echo "'Puzzle: $puzzleName has been updated!";
+    //echo "'Puzzle: $puzzleName has been updated!";
     $words = $puzzle->js_solution;
     echo $puzzle->createAdminInputBoxes();
     echo $puzzle->admin_buttons;
@@ -418,7 +418,7 @@ class Puzzle
             $htmlTable .= "<tr><td align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</td>";
 
             $image = getImage($this->image_array[$i]);
-            $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "></td><td style='vertical-align: middle;'>";
+            $htmlTable .= "<td><img class=\"thumbnailSize\" src=\"$image\" alt =\"$image\"></td><td style='vertical-align: middle;'>";
 
             $htmlTable .= '<input class="altPuzzleInput active" type="text" maxLength="7" value="' . $puzzleChar . '" style="display:none;" readonly/><input class="altPuzzleInput" type="text" value="" style="display:none;"/>';
             $flag = false;
@@ -452,9 +452,9 @@ class Puzzle
                         </td>';
             $image = getImage($this->image_array[$i]);
             if (strcasecmp($image, $not_in_db) === 0) {
-                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "/><input type='hidden' name='image" . $i . "' value='" . $this->image_array[$i] . "'/></td>";
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=\"$image\" alt =\"$image\"/><input type='hidden' name='image".$i."' value='".$this->image_array[$i]."'/></td>";
             } else {
-                $htmlTable .= "<td><img class=\"thumbnailSize\" src=" . $image . " alt =" . $image . "/><input type='hidden' name='image" . $i . "' value=''/></td>";
+                $htmlTable .= "<td><img class=\"thumbnailSize\" src=\"$image\" alt =\"$image\"/><input type='hidden' name='image".$i."' value=''/></td>";
             }
 
             $pos = array_search($puzzleChar, $word_chars) + 1;

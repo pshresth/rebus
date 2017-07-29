@@ -77,10 +77,10 @@ echo getTopNav();
             </td>
         </tr>
         <tr>
-            <td align="center"><a href="list_words.php">Add Word</a></td>
-            <td align="center"><a href="export_db.php">Word List</a></td>
+            <td align="center"><a href="add_word.php">Add Word</a></td>
+            <td align="center"><a href="list.php">Word List</a></td>
             <td align="center"><a href="admin_manage_users.php">Users</a></td>
-            <td align="center"><a href="list_words.php">Export</a></td>
+            <td align="center"><a href="export_db.php">Export</a></td>
             <td align="center"><a href="uploadPage.php">Import</a></td>
             <td align="center"><a href="#">Configure</a></td>
         </tr>
@@ -99,19 +99,20 @@ echo getTopNav();
                 <a href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png" class="adminThumbnailSize"></a>
             </td>
             <td align="center">
-                <a href="#"><img src="./pic/startProject.png" class="adminThumbnailSize">
+                <a href="one_to_many_plus.php"><img src="./pic/startProject.png" class="adminThumbnailSize">
             </td>
-            <td align="center">
-                <a href="#"><img src="./pic/stopProject.png" class="adminThumbnailSize"></a>
-            </td>
+<!--            <td align="center">-->
+<!--                <a href="#"><img src="./pic/stopProject.png" class="adminThumbnailSize"></a>-->
+<!--            </td>-->
         </tr>
         <tr>
             <td align="center"><a href="backup.php" onclick="backUpMessage()">Backup</a></td>
             <td align="center"><a href="report.php">Report</a></td>
             <td align="center"><a href="one_to_many.php">One Word <br> Many Puzzle</a></td>
             <td align="center"><a href="many_to_one.php">Many Words <br> One Puzzle</a></td>
-            <td align="center"><a href="#">Start <br> Project</a></td>
-            <td align="center"><a href="#">Stop <br> Project</a></td>
+            <td align="center"><a href="one_to_many_plus.php">One Word <br> Many Puzzle <br> Plus</a></td>
+<!--            <td align="center"><a href="#">Start <br> Project</a></td>-->
+<!--            <td align="center"><a href="#">Stop <br> Project</a></td>-->
         </tr>
     </table>
 </div>

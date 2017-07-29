@@ -21,14 +21,14 @@ require('session_validation.php');
 require ('utility_functions.php');
 ?>
 <?PHP echo getTopNav(); ?>
-<div class="divTitle">
+<div class="divTitle" align="center">
     <font class="font">Rebus Puzzle (One To Many)</font>
 </div>
 <br>
 <div>
     <form  method="get">
         <div class="container">
-            <div class="inputDiv"><input type="textbox" name="puzzle" id="name-textbox" placeholder="Enter words separated by a comma to generate multiple puzzles" onclick="this.placeholder = ''"  />
+            <div class="inputDiv"><input type="textbox" name="puzzle" id="name-textbox" placeholder="Enter a word to generate multiple puzzles" onclick="this.placeholder = ''"  />
             </div>
             <br>
             <div style="text-align:center">

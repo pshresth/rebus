@@ -1,13 +1,9 @@
-
-
 <?php //include 'navbar.php';
 
 require('session_validation.php');
 // Start session to store variables
 
-if(!isset($_SESSION))
-
-{
+if (!isset($_SESSION)) {
 
     session_start();
 
@@ -15,10 +11,9 @@ if(!isset($_SESSION))
 
 // Allows user to return 'back' to this page
 
-ini_set('session.cache_limiter','public');
+ini_set('session.cache_limiter', 'public');
 
 session_cache_limiter(false);
-
 
 
 ?>
@@ -42,9 +37,10 @@ session_cache_limiter(false);
     <title>Rebus Word List</title>
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
 
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css" rel="stylesheet"/>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/datatables/1.10.12/css/dataTables.bootstrap.min.css"
+          rel="stylesheet"/>
 
-<?PHP echo getTopNav(); ?>
+    <?PHP echo getTopNav(); ?>
 </head>
 
 <body class="body_background">
@@ -52,9 +48,10 @@ session_cache_limiter(false);
 
     <div class="container">
 
-        <h3>List View</h3>
+        <h3>Word List</h3>
 
-        <table id="info" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered" width="100%">
+        <table id="info" cellpadding="0" cellspacing="0" border="0" class="datatable table table-striped table-bordered"
+               width="100%">
 
             <thead>
 
@@ -68,6 +65,8 @@ session_cache_limiter(false);
 
                 <th>Image</th>
 
+                <th>Actions</th>
+
             </tr>
 
             </thead>
@@ -75,45 +74,40 @@ session_cache_limiter(false);
             <tbody>
 
 
-
-
-
             <?php
 
             require 'db_configuration.php';
 
 
-
-//            // Establishing Connection with Server
-//
-//            $servername = DATABASE_HOST;
-//
-//            $db_username = DATABASE_USER;
-//
-//            $db_password = DATABASE_PASSWORD;
-//
-//            $database = DATABASE_DATABASE;
-//
-//
-//
-//            // Create connection
-//
-//            $conn = new mysqli($servername, $db_username, $db_password, $database);
-//
-//
-//
-//            // Check connection
-//
-//            if ($conn->connect_error) {
-//
-//                die("Connection failed: " . $conn->connect_error);
-//
-//            }
-//
-//            // echo "Connected successfully<br>";
-//
-//            $conn->set_charset("utf8");
-
+            //            // Establishing Connection with Server
+            //
+            //            $servername = DATABASE_HOST;
+            //
+            //            $db_username = DATABASE_USER;
+            //
+            //            $db_password = DATABASE_PASSWORD;
+            //
+            //            $database = DATABASE_DATABASE;
+            //
+            //
+            //
+            //            // Create connection
+            //
+            //            $conn = new mysqli($servername, $db_username, $db_password, $database);
+            //
+            //
+            //
+            //            // Check connection
+            //
+            //            if ($conn->connect_error) {
+            //
+            //                die("Connection failed: " . $conn->connect_error);
+            //
+            //            }
+            //
+            //            // echo "Connected successfully<br>";
+            //
+            //            $conn->set_charset("utf8");
 
 
             //$order = isset($_GET['sort'])?$_GET['sort']:'bookmark_date';
@@ -123,44 +117,90 @@ session_cache_limiter(false);
             $result = run_sql($sql);
 
 
-
             if ($result->num_rows > 0) {
 
 //    echo "<table><tr><th><a href='view.php?sort=bookmark_title'>Title</a></th><th><a href='view.php?sort=bookmark_category'>Category</a></th><th><a href='view.php?sort=bookmark_subcategory'>Subcategory</a></th><th><a href='view.php?sort=bookmark_date'>Date</a></th></tr>";
 
                 // output data of each
 
-                while($row = $result->fetch_assoc()) {
+                while ($row = $result->fetch_assoc()) {
 
                     echo '<tr>
 
-                        <td>'.$row["word_id"]."</td>
+                        <td>' . $row["word_id"] . "</td>
                 
-                        <td>".$row["word"]."</td>
+                        <td>" . $row["word"] . "</td>
                 
-                        <td>".$row["english_word"]."</td>
+                        <td>" . $row["english_word"] . "</td>
                 
-                        <td><img class=\"thumbnailSize\" src=\"./Images/" . $row["image"]  . "\"  alt =\"" . $row["image"] ."\" ></td>
+                        <td><img class=\"thumbnailSize\" src=\"./Images/" . $row["image"] . "\"  alt =\"" . $row["image"] . "\" ></td>
+                        
+                        <td>
+                            <a href='admin_edit_synonyms.php?id=" . $row["word_id"] . "&button=edit'>
+                                <img class=\"table_image\" src=\"pic/edit.jpg\" alt=\"Edit " . $row["word_id"] . " word\">
+                            </a>
+                            <a href='list.php?id=" . $row["word_id"] . "&button=delete'>
+                                <img class=\"table_image\" src=\"pic/delete.png\" alt=\"deleteWord\">
+                            </a>
+                            <form class=\"upload\" method=\"post\" name=\"importFrom\" enctype=\"multipart/form-data\" onsubmit=\"return validateForm()\">
+                                  <label class=\"upload\"><input class=\"upload\" type=\"file\" name=\"fileToUpload\" id=\"fileToUpload\"></label>
+                                  <input class=\"upload\" type=\"hidden\" name=\"word_id\" value=\"" . $row["word_id"] . "\" />
+                                  <input class=\"upload\" type=\"submit\" value=\"Upload/Replace Image\" name=\"submit\">
+                            </form> 
+                        </td>
                         
                         </tr>";
-
                 }
-
-
-
-
-
-
-
             } else {
-
                 echo "0 results";
-
             }
 
             $result->close();
 
+            // *** delete button functionality ***
+            if (isset($_GET['id'])) {
+                if ($_GET['button'] == 'delete') {
+                    $id = $_GET['id'];
+
+                    $sql = 'DELETE FROM characters WHERE word_id=' . $id . ';';
+                    $result = $db->query($sql);
+
+                    $sql = 'DELETE FROM words WHERE word_id=' . $id . ';';
+                    $result = $db->query($sql);
+
+                    echo ' <script> alert(\'Record has been successfully deleted!!\'); window.location.replace("list.php"); </script>';
+                }
+            }
+
+            if (isset($_POST['submit'])) {
+                $inputFileName = $_FILES["fileToUpload"]["tmp_name"];
+                $target_dir = "./Images/";
+                $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+                $imageFileType = pathinfo($target_file, PATHINFO_EXTENSION);
+                $imageName = basename($_FILES["fileToUpload"]["name"]);
+                copy($inputFileName, $target_file);
+                $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                if ($check !== false) {
+                    $sql = 'UPDATE words SET image=\'' . $imageName . '\' WHERE word_id=' . $_POST['word_id'] . '';
+                    $result = run_sql($sql);
+                    echo ' <script> alert(\'Image Upload Successful!!\'); window.location.replace("list.php"); </script>';
+                } else {
+                    echo ' <script> alert(\'Image is not valid!\');</script>';
+                }
+            }
             ?>
+
+            <script>
+                function validateForm() {
+                    var eng = document.forms["importFrom"]["fileToUpload"].value;
+                    if (eng == "") {
+
+                        document.getElementById("error").style = "display:block;background-color: #ce4646;padding:5px;color:#fff;";
+                        return false;
+                    }
+                }
+
+            </script>
 
             </tbody>
 
@@ -175,6 +215,8 @@ session_cache_limiter(false);
                 <th>English Word</th>
 
                 <th>Image</th>
+
+                <th>Actions</th>
 
             </tr>
 
@@ -194,7 +236,7 @@ session_cache_limiter(false);
 
 <script type="text/javascript">
 
-    $(document).ready(function() {
+    $(document).ready(function () {
 
         $('#info').DataTable();
 

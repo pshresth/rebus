@@ -48,7 +48,7 @@
 					<a href="./admin.php"><button id="admin" class="navOption">Admin</button></a>
 				</li>
 				<li>
-					<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+					<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 				</li>
 				<!--<li>
 					<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
@@ -72,9 +72,9 @@
 			</button><a href="./index.php"><img class="logo" src="./pic/logo.png" /></a>
 			<div class="name-wrapper"><font class="nav-font">REBUS</font>
 			</div></div><div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" style="float: right;">
 			<li>
-				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+				<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 			</li>
 			<!--<li>
 				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br>Puzzle</button></a>
@@ -102,9 +102,9 @@
 			</div>
 			</div>
 			<div class="collapse navbar-collapse">
-			<ul class="nav navbar-nav">
+			<ul class="nav navbar-nav" style="float: right;">
 			<li>
-				<a href="./list_puzzles.php"><button id="list" class="navOption">List</button></a>
+				<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 			</li>
 			<!--<li>
 				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
