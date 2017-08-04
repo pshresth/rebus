@@ -137,6 +137,7 @@
   border-style: solid;
   max-width: 300px;
   border-width: thick;
+  margin-left: 35%;
 }
 
 .pop_up_button {
@@ -553,4 +554,16 @@ img {
   background-color: lightgreen;
   font-size: xx-large;
   font-style: oblique;
+}
+
+.aboutPageImage{
+  width:70%;
+  height:40%;
+  border: 1px solid black;
+}
+
+.aboutPageText{
+  font-family: "Helvetica", Arial, sans-serif;
+  font-size: 20px;
+
 }

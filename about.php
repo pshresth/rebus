@@ -30,41 +30,38 @@
 
     <div class="container">
         <div>
-            <h1>About Rebus Puzzle (In Progress)</h1>
+            <h1 align="center">About Rebus Puzzle</h1>
         </div>
+        <br>
         <div>
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.<br>
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.<br>
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
-            Rebus is a picture and words based puzzle.
+            <h4><p>Rebus is a picture and words based puzzle. Upon entering a word on the home input menu, the system
+                generates a puzzle based on the word entered by the user. Each image shown on the puzzle contains the
+                corresponding letter and it's position of the word that the user has to guess.</p></h4>
+            <div>
+                <h3>How to play:</h3>
+                <ol>
+                    <br><li class="aboutPageText">Home Page</li><br><img src="./howTo/index.PNG" class="aboutPageImage"><br>
+
+                    <br><li class="aboutPageText">Enter your name and click on "Show Me.." button</li><br><img src="./howTo/typeName.PNG" class="aboutPageImage"><br>
+
+                    <br><li class="aboutPageText">Change Input Mode for longer words if necessary</li><br><img src="./howTo/inputMode.PNG" class="aboutPageImage"><br>
+
+                    <br><li class="aboutPageText">Guess the words</li><br><img src="./howTo/puzzle.PNG" class="aboutPageImage"><br>
+
+                    <br> <li class="aboutPageText">Click on "Submit Solution" after you guess the words each image.</li><br>
+
+                    <ul>
+                        <li class="aboutPageText">Correct guess</li><br><img src="./howTo/correctGuess.PNG" class="aboutPageImage"><br>
+
+                        <br><li class="aboutPageText">Incorrect guess</li><br><img src="./howTo/incorrectGuess.PNG" class="aboutPageImage"><br>
+
+                    </ul>
+
+                    <br><li class="aboutPageText">Try again if you want to guess the words again or click on the <b>SILC logo</b> to go back to the home page and play with a different word.</li><br>
+                </ol>
+
+            </div>
+
 
         </div>
     </div>
