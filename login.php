@@ -30,7 +30,6 @@
       
       .loginbutton {
         position: relative;
-        margin-left: 190px;
         margin-top: 30px;
       }
 
@@ -38,9 +37,9 @@
         background-color: #70baeb;
         border: 2px solid black;
         color: black;
-        padding: 15px 32px;
         width: 180px;
         height: 60px;
+          vertical-align: middle;
         text-align: center;
         text-decoration: none;
         display: inline-block;
@@ -49,12 +48,10 @@
         cursor: pointer;
         border-radius: 12px;
         margin-top: 40px;
-        margin-left: 90px;
       }
       
       .message {
         position: relative;
-        margin-left: 260px;
         margin-top: 30px;
         height: 100px;
         width: 480px;
@@ -180,12 +177,12 @@
         <input class='textbox' type='text' name='user' id='user_email'><br><br>
         <font class='text'>Password* </font>
         <input class='textbox' type='password' name='pass' id='password'><br><br>
-        <div class='loginbutton'>
+        <div class='loginbutton' align="center">
           <input class="addButton" id="addButton" type="submit" name="submit" value="Login">
         </div>
     </form>
-    <div class='message'>
-      <div class='messageText'>
+    <div class='message' align="center">
+      <div class='messageText' align="center">
         Don't have an account? <a href=''>Create One!</a><br> Forgot Password? <a href=''>Request a reset!</a></div>
     </div>
   </div>

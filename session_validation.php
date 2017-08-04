@@ -31,7 +31,7 @@
 	function getTopNav() {
 		$topNav = "";
 		if (adminSessionExists()) {
-			$topNav = '<nav class="navbar navbar-default" role="navigation">
+			$topNav = '<nav class="navbar navbar-default" role="navigation" style="background-color: transparent;">
 			<div class="container">
 			<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -50,10 +50,10 @@
 				<li>
 					<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 				</li>
-				<!--<li>
-					<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
-				</li>
 				<li>
+					<a href="./about.php"><button id="addword" class="navOption">About</button></a>
+				</li>
+				<!--<li>
 					<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
 				</li> -->
 				<li> 
@@ -63,7 +63,7 @@
 			</div><!--.nav-collapse --></div></nav>';
 		}
 		else if (sessionExists()) {
-			$topNav = '<nav class="navbar navbar-default" role="navigation">
+			$topNav = '<nav class="navbar navbar-default" role="navigation" style="background-color: transparent;">
 			<div class="container">
 			<div class="navbar-header">
 			<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -76,10 +76,10 @@
 			<li>
 				<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 			</li>
-			<!--<li>
-				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br>Puzzle</button></a>
-			</li>
 			<li>
+				<a href="./about.php"><button id="addword" class="navOption">Abour</button></a>
+			</li>
+			<!--<li>
 				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
 			</li> -->
 			<li>
@@ -88,7 +88,7 @@
 			</ul></div><!--.nav-collapse --></div></nav>';
 		}
 		else{
-			$topNav = '<nav class="navbar navbar-default" role="navigation">
+			$topNav = '<nav class="navbar navbar-default" role="navigation" style="background-color: transparent;">
 			<div class="container">
 			<div class="navbar-header"><button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 			<span class="sr-only">Toggle navigation</span>
@@ -106,10 +106,10 @@
 			<li>
 				<a href="./puzzle_list.php"><button id="list" class="navOption">List</button></a>
 			</li>
-			<!--<li>
-				<a href="./add_puzzle.php"><button id="addword" class="navOption">Add<br> A<br> Puzzle</button></a>
-			</li>
 			<li>
+				<a href="./about.php"><button id="addword" class="navOption">About</button></a>
+			</li>
+			<!--<li>
 				<a href="./addWordPair.php"><button id="addpuzzle" class="navOption">Add<br> Word<br> Pairs</button></a>
 			</li> -->
 			<li>

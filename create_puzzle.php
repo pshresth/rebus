@@ -198,7 +198,8 @@ function getShowSolution($puzzleName)
     if (adminSessionExists() || sessionExists()) {
         $html = '<input class="main-buttons" type="button" name="show_solution" value="Show Solution" onclick="main_buttons(\'show\');">';
     } else {
-        $html = '<a href="login.php?puzzleName=' . $puzzleName . '"><input class="main-buttons" value="Show Solution" type="button"></a>';
+        //$html = '<a href="login.php?puzzleName=' . $puzzleName . '"><input class="main-buttons" value="Show Solution" type="button"></a>';
+        $html = '<input class="main-buttons" value="Show Solution" type="button" onclick="alert(\'You should be logged in to see the solution. Please contact the system administrator.\');">';
     }
     return $html;
 }

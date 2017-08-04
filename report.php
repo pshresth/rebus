@@ -78,7 +78,7 @@ require('session_validation.php');
     $jsonEncodedData = json_encode($arrData);
 
     //Create an object for the column chart using the FusionCharts PHP class constructor.
-    echo '<div id="chart1">';
+    echo '<br><br><div id="chart1">';
     $columnChart = new FusionCharts("Pie2D", "wordsChart", 600, 300, "chart1",
         "json", $jsonEncodedData);
     echo $columnChart->render(); // Render the chart
@@ -117,7 +117,7 @@ require('session_validation.php');
     $jsonEncodedData = json_encode($arrData);
 
     //Create an object for the column chart using the FusionCharts PHP class constructor.
-    echo '<br><div id="chart2">';
+    echo '<br><br><br><div id="chart2">';
     $columnChart = new FusionCharts("column2D", "databaseReport", 600, 300, "chart2",
         "json", $jsonEncodedData);
     echo $columnChart->render(); // Render the chart
@@ -157,7 +157,7 @@ require('session_validation.php');
     $jsonEncodedData = json_encode($arrData);
 
     //Create an object for the column chart using the FusionCharts PHP class constructor.
-    echo '<br><div id="chart3">';
+    echo '<br><br><br><div id="chart3">';
     $columnChart = new FusionCharts("Pie3D", "wordImageChart", 600, 300, "chart3",
         "json", $jsonEncodedData);
     echo $columnChart->render(); // Render the chart
