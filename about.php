@@ -28,7 +28,7 @@
     ?>
     <br>
 
-    <div class="container">
+    <div class="container" style="background-color: #f9f9f9;">
         <div>
             <h1 align="center">About Rebus Puzzle</h1>
         </div>
@@ -42,13 +42,13 @@
                 <ol>
                     <br><li class="aboutPageText">Home Page</li><br><img src="./howTo/index.PNG" class="aboutPageImage"><br>
 
-                    <br><li class="aboutPageText">Enter your name and click on "Show Me.." button</li><br><img src="./howTo/typeName.PNG" class="aboutPageImage"><br>
+                    <br><li class="aboutPageText">Enter your name and click on <b><i>"Show Me.."</i></b> button</li><br><img src="./howTo/typeName.PNG" class="aboutPageImage"><br>
 
                     <br><li class="aboutPageText">Change Input Mode for longer words if necessary</li><br><img src="./howTo/inputMode.PNG" class="aboutPageImage"><br>
 
                     <br><li class="aboutPageText">Guess the words</li><br><img src="./howTo/puzzle.PNG" class="aboutPageImage"><br>
 
-                    <br> <li class="aboutPageText">Click on "Submit Solution" after you guess the words each image.</li><br>
+                    <br> <li class="aboutPageText">Click on <b><i>"Submit Solution"</i></b> after you guess the words each image.</li><br>
 
                     <ul>
                         <li class="aboutPageText">Correct guess</li><br><img src="./howTo/correctGuess.PNG" class="aboutPageImage"><br>
@@ -57,9 +57,17 @@
 
                     </ul>
 
-                    <br><li class="aboutPageText">Try again if you want to guess the words again or click on the <b>SILC logo</b> to go back to the home page and play with a different word.</li><br>
+                    <br><li class="aboutPageText">You need to be logged in order to see the <i>Solution</i> of the puzzle. Please contact your <u><i>System Administrator</i></u> for the privilege.</li><br>
+
+                    <br><li class="aboutPageText">Try again if you want to guess the words again or click on the <b><i>SILC logo</i></b> to go back to the home page and play with a different word.</li><br>
                 </ol>
 
+            </div>
+            <div>
+                <p style="float: right;">
+                    Designer, Instructor and System Administrator: <i>Mr. Siva R. Jasthi</i><br>
+                    Developed By: <i>Prashant Shrestha</i><br>
+                    <b><i>Capstone Project - Summer 2017</i></b><br></p>
             </div>
 
 

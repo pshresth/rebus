@@ -107,7 +107,7 @@ if ($error) {
                                                                 class="adminThumbnailSize">
         </td>
         <td align="center">
-            <a href="#"><img src="./pic/user_manual.png" class="adminThumbnailSize"></a>
+            <a href="userManual.php"><img src="./pic/user_manual.png" class="adminThumbnailSize"></a>
         </td>
     </tr>
     <tr>
@@ -116,7 +116,7 @@ if ($error) {
         <td align="center"><a target="_blank" href="one_to_many.php">One Word <br> Many Puzzle</a></td>
         <td align="center"><a target="_blank" href="many_to_one.php">Many Words <br> One Puzzle</a></td>
         <td align="center"><a target="_blank" href="one_to_many_plus.php">One Word <br> Many Puzzle <br> Plus</a></td>
-        <td align="center"><a href="#">User <br> Manual</a></td>
+        <td align="center"><a href="userManual.php">User <br> Manual</a></td>
     </tr>
 </table>
 </div>
