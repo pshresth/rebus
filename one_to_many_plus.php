@@ -18,7 +18,6 @@
 <?PHP
 session_start();
 require('session_validation.php');
-require('utility_functions.php');
 ?>
 <?PHP echo getTopNav(); ?>
 <div class="divTitle" align="center">
@@ -26,10 +25,11 @@ require('utility_functions.php');
 </div>
 <br>
 <div>
-    <form method="get">
+    <form method="post" action="generate_puzzles.php">
         <div class="container">
-            <div align="center">Enter ONE_TO_MANY_MAX_COUNT : <input type="textbox" name="max" placeholder="10" value="10"
-                                         onclick="this.placeholder = ''"/>
+            <div align="center">Enter ONE_TO_MANY_MAX_COUNT : <input type="textbox" name="max" placeholder="10"
+                                                                     value="10"
+                                                                     onclick="this.placeholder = ''"/>
             </div>
             <div class="inputDiv"><input type="textbox" name="puzzle" id="name-textbox"
                                          placeholder="Enter a word to generate configured number of puzzles"
@@ -42,21 +42,5 @@ require('utility_functions.php');
         </div>
     </form>
 </div>
-
-<?php
-if (isset($_GET['puzzle'])) {
-    $words = validate_input($_GET['puzzle']);
-    $max = $_GET['max'];
-    if ($words === '') {
-        echo "<p class= \"fontword\" style=\" color:red;\">You did not enter any words. Please try again.</p>";
-    } else if (count(explode(',', $words)) > 1) {
-        echo "<p class= \"fontword\" style=\" color:red;\">You must not enter two or more words. Please try again.</p>";
-    } else {
-        // Everything is good redirect it to puzzle page
-        header("Location: generate_puzzles.php?puzzle=" . $words . "&max=" . $max);
-    }
-}
-?>
-
 </body>
 </html>

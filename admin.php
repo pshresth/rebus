@@ -39,9 +39,9 @@ echo getTopNav();
     <div id="import">
         <p id="error" style="display: none;">Error: You must select a file to import</p>
         <?php
-        require('import.php');
-        if ($error) {
-            ?>
+require('import.php');
+if ($error) {
+    ?>
             <p id="error" style="display:block;background-color: #ce4646;padding:5px;color:#fff;">
                 <?php echo $result; ?>
             </p>
@@ -52,81 +52,86 @@ echo getTopNav();
             <input class="upload" type="submit" value="Submit File" name="submit">
         </form>
     </div> -->
-   <!-- <div class="backUpSuccess">The database backup has been saved in the Sql_Scripts Folder.</div>
-    <p id="demo"></p> -->
-    <br><br>
-    <table align="center" class="adminTable">
-        <tr>
-            <td align="center">
-                <a href="add_word.php"><img src="./pic/addAWord.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="list.php"><img src="./pic/wordList.png" class="adminThumbnailSize">
-            </td>
-            <td align="center">
-                <a href="admin_manage_users.php"><img src="./pic/users.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="export_db.php"><img src="./pic/export.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="uploadPage.php"><img src="./pic/import.png" class="adminThumbnailSize">
-            </td>
-            <td align="center">
-                <a href="#"><img src="./pic/configure.png" class="adminThumbnailSize"></a>
-            </td>
-        </tr>
-        <tr>
-            <td align="center"><a href="add_word.php">Add Word</a></td>
-            <td align="center"><a href="list.php">Word List</a></td>
-            <td align="center"><a href="admin_manage_users.php">Users</a></td>
-            <td align="center"><a href="export_db.php">Export</a></td>
-            <td align="center"><a href="uploadPage.php">Import</a></td>
-            <td align="center"><a href="#">Configure</a></td>
-        </tr>
-        <tr class="separator"><td></td></tr>
-        <tr>
-            <td align="center">
-                <a href="backup.php" onclick="backUpMessage()"><img src="./pic/backUp.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="report.php"><img src="./pic/report.png" class="adminThumbnailSize">
-            </td>
-            <td align="center">
-                <a href="one_to_many.php"><img src="./pic/oneWordManyPuzzles.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png" class="adminThumbnailSize"></a>
-            </td>
-            <td align="center">
-                <a href="one_to_many_plus.php"><img src="./pic/oneWordManyPuzzlesPlus.png" class="adminThumbnailSize">
-            </td>
-            <td align="center">
-                <a href="#"><img src="./pic/user_manual.png" class="adminThumbnailSize"></a>
-            </td>
-        </tr>
-        <tr>
-            <td align="center"><a href="backup.php" onclick="backUpMessage()">Backup</a></td>
-            <td align="center"><a href="report.php">Report</a></td>
-            <td align="center"><a href="one_to_many.php">One Word <br> Many Puzzle</a></td>
-            <td align="center"><a href="many_to_one.php">Many Words <br> One Puzzle</a></td>
-            <td align="center"><a href="one_to_many_plus.php">One Word <br> Many Puzzle <br> Plus</a></td>
-            <td align="center"><a href="#">User <br> Manual</a></td>
-        </tr>
-    </table>
+<!-- <div class="backUpSuccess">The database backup has been saved in the Sql_Scripts Folder.</div>
+ <p id="demo"></p> -->
+<br><br>
+<table align="center" class="adminTable">
+    <tr>
+        <td align="center">
+            <a href="add_word.php"><img src="./pic/addAWord.png" class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a href="list.php"><img src="./pic/wordList.png" class="adminThumbnailSize">
+        </td>
+        <td align="center">
+            <a href="admin_manage_users.php"><img src="./pic/users.png" class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a href="export_db.php"><img src="./pic/export.png" class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a href="uploadPage.php"><img src="./pic/import.png" class="adminThumbnailSize">
+        </td>
+        <td align="center">
+            <a href="#"><img src="./pic/configure.png" class="adminThumbnailSize"></a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><a href="add_word.php">Add Word</a></td>
+        <td align="center"><a href="list.php">Word List</a></td>
+        <td align="center"><a href="admin_manage_users.php">Users</a></td>
+        <td align="center"><a href="export_db.php">Export</a></td>
+        <td align="center"><a href="uploadPage.php">Import</a></td>
+        <td align="center"><a href="#">Configure</a></td>
+    </tr>
+    <tr class="separator">
+        <td></td>
+    </tr>
+    <tr>
+        <td align="center">
+            <a href="backup.php" onclick="backUpMessage()"><img src="./pic/backUp.png" class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a href="report.php"><img src="./pic/report.png" class="adminThumbnailSize">
+        </td>
+        <td align="center">
+            <a target="_blank" href="one_to_many.php"><img src="./pic/oneWordManyPuzzles.png"
+                                                           class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a target="_blank" href="many_to_one.php"><img src="./pic/manyWordsOnePuzzle.png"
+                                                           class="adminThumbnailSize"></a>
+        </td>
+        <td align="center">
+            <a target="_blank" href="one_to_many_plus.php"><img src="./pic/oneWordManyPuzzlesPlus.png"
+                                                                class="adminThumbnailSize">
+        </td>
+        <td align="center">
+            <a href="#"><img src="./pic/user_manual.png" class="adminThumbnailSize"></a>
+        </td>
+    </tr>
+    <tr>
+        <td align="center"><a href="backup.php" onclick="backUpMessage()">Backup</a></td>
+        <td align="center"><a href="report.php">Report</a></td>
+        <td align="center"><a target="_blank" href="one_to_many.php">One Word <br> Many Puzzle</a></td>
+        <td align="center"><a target="_blank" href="many_to_one.php">Many Words <br> One Puzzle</a></td>
+        <td align="center"><a target="_blank" href="one_to_many_plus.php">One Word <br> Many Puzzle <br> Plus</a></td>
+        <td align="center"><a href="#">User <br> Manual</a></td>
+    </tr>
+</table>
 </div>
 
 <script>
 
-//    function backUpMessage(){
-//        var x = document.getElementsByClassName('backUpSuccess');
-//        if (x.style.display === 'none') {
-//            x.style.visibility = 'block';
-//        }// else {
-//        //    x.style.visibility = 'hidden';
-//        //}
-//        return false;
-//    }
+    //    function backUpMessage(){
+    //        var x = document.getElementsByClassName('backUpSuccess');
+    //        if (x.style.display === 'none') {
+    //            x.style.visibility = 'block';
+    //        }// else {
+    //        //    x.style.visibility = 'hidden';
+    //        //}
+    //        return false;
+    //    }
 
     function backUpMessage() {
         //document.getElementById("demo").innerHTML = "The database backup has been saved in the Sql_Scripts Folder.";

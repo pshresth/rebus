@@ -567,3 +567,9 @@ img {
   font-size: 20px;
 
 }
+
+.maskImage{
+  background-image: url("../pic/masked.png");
+  height: 150px;
+  width:150px;
+}
