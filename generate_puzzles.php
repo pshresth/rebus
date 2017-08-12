@@ -274,20 +274,20 @@ require('utility_functions.php');
                    // alert("'" + defaultSize + "'");
                     imageStyle[i].style.height = defaultSize;
                     imageStyle[i].style.width = defaultSize;
-                    imageHousing[i].style.height = imageStyle[i].height;
-                    imageHousing[i].style.width = imageStyle[i].width;
+                    imageHousing[i].style.height = imageStyle[i].style.height;
+                    imageHousing[i].style.width = imageStyle[i].style.width;
                 } else if (options[1].checked) {
                     //alert("'" + heightDriven + "'");
                     imageStyle[i].style.height  = heightDriven;
                     imageStyle[i].style.width = 'auto';
-                    imageHousing[i].style.height = imageStyle[i].height;
-                    imageHousing[i].style.width = imageStyle[i].width;
+                    imageHousing[i].style.height = imageStyle[i].style.height;
+                    imageHousing[i].style.width = imageStyle[i].style.width;
                 } else if (options[2].checked) {
                     //alert(widthDriven);
                     imageStyle[i].style.height = 'auto';
                     imageStyle[i].style.width = widthDriven;
-                    imageHousing[i].style.width = imageStyle[i].height;
-                    imageHousing[i].style.height = imageStyle[i].width;
+                    imageHousing[i].style.width = imageStyle[i].style.width;
+                    imageHousing[i].style.height = imageStyle[i].style.height;
                 }else{
                     imageStyle[i].style.height = "150px";
                     imageStyle[i].style.width = "150px";
