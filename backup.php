@@ -3,7 +3,7 @@ require('db_configuration.php');
 backup_tables(DATABASE_HOST,DATABASE_USER,DATABASE_PASSWORD,DATABASE_DATABASE);
 
 /* backup the db OR just a table */
-function backup_tables($host,$user,$pass,$name,$tables = '*')
+function backup_tables($host,$user,$pass,$name,$tables = 'words, puzzles, puzzle_words, characters, users')
 {
 
     $link = mysqli_connect($host,$user,$pass);
@@ -26,12 +26,17 @@ function backup_tables($host,$user,$pass,$name,$tables = '*')
 
     $return='';
     //cycle through
+    $dropTables = array_reverse($tables);
+    foreach($dropTables as $table) {
+        $return .= 'DROP TABLE IF EXISTS ' . $table . ';';
+        $return .="\n\n";
+    }
     foreach($tables as $table)
     {
         $result = mysqli_query($link,'SELECT * FROM '.$table);
         $num_fields = mysqli_num_fields($result);
 
-        $return.= 'DROP TABLE '.$table.';';
+       // $return.= 'DROP TABLE IF EXISTS '.$table.';';
         $row2 = mysqli_fetch_row(mysqli_query($link,'SHOW CREATE TABLE '.$table));
         $return.= "\n\n".$row2[1].";\n\n";
 

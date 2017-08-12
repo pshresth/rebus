@@ -111,6 +111,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $words = $puzzle->js_solution;
     echo $puzzle->htmlTable;
     echo $puzzle->buttons;
+}else if (isset($_GET['puzzleWord'])) {  // come back to play puzzle from login
+    $puzzleName = validate_input($_GET['puzzleWord']);
+    $puzzle = new Puzzle($puzzleName, -1, -1, 2, 20);
+    $words = $puzzle->js_solution;
+    echo $puzzle->htmlTable;
+    echo $puzzle->buttons;
 } else {
     echo "<h1>An error happend please go back and recheck your puzzle name.</h1>";
     // TODO: re-input name?

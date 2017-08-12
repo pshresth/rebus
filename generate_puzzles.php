@@ -16,14 +16,14 @@
     <!-- Latest compiled JavaScript -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <link rel="stylesheet" href="styles/custom_nav.css" type="text/css">
-    <title>Rebus Puzzle List</title>
+    <title>Rebus Puzzles</title>
 </head>
 <body>
 <?php
 require('create_puzzle.php');
 require('utility_functions.php');
 ?>
-<?PHP echo getTopNav(); ?>
+<div style="width: 100%; background-color: #92d050; text-align: center;"><img src="./pic/logo.png" style="height: 200px; width:350px; cursor: pointer;" onclick="showHideOptions()"> </div><br>
 <div class="container">
     <?php
     if (isset($_POST['max'])) { // this is for one to many puzzle which provides a MAX_COUNT
@@ -53,7 +53,9 @@ require('utility_functions.php');
             }
         } else {
             // Display preferences
+            echo '<div id="optionContainer" class="optionDiv" style="display: block;" align="center">';
             echo '<div id="displayPreferences">';
+            echo '<lable><b style="font-size: 20px;">Image Display Preference: </b></lable>';
             echo '<input type="radio" name="showImage" value="Show Images" checked onclick="toggleImage()" /><label>Show Images</label>';
             echo '<input type="radio" style="margin-left:15px;" name="showImage" value="Mask Images" onclick="toggleImage()" /><label>Mask Images</label>';
             echo '<input type="radio" style="margin-left:15px;" name="showImage" value="Show Numbers Only" onclick="toggleImage()" /><label>Show Numbers Only</label>';
@@ -61,25 +63,31 @@ require('utility_functions.php');
             echo '</div>';
 
             echo '<div id="answerPreferences">';
+            echo '<lable><b style="font-size: 20px;">Answer Display Preference: </b></lable>';
             echo '<input type="radio" name="showAnswers" value="Do Not Show Answers" checked onclick="toggleAnswer()" /><label>Do Not Show Answers</label>';
             echo '<input type="radio" style="margin-left:15px;" name="showAnswers" value="Show Answers Below the Image" onclick="toggleAnswer()" /><label>Show Answers Below the Image</label>';
             echo '<input type="radio" style="margin-left:15px;" name="showAnswers" value="Show Answers At the end of the page" onclick="toggleAnswer()" /><label>Show Answers At the end of the page</label>';
             echo '</div>';
 
 //            echo '<div id="imagePreferences">';
-//            echo '<input type="radio" name="imageSize" value="Do Not Show Answers" checked onclick="toggleAnswer()" /><label>Do Not Show Answers</label>';
-//            echo '<input type="radio" style="margin-left:15px;" name="showAnswers" value="Show Answers Below the Image" onclick="toggleAnswer()" /><label>Show Answers Below the Image</label>';
-//            echo '<input type="radio" style="margin-left:15px;" name="showAnswers" value="Show Answers At the end of the page" onclick="toggleAnswer()" /><label>Show Answers At the end of the page</label>';
+//            echo '<lable><b style="font-size: 20px;">Image Size Preference: </b></lable>';
+//            echo '<input type="radio" name="imageSize" onclick="alterImageSize()" /><label>Default</label>
+//                    <input style="margin-left:5px;" size="2px" type="text" name="default" id="default"/>';
+//            echo '<input type="radio" style="margin-left:15px;" name="imageSize" onclick="alterImageSize()" /><label>Height Driven</label>
+//                    <input style="margin-left:5px;" size="2px" type="text" name="heightDriven" id="heightDriven"/>';
+//            echo '<input type="radio" style="margin-left:15px;" name="imageSize" onclick="alterImageSize()" /><label>WidthDriven</label>
+//                    <input style="margin-left:5px;" size="2px" type="text" name="widthDriven" id="widthDriven"/>';
 //            echo '</div>';
-
-            echo '<div id="rowSizePreference">';
-            echo '<h5>Number of words per row: <input type="number" name="rowSize" min="3" max = "10" value="4"/> Range is from 3 to 10</h5>';
-            echo '</div>';
+//
+//            echo '<div id="rowSizePreference">';
+//            echo '<lable><b style="font-size: 20px;">Column Preference: </b></lable>';
+//            echo '<label>Number of words per row: </label><input style="margin-left:5px;" type="number" name="rowSize" id="rowSize"min="3" max = "10" value="4" onchange="changeTableRow()"/>
+//                  <label> (Range is from 3 to 10)</label>';
+//            echo '</div>';
+//            echo '</div>';
 
             //echo '<h3 style="color:green;"><input type="checkbox" name="answer" onclick="toggleAnswer()">Show Answer</h3>';
 
-
-            $rowSize;
             // Display the puzzles generated for given word
             $puzzles = explode(",", trim($input));
             $wordList = array(); // we will use this to keep track of words being used so no repetition occurs
@@ -89,7 +97,8 @@ require('utility_functions.php');
                 $puzzleChars = getWordChars($puzzleWord);
                 $generate = true;
                 $counter = 0;
-                $allAnswers .= "<h1>Answers for ".$puzzleWord.": </h1>";
+                //$allAnswers .= "<h1>Answers for ".$puzzleWord.": </h1>";
+                $allAnswers .="<h2 style='color: green;'> Answer for Puzzle: \"".$puzzleWord."\"</h2>";
                 while ($generate) {
                     $word_array = array();
                     $image_array = array();
@@ -111,7 +120,7 @@ require('utility_functions.php');
 
                     //if ($generate) {
                     $counter++;
-                    $allAnswers .="<h2>Puzzle #".$counter."</h2>";
+                    $allAnswers .="<h2 style='color: green;'>Puzzle #".$counter."</h2>";
                     echo '<h1>Puzzle #' . $counter . '</h1>';
                     echo '<table class="table" id="print_table" border="0">';
                     for ($i = 0; $i < count($puzzleChars); $i++) {
@@ -133,7 +142,7 @@ require('utility_functions.php');
                         } else {
                             echo "<td align='center' style='border-top: none; vertical-align: bottom;'>
                               <h1 class='letters' style='display:none;'> $puzzleChars[$i] </h1>
-                              <div class='maskImage'><img class=\"print-img\" src=" . $image . " alt =" . $image . "></div>
+                              <div class='maskImage'><img class='print-img' src=\"$image\" alt =\"$image\"></div>
                               <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption>
                             <div align='center' class='answerDiv'><h3>" . $word . "</h3></div></td>";
                         }
@@ -242,6 +251,91 @@ require('utility_functions.php');
                 allAnswers[0].style.display = 'none';
             }
         }
+
+        function alterImageSize() {
+            var options = document.getElementsByName('imageSize');
+            var defaultSize = document.getElementById('default').value + "px";
+            var heightDriven = document.getElementById('heightDriven').value + "px";
+            var widthDriven = document.getElementById('widthDriven').value + "px";
+            var imageStyle = document.getElementsByClassName('print-img');
+            var imageHousing = document.getElementsByClassName('maskImage');
+
+            if(options[0].checked && document.getElementById('default').value == "" ){
+                alert("Provide values before selecting default button");
+            }
+            if(options[1].checked && document.getElementById('heightDriven').value == "" ){
+                alert("Provide values before selecting default button");
+            }
+            if(options[2].checked && document.getElementById('widthDriven').value == "" ){
+                alert("Provide values before selecting default button");
+            }
+            for (i = 0; i < imageStyle.length; i++) {
+                if (options[0].checked) {
+                   // alert("'" + defaultSize + "'");
+                    imageStyle[i].style.height = defaultSize;
+                    imageStyle[i].style.width = defaultSize;
+                    imageHousing[i].style.height = imageStyle[i].height;
+                    imageHousing[i].style.width = imageStyle[i].width;
+                } else if (options[1].checked) {
+                    //alert("'" + heightDriven + "'");
+                    imageStyle[i].style.height  = heightDriven;
+                    imageStyle[i].style.width = 'auto';
+                    imageHousing[i].style.height = imageStyle[i].height;
+                    imageHousing[i].style.width = imageStyle[i].width;
+                } else if (options[2].checked) {
+                    //alert(widthDriven);
+                    imageStyle[i].style.height = 'auto';
+                    imageStyle[i].style.width = widthDriven;
+                    imageHousing[i].style.width = imageStyle[i].height;
+                    imageHousing[i].style.height = imageStyle[i].width;
+                }else{
+                    imageStyle[i].style.height = "150px";
+                    imageStyle[i].style.width = "150px";
+                    imageHousing[i].style.height = "150px";
+                    imageHousing[i].style.width = "150px";
+                }
+            }
+        }
+
+        function showHideOptions(){
+            var options = document.getElementById('optionContainer');
+            if(options.style.display === 'none'){
+                options.style.display = 'block';
+            }
+            else{
+                options.style.display = 'none';
+            }
+        }
+
+        function changeTableRow(){
+            var size = document.getElementById("rowSize").value;
+            var tables = document.getElementsByClassName("table");
+            alert(tables.length);
+
+           // for(i=0; i<tables.length; i++){
+
+                var table = tables[0];
+               // alert(table.rows[0].cells.length);
+               // table.rows.length = size;
+                var rowObject = table.rows[0];
+                //alert(table.rows[0].cells.length);
+
+                var diff  = rowObject.cells.length - size;
+                var index = rowObject.cells.length;
+                var rowIndex = 1;
+                var i=0;
+                if(diff > 0){
+                    while(diff >= 0){
+                        rowObject.insertCell(-1);
+                        rowObject.cell[i+1].innerHTML = table.rows[rowIndex].cells[i].innerHTML;
+                        table.rows[rowIndex].deleteCell(i);
+                        i++;
+                    }
+
+                }
+           // }
+        }
+
 
     </script>
 

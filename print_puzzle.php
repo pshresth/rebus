@@ -24,7 +24,7 @@ require('create_puzzle.php');
 //require_once('dompdf/autoload.inc.php');
 //use Dompdf\Dompdf;
 ?>
-<div style="width: 100%; background-color: #92d050; text-align: center;"><img src="./pic/logo.png" style="height: 200px; width:350px;"> </div>
+<div style="width: 100%; background-color: #92d050; text-align: center;"><img src="./pic/logo.png" style="height: 200px; width:350px; cursor: pointer;" onclick="showHideOptions()"> </div>
 <div class="container">
     <?php
     if (isset($_GET['id'])) {
@@ -48,7 +48,7 @@ require('create_puzzle.php');
 
 
         $html .= '<div class="container"><h1 style="color:red;">Find the words for "' . $puzzleWord . '"</h1>';
-        $html .= '<h3 style="color:green;"><input type="checkbox" name="answer" onclick="toggleAnswer()">Show Answer</h3><br>';
+        $html .= '<div id="optionContainer"><h3 style="color:green;"><input type="checkbox" name="answer" onclick="toggleAnswer()">Show Answer</h3></div><br>';
 
         $html .= '<table class="table" id="print_table" border="0">';
         for ($i = 0; $i < count($puzzleChars); $i++) {
@@ -62,7 +62,7 @@ require('create_puzzle.php');
             } else if ($i % 4 === 0) {
                 $html .= '</tr border="0"><tr>';
             }
-            $html .= "<td align='center' style='vertical-align:bottom; border-top: none;'><img class=\"print-img\" src=" . $image . " alt =" . $image . "><br>
+            $html .= "<td align='center' style='vertical-align:bottom; border-top: none;'><img class=\"print-img\" src=\"$image\" alt =\"$image\"><br>
             <figcaption class=\"print-figCaption\">" . $pos . '/' . $len . "</figcaption>
             <div align='center' class='answerDiv'><h3>". $word ."</h3></div></td>";
             //echo "<tr align='center' style='vertical-align: middle;'>" . $pos . '/' . $len . "</tr></td>";
@@ -117,6 +117,16 @@ require('create_puzzle.php');
                 } else {
                     x[i].style.display = 'block';
                 }
+            }
+        }
+
+        function showHideOptions(){
+            var options = document.getElementById('optionContainer');
+            if(options.style.display === 'none'){
+                options.style.display = 'block';
+            }
+            else{
+                options.style.display = 'none';
             }
         }
     </script>

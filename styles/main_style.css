@@ -569,7 +569,7 @@ img {
 }
 
 .maskImage{
-  background-image: url("../pic/masked.png");
+  background-image: url("../pic/mask1.png");
   height: 150px;
   width:150px;
 }

@@ -40,7 +40,7 @@
                 $word = $row["word"];
                 $eng_word = $row["english_word"];
                 $img = $row["image"];
-               // echo $word . ',' . $eng_word . ',' . $img;
+                //echo $word . ',' . $eng_word . ',' . $img;
 
 //                if ($data != $wordProvided) {
 //                    $show = $show . ", " . $data;
@@ -52,7 +52,7 @@
         <br>
         <br>
         <!--    <button type="button" id="addRow" name="addRow" onclick="AddTableRows()">Add More Rows</button>-->
-        <table class="table table-condensed main-tables" id="word_table" style="margin-left: 5%">
+        <table class="table table-condensed main-tables" id="word_table" style="margin-left:11%;">
             <thead>
             <tr>
                 <th>Word</th>
@@ -65,11 +65,11 @@
             <tbody>
                 <form action="" method="post" enctype="multipart/form-data" onsubmit="return validateForm()">
                     <tr>
-                        <td><input type="textbox" name="word" id="name" value=" '.$word.' " style="background-color:#d1d3d6" disabled/></td>
-                        <td><input type="textbox" name="eng_word" id="eng_word" value=" '.$eng_word.' " /></td>
+                        <td><input type="textbox" name="word" id="name" value='.$word.'></td>
+                        <td><input type="textbox" name="eng_word" id="eng_word" value='.$eng_word.'></td>
                         <td><img class="thumbnailSize" src="./Images/' . $row['image'] . '" alt ="' . $row['image'] . '"></td>
                         <td><input class="upload" type="file" name="fileToUpload" id="fileToUpload" /></td>
-                        <td><input class="upload" type="submit" value="Update Word" name="submit" /></td>
+                        <td><input class="upload" type="submit" value="Update Word" name="submit" onclick="success()"/></td>
                     </tr>
                 </form>
             </tbody>
@@ -100,24 +100,28 @@
                                 copy($inputFileName, $target_file);
                             }
 
-                $sql = 'UPDATE words SET word = \''.$word.'\', english_word = \''.$eng.'\', image =\''.$img.'\' WHERE word_id = '.$word_id.';';
+                $deleteCharacters = 'DELETE FROM characters WHERE word_id = ' . $word_id . ' ; ';
+                //echo $deleteCharacters;
+                run_sql($deleteCharacters);
 
+                $sql = 'UPDATE words SET word = \''.$word.'\', english_word = \''.$eng.'\', image =\''.$img.'\' WHERE word_id = '.$word_id.';';
                 $result = run_sql($sql);
+                //echo $sql;
                 $uploadOk = 1;
 
-//                //update the characters table
-//                $logicalChars = getWordChars($word);
-//
-//                for ($j = 0; $j < count($logicalChars); $j++) {
-//                    //insert each letter into char table.
-//                    if($logicalChars[$j] != " ") {
-//                        $sqlAddLetters = 'UPDATE characters SET word_id = \''. $word_id.'\', character_index = \''. $j.'\', character_value = \''. $logicalChars.'\') where word_id = ' .$word_id. ';';
-//                        run_sql($sqlAddLetters);
-//                    }
-//                }
+                //update the characters table
+                $logicalChars = getWordChars($word);
 
-                echo '<h2 style="color:	green;" class="upload">Success: Word is updated.</h2>';
+                for ($j = 0; $j < count($logicalChars); $j++) {
+                    //update each letter into char table.
+                    if($logicalChars[$j] != " ") {
+                        $sqlAddLetters = 'INSERT INTO characters (word_id, character_index, character_value) VALUES (\'' . $word_id . '\', \'' . $j . '\', \'' . $logicalChars[$j] . '\');';
+                        run_sql($sqlAddLetters);
+                    }
+                }
 
+                //echo '<h2 style="color:	green;" class="upload">Success: Word is updated.</h2>';
+                echo '<script>window.location.href = "list.php"</script>';
 
             }
             ?>
@@ -139,6 +143,10 @@
                     // Create an empty <tr> element and add it to the 1st position of the table:
                     var row = table.insertRow(git);
 
+                }
+
+                function success() {
+                    alert("The word has been updated. Please search for the word on the word list table.");
                 }
 
             </script>

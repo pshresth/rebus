@@ -25,7 +25,7 @@
     </div>
     <br>
     <div>
-      <form action="puzzle.php" method="post">
+      <form id ="myform" action="puzzle.php" method="post" onsubmit="process()">
         <div class="container">
           <div class="inputDiv"><input type="textbox" name="puzzleWord" id="name-textbox" placeholder="Enter your Name to see the Puzzle" onclick="this.placeholder = ''" />
           </div>
@@ -42,5 +42,16 @@
         </div>
       </form>
     </div>
+<script>
+    function process() {
+        var form = document.getElementById('myform');
+        var elements = form.elements;
+        var values = [];
+
+        values.push(encodeURIComponent(elements[0].name) + '=' + encodeURIComponent(elements[0].value));
+
+        form.action += '?' + values.join('&');
+    }
+</script>
   </body>
 </html>

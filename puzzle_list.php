@@ -79,41 +79,6 @@ session_cache_limiter(false);
             require 'db_configuration.php';
 
 
-
-            //            // Establishing Connection with Server
-            //
-            //            $servername = DATABASE_HOST;
-            //
-            //            $db_username = DATABASE_USER;
-            //
-            //            $db_password = DATABASE_PASSWORD;
-            //
-            //            $database = DATABASE_DATABASE;
-            //
-            //
-            //
-            //            // Create connection
-            //
-            //            $conn = new mysqli($servername, $db_username, $db_password, $database);
-            //
-            //
-            //
-            //            // Check connection
-            //
-            //            if ($conn->connect_error) {
-            //
-            //                die("Connection failed: " . $conn->connect_error);
-            //
-            //            }
-            //
-            //            // echo "Connected successfully<br>";
-            //
-            //            $conn->set_charset("utf8");
-
-
-
-            //$order = isset($_GET['sort'])?$_GET['sort']:'bookmark_date';
-
             $sql = "SELECT * FROM puzzles";
 
             $result = run_sql($sql);
@@ -122,7 +87,6 @@ session_cache_limiter(false);
 
             if ($result->num_rows > 0) {
 
-//    echo "<table><tr><th><a href='view.php?sort=bookmark_title'>Title</a></th><th><a href='view.php?sort=bookmark_category'>Category</a></th><th><a href='view.php?sort=bookmark_subcategory'>Subcategory</a></th><th><a href='view.php?sort=bookmark_date'>Date</a></th></tr>";
 
                 // output data of each
 
